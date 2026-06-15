@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P1 - Repository ve kalite temeli
-> **Aktif mikro hedef:** P1.5 - GitHub Actions kalite ve build kontrollerini oluşturma
+> **Aktif mikro hedef:** P1.6 - Vercel preview projesini GitHub repository'sine bağlama
 
 ---
 
@@ -1478,7 +1478,7 @@ Araştırma kaynakları:
       iskeletini oluştur.
 - [x] **P1.4** TypeScript strict mode, ESLint flat config, Prettier, Tailwind
       CSS ve PostCSS yapılandırmalarını tamamla.
-- [ ] **P1.5** GitHub Actions üzerinde frozen install, lint, typecheck ve
+- [x] **P1.5** GitHub Actions üzerinde frozen install, lint, typecheck ve
       production build kontrollerini ekle.
 - [ ] **P1.6** Vercel preview projesini GitHub deposuna bağla ve pull request
       ön izleme akışını doğrula.
@@ -2259,13 +2259,46 @@ zinciri yerel ortamda tek komutla tekrar edilebilir hale getirildi.
 
 ### P1.5 Başlangıç Kontrolü
 
-- [ ] GitHub Actions workflow dosyası oluşturulsun.
-- [ ] Node ve pnpm sürümleri repository manifestinden sabitlensin.
-- [ ] Frozen lockfile kurulumu kullanılsın.
-- [ ] Format, lint, typecheck ve build adımları CI üzerinde çalıştırılsın.
-- [ ] Workflow yalnızca gerekli izinlerle çalışsın.
-- [ ] Başarılı CI iş adı `main` branch protection için zorunlu status check
-      olarak tanımlansın.
+- [x] GitHub Actions workflow dosyası oluşturuldu.
+- [x] Node `24.14.1` sürümü `.node-version`, pnpm `11.7.0` sürümü
+      `package.json#packageManager` üzerinden sabitlendi.
+- [x] pnpm dependency cache etkinleştirildi.
+- [x] Frozen lockfile kurulumu kullanıldı.
+- [x] Format, lint, typecheck ve build adımları CI üzerinde çalıştırıldı.
+- [x] Workflow yalnızca `contents: read` izniyle sınırlandı.
+- [x] Aynı dal/ref için eski workflow çalışmasını iptal eden concurrency kuralı
+      eklendi.
+- [x] Job için 15 dakika timeout tanımlandı.
+- [x] Başarılı CI iş adı `main` branch protection için zorunlu status check
+      olarak tanımlandı.
+- [x] Branch protection status check'i `strict` olarak ayarlandı; PR dalının
+      güncel `main` ile uyumlu olması zorunlu hale getirildi.
+
+**P1.5 doğrulama sonucu - 16 Haziran 2026**
+
+- Workflow: `.github/workflows/quality.yml`
+- Workflow adı: `Quality`
+- Zorunlu job/check adı: `quality`
+- Tetikleyiciler: `main` pull request ve `main` push
+- İlk GitHub Actions çalışması: başarılı
+- İlk çalışma süresi: 33 saniye
+- Çalışma bağlantısı:
+  [GitHub Actions run 27576795246](https://github.com/aydoganarda93-dot/RainSound/actions/runs/27576795246)
+- Branch protection required check: `quality`
+- Strict status check: etkin
+
+**P1.5 kapanış kararı:** Yerel kalite zinciri GitHub Ubuntu runner üzerinde
+tekrar edilebilir biçimde çalışmaktadır. `quality` başarılı olmadan `main`
+dalına pull request merge edilemez.
+
+### P1.6 Başlangıç Kontrolü
+
+- [ ] Vercel hesabı ve GitHub entegrasyonu doğrulansın.
+- [ ] `RainSound` repository'si yeni Vercel projesine bağlansın.
+- [ ] Framework preset `Next.js` olarak doğrulansın.
+- [ ] Production dalı `main` olarak ayarlansın.
+- [ ] Pull request preview deployment'ı çalıştırılsın.
+- [ ] Preview URL üzerinde ana sayfa ve build sonucu doğrulansın.
 
 ---
 
