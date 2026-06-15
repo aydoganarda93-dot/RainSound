@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P1 - Repository ve kalite temeli
-> **Aktif mikro hedef:** P1.6 - Vercel preview projesini GitHub repository'sine bağlama
+> **Aktif mikro hedef:** P2.1 - Temel içerik tiplerini tanımlama
 
 ---
 
@@ -1467,7 +1467,7 @@ Araştırma kaynakları:
 
 ### P1 - Repository ve Kalite Temeli
 
-**Durum:** `Devam Ediyor`
+**Durum:** `Tamamlandı`
 **Bağımlılık:** P0.1 tamamlanmış olmalıdır.
 
 - [x] **P1.1** Git deposunu, `.gitignore` dosyasını ve `main` dalını oluştur;
@@ -1480,7 +1480,7 @@ Araştırma kaynakları:
       CSS ve PostCSS yapılandırmalarını tamamla.
 - [x] **P1.5** GitHub Actions üzerinde frozen install, lint, typecheck ve
       production build kontrollerini ekle.
-- [ ] **P1.6** Vercel preview projesini GitHub deposuna bağla ve pull request
+- [x] **P1.6** Vercel preview projesini GitHub deposuna bağla ve pull request
       ön izleme akışını doğrula.
 
 **P1 çıkış kapısı**
@@ -2305,8 +2305,8 @@ dalına pull request merge edilemez.
       sürümüne sabitlendi.
 - [x] Production dalı `main` olarak doğrulandı.
 - [x] İlk production deployment ve `rain-sound.vercel.app` alias'ı oluşturuldu.
-- [ ] Pull request preview deployment'ı çalıştırılsın.
-- [ ] Preview URL üzerinde ana sayfa ve build sonucu doğrulansın.
+- [x] Pull request preview deployment'ı çalıştırıldı.
+- [x] Preview URL üzerinde ana sayfa ve build sonucu doğrulandı.
 
 **P1.6 Vercel proje kaydı - 16 Haziran 2026**
 
@@ -2324,6 +2324,41 @@ dalına pull request merge edilemez.
 - İlk production deployment: `dpl_7ZhWyfkoD1kk1EbpGFd2AtqeUCvU`
 - Production HTTP kontrolü: `200 OK`
 - Türkçe metadata ve geçici RAIN SOUND ekranı production üzerinde doğrulandı.
+- Preview deployment: `dpl_BD3T2vKKUyqsmXB1ux4mWVnzVkpJ`
+- Preview URL:
+  [rain-sound-hzdsydc5z-benmertarda-8738s-projects.vercel.app](https://rain-sound-hzdsydc5z-benmertarda-8738s-projects.vercel.app)
+- Preview Git kaynağı: `feature/p1-6-vercel-preview`
+- Preview durumu: `READY`
+- Preview koruması: Vercel SSO etkin, anonim istek `401`
+- Kimlik doğrulamalı preview kontrolü: `200 OK`
+- Preview sayfasında Türkçe metadata, RAIN SOUND başlığı ve ana mesaj
+  doğrulandı.
+- Preview `X-Robots-Tag`: `noindex`
+
+**P1.6 kapanış kararı:** GitHub'a gönderilen feature dalları otomatik preview
+deployment üretmektedir. `main` production dalıdır; preview ortamı Vercel SSO
+ile korunur ve production alias herkese açıktır.
+
+### P1 Tamamlama Kaydı
+
+- [x] P1.1 Git deposu ve güvenli ignore düzeni oluşturuldu.
+- [x] P1.2 GitHub repository, etiketler ve branch protection kuruldu.
+- [x] P1.3 Next.js App Router iskeleti oluşturuldu.
+- [x] P1.4 kalite ve CSS toolchain yapılandırıldı.
+- [x] P1.5 zorunlu GitHub Actions kalite kontrolü kuruldu.
+- [x] P1.6 Vercel production ve preview deployment akışı doğrulandı.
+
+**P1 sonucu:** Temiz checkout'tan production deployment'a kadar repository,
+kalite, CI, branch protection ve Vercel teslim zinciri çalışır durumdadır.
+
+### P2.1 Başlangıç Kontrolü
+
+- [ ] İçerik tiplerinin sorumluluk sınırları kesinleştirilsin.
+- [ ] `SiteSettings`, `ServiceCategory`, `Service`, `Project`, `MediaAsset`,
+      `Testimonial` ve `FAQ` tipleri oluşturulsun.
+- [ ] Slug, demo içerik ve yayın durumu için ortak tipler tanımlansın.
+- [ ] Tipler UI veya CMS bağımlılığı taşımadan `src` altında konumlansın.
+- [ ] Örnek veri TypeScript kontrolünden geçirilsin.
 
 ---
 
