@@ -5,9 +5,9 @@
 > **Yaratıcı yön:** Neon Performance Studio
 > **Ana mesaj:** Aracın karakterini ortaya çıkar.
 > **Belge başlangıç tarihi:** 15 Haziran 2026
-> **Son güncelleme:** 15 Haziran 2026
+> **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P1 - Repository ve kalite temeli
-> **Aktif mikro hedef:** P1.4 - TypeScript, ESLint, Prettier ve Tailwind yapılandırmalarını tamamlama
+> **Aktif mikro hedef:** P1.5 - GitHub Actions kalite ve build kontrollerini oluşturma
 
 ---
 
@@ -1476,7 +1476,7 @@ Araştırma kaynakları:
       etiketlerini tanımla.
 - [x] **P1.3** Mevcut sürümleri koruyarak Next.js App Router uygulama
       iskeletini oluştur.
-- [ ] **P1.4** TypeScript strict mode, ESLint flat config, Prettier, Tailwind
+- [x] **P1.4** TypeScript strict mode, ESLint flat config, Prettier, Tailwind
       CSS ve PostCSS yapılandırmalarını tamamla.
 - [ ] **P1.5** GitHub Actions üzerinde frozen install, lint, typecheck ve
       production build kontrollerini ekle.
@@ -2228,13 +2228,44 @@ sistemi veya nihai ana sayfa olarak kabul edilmez.
 
 ### P1.4 Başlangıç Kontrolü
 
-- [ ] TypeScript seçenekleri proje standartlarına göre gözden geçirilsin.
-- [ ] Next.js ESLint flat config oluşturulsun.
-- [ ] Prettier yapılandırması ve ignore dosyası oluşturulsun.
-- [ ] Tailwind CSS v4 PostCSS entegrasyonu kurulsun.
-- [ ] Global CSS Tailwind giriş noktasıyla uyumlu hale getirilsin.
-- [ ] `lint`, `typecheck`, `format:check` ve `build` komutları birlikte
-      doğrulansın.
+- [x] TypeScript seçenekleri proje standartlarına göre gözden geçirildi.
+- [x] Strict mode, bundler module resolution, kaynak alias'ı ve dosya adı
+      tutarlılığı doğrulandı.
+- [x] Next.js Core Web Vitals ve TypeScript kurallarını kullanan ESLint flat
+      config oluşturuldu.
+- [x] Tailwind v4 stylesheet bilgisini kullanan Prettier yapılandırması ve
+      generated dosyaları dışlayan ignore dosyası oluşturuldu.
+- [x] Tailwind CSS v4 PostCSS entegrasyonu kuruldu.
+- [x] Global CSS, `@import "tailwindcss"` giriş noktasıyla uyumlu hale
+      getirildi.
+- [x] Root layout'ta `antialiased` utility sınıfıyla Tailwind üretimi
+      doğrulandı.
+- [x] `lint`, `typecheck`, `format:check` ve `build` komutları birlikte
+      doğrulandı.
+- [x] Tüm kalite adımlarını sıralı çalıştıran `pnpm quality` komutu eklendi ve
+      başarıyla çalıştırıldı.
+
+**P1.4 doğrulama sonucu - 16 Haziran 2026**
+
+- Prettier format kontrolü: başarılı
+- ESLint kontrolü: başarılı, uyarı veya hata yok
+- TypeScript kontrolü: başarılı
+- Tailwind/PostCSS production derlemesi: başarılı
+- Next.js production build: başarılı
+- Statik rotalar: `/` ve `/_not-found`
+
+**P1.4 kapanış kararı:** Kod biçimi, statik analiz, tip güvenliği ve CSS build
+zinciri yerel ortamda tek komutla tekrar edilebilir hale getirildi.
+
+### P1.5 Başlangıç Kontrolü
+
+- [ ] GitHub Actions workflow dosyası oluşturulsun.
+- [ ] Node ve pnpm sürümleri repository manifestinden sabitlensin.
+- [ ] Frozen lockfile kurulumu kullanılsın.
+- [ ] Format, lint, typecheck ve build adımları CI üzerinde çalıştırılsın.
+- [ ] Workflow yalnızca gerekli izinlerle çalışsın.
+- [ ] Başarılı CI iş adı `main` branch protection için zorunlu status check
+      olarak tanımlansın.
 
 ---
 

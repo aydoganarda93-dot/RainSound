@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "quality": "corepack pnpm format:check && corepack pnpm lint && corepack pnpm typecheck && corepack pnpm build"
   },
   "dependencies": {
     "@gsap/react": "2.1.2",

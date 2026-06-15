@@ -1,0 +1,11 @@
+.next/
+out/
+build/
+dist/
+coverage/
+node_modules/
+.vercel/
+
+pnpm-lock.yaml
+*.log
+*.tsbuildinfo
