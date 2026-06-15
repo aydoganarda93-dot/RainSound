@@ -5,6 +5,7 @@ dist/
 coverage/
 node_modules/
 .vercel/
+.node-version
 
 pnpm-lock.yaml
 *.log
