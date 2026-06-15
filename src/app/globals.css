@@ -1,0 +1,114 @@
+:root {
+  color-scheme: dark;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #050505;
+  color: #f5f4f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: #050505;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 50% 15%, rgb(139 61 255 / 18%), transparent 36%),
+    #050505;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.development-shell {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  overflow: hidden;
+  padding: 32px 20px;
+}
+
+.development-shell__glow {
+  position: absolute;
+  width: min(680px, 90vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgb(139 61 255 / 13%);
+  filter: blur(120px);
+}
+
+.development-card {
+  position: relative;
+  width: min(760px, 100%);
+  padding: clamp(32px, 7vw, 72px);
+  border: 1px solid rgb(176 108 255 / 28%);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgb(23 23 29 / 92%), rgb(5 5 5 / 96%));
+  box-shadow: 0 32px 100px rgb(0 0 0 / 55%);
+  text-align: center;
+}
+
+.development-card__eyebrow {
+  margin: 0 0 16px;
+  color: #b06cff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.development-card h1 {
+  margin: 0;
+  font-size: clamp(3rem, 12vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.development-card__tagline {
+  margin: 24px 0 0;
+  color: #f5f4f7;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+.development-card__description {
+  max-width: 590px;
+  margin: 18px auto 0;
+  color: #a6a3ad;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.service-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-list li {
+  padding: 9px 14px;
+  border: 1px solid rgb(176 108 255 / 24%);
+  border-radius: 999px;
+  background: rgb(139 61 255 / 9%);
+  color: #d9c2ff;
+  font-size: 0.82rem;
+}
+
+.development-card__status {
+  margin: 36px 0 0;
+  color: #77737e;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}

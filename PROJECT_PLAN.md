@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 15 Haziran 2026
 > **Mevcut aşama:** P1 - Repository ve kalite temeli
-> **Aktif mikro hedef:** P1.3 - Next.js App Router uygulama iskeletini oluşturma
+> **Aktif mikro hedef:** P1.4 - TypeScript, ESLint, Prettier ve Tailwind yapılandırmalarını tamamlama
 
 ---
 
@@ -1474,7 +1474,7 @@ Araştırma kaynakları:
       mevcut plan ve paket dosyalarını ilk kontrollü commit'e hazırla.
 - [x] **P1.2** GitHub repository'sini oluştur; görev, hata, içerik ve tasarım
       etiketlerini tanımla.
-- [ ] **P1.3** Mevcut sürümleri koruyarak Next.js App Router uygulama
+- [x] **P1.3** Mevcut sürümleri koruyarak Next.js App Router uygulama
       iskeletini oluştur.
 - [ ] **P1.4** TypeScript strict mode, ESLint flat config, Prettier, Tailwind
       CSS ve PostCSS yapılandırmalarını tamamla.
@@ -2200,12 +2200,41 @@ politikası uygulandı.
 
 ### P1.3 Başlangıç Kontrolü
 
-- [ ] Mevcut bağımlılık sürümleri korunarak App Router iskeleti oluşturulsun.
-- [ ] `app` dizini, root layout ve başlangıç sayfası eklensin.
-- [ ] Kaynak kod için `src` dizini kullanımı kesinleştirilsin.
-- [ ] Uygulama dili Türkçe ve metadata başlangıç değerleri tanımlansın.
-- [ ] Geçici başlangıç ekranı açıkça geliştirme durumu olarak işaretlensin.
-- [ ] Yerel geliştirme ve production build doğrulansın.
+- [x] Mevcut bağımlılık sürümleri korunarak App Router iskeleti oluşturuldu.
+- [x] `src/app` dizini, root layout ve başlangıç sayfası eklendi.
+- [x] Kaynak kod için `src` dizini kullanımı kesinleştirildi.
+- [x] Strict TypeScript temeli ve `@/*` kaynak alias'ı tanımlandı.
+- [x] Uygulama dili `tr`, koyu tema viewport değeri ve Türkçe metadata başlangıç
+      değerleri tanımlandı.
+- [x] Geçici başlangıç ekranı açıkça geliştirme ön izlemesi olarak işaretlendi.
+- [x] `next-env.d.ts` kaynak kontrolüne alınacak şekilde `.gitignore`
+      düzeltildi.
+- [x] Prettier kontrolü, TypeScript kontrolü ve production build doğrulandı.
+
+**P1.3 doğrulama sonucu - 15 Haziran 2026**
+
+- Next.js: `16.2.9`
+- React: `19.2.7`
+- TypeScript: `6.0.3`
+- Build motoru: Turbopack
+- Statik rotalar: `/` ve `/_not-found`
+- Format kontrolü: başarılı
+- TypeScript kontrolü: başarılı
+- Production build: başarılı
+
+**P1.3 kapanış kararı:** Minimum App Router iskeleti `src` düzeninde çalışır
+durumdadır. Geçici ekran yalnızca geliştirme sürecini görünür kılar; tasarım
+sistemi veya nihai ana sayfa olarak kabul edilmez.
+
+### P1.4 Başlangıç Kontrolü
+
+- [ ] TypeScript seçenekleri proje standartlarına göre gözden geçirilsin.
+- [ ] Next.js ESLint flat config oluşturulsun.
+- [ ] Prettier yapılandırması ve ignore dosyası oluşturulsun.
+- [ ] Tailwind CSS v4 PostCSS entegrasyonu kurulsun.
+- [ ] Global CSS Tailwind giriş noktasıyla uyumlu hale getirilsin.
+- [ ] `lint`, `typecheck`, `format:check` ve `build` komutları birlikte
+      doğrulansın.
 
 ---
 
