@@ -2269,6 +2269,7 @@ zinciri yerel ortamda tek komutla tekrar edilebilir hale getirildi.
 - [x] Aynı dal/ref için eski workflow çalışmasını iptal eden concurrency kuralı
       eklendi.
 - [x] Job için 15 dakika timeout tanımlandı.
+- [x] GitHub Actions JavaScript action runtime'ı Node 24'e geçirildi.
 - [x] Başarılı CI iş adı `main` branch protection için zorunlu status check
       olarak tanımlandı.
 - [x] Branch protection status check'i `strict` olarak ayarlandı; PR dalının
@@ -2286,6 +2287,8 @@ zinciri yerel ortamda tek komutla tekrar edilebilir hale getirildi.
   [GitHub Actions run 27576795246](https://github.com/aydoganarda93-dot/RainSound/actions/runs/27576795246)
 - Branch protection required check: `quality`
 - Strict status check: etkin
+- Merge sonrası `main` doğrulama çalışması:
+  [GitHub Actions run 27576980627](https://github.com/aydoganarda93-dot/RainSound/actions/runs/27576980627)
 
 **P1.5 kapanış kararı:** Yerel kalite zinciri GitHub Ubuntu runner üzerinde
 tekrar edilebilir biçimde çalışmaktadır. `quality` başarılı olmadan `main`
