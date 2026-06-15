@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 15 Haziran 2026
 > **Mevcut aşama:** P1 - Repository ve kalite temeli
-> **Aktif mikro hedef:** P1.2 - GitHub repository ayarlarını ve görev etiketlerini hazırlama
+> **Aktif mikro hedef:** P1.3 - Next.js App Router uygulama iskeletini oluşturma
 
 ---
 
@@ -1472,7 +1472,7 @@ Araştırma kaynakları:
 
 - [x] **P1.1** Git deposunu, `.gitignore` dosyasını ve `main` dalını oluştur;
       mevcut plan ve paket dosyalarını ilk kontrollü commit'e hazırla.
-- [ ] **P1.2** GitHub repository'sini oluştur; görev, hata, içerik ve tasarım
+- [x] **P1.2** GitHub repository'sini oluştur; görev, hata, içerik ve tasarım
       etiketlerini tanımla.
 - [ ] **P1.3** Mevcut sürümleri koruyarak Next.js App Router uygulama
       iskeletini oluştur.
@@ -2133,11 +2133,14 @@ push, açık kullanıcı isteği olmadan yapılmadı.
 ### P1.2 Başlangıç Kontrolü
 
 - [x] GitHub repository adresi:
-  [aydoganarda93-dot/RainSound](https://github.com/aydoganarda93-dot/RainSound)
-- [ ] Repository görünürlüğü ve açıklaması kontrol edilsin.
-- [ ] `main` varsayılan dalı remote üzerinde doğrulansın.
-- [ ] Görev, hata, içerik, tasarım ve erişilebilirlik etiketleri oluşturulsun.
-- [ ] Branch protection ve pull request kontrol yaklaşımı belirlensin.
+      [aydoganarda93-dot/RainSound](https://github.com/aydoganarda93-dot/RainSound)
+- [x] Repository görünürlüğü ve açıklaması kontrol edildi.
+- [x] Repository `PUBLIC` olarak doğrulandı.
+- [x] `main` varsayılan dalı remote üzerinde doğrulandı.
+- [x] Görev, hata, içerik, tasarım ve erişilebilirlik etiketleri oluşturuldu.
+- [x] Branch protection ve pull request kontrol yaklaşımı belirlendi.
+- [x] İlk commit `0910821` olarak oluşturuldu ve `origin/main` dalına push
+      edildi.
 
 **Planlanan repository açıklaması**
 
@@ -2146,20 +2149,20 @@ push, açık kullanıcı isteği olmadan yapılmadı.
 
 **Planlanan issue etiketleri**
 
-| Etiket | Renk | Kullanım |
-| --- | --- | --- |
-| `type: feature` | `1D76DB` | Yeni özellik veya kullanıcı deneyimi |
-| `type: bug` | `D73A4A` | Hata ve regresyon |
-| `type: content` | `0E8A16` | Metin, hizmet ve işletme bilgisi |
-| `type: design` | `A855F7` | UI, marka ve görsel üretim |
-| `type: accessibility` | `0052CC` | Erişilebilirlik çalışması |
-| `type: performance` | `F9D0C4` | Core Web Vitals ve optimizasyon |
-| `type: seo` | `FBCA04` | Teknik ve yerel SEO |
-| `type: infrastructure` | `5319E7` | CI, Vercel ve repository altyapısı |
-| `priority: critical` | `B60205` | Yayını veya kritik akışı engeller |
-| `priority: high` | `D93F0B` | Yakın sprintte çözülmeli |
-| `priority: normal` | `FBCA04` | Normal plan sırası |
-| `status: blocked` | `000000` | Dış bilgi veya karar bekliyor |
+| Etiket                 | Renk     | Kullanım                             |
+| ---------------------- | -------- | ------------------------------------ |
+| `type: feature`        | `1D76DB` | Yeni özellik veya kullanıcı deneyimi |
+| `type: bug`            | `D73A4A` | Hata ve regresyon                    |
+| `type: content`        | `0E8A16` | Metin, hizmet ve işletme bilgisi     |
+| `type: design`         | `A855F7` | UI, marka ve görsel üretim           |
+| `type: accessibility`  | `0052CC` | Erişilebilirlik çalışması            |
+| `type: performance`    | `F9D0C4` | Core Web Vitals ve optimizasyon      |
+| `type: seo`            | `FBCA04` | Teknik ve yerel SEO                  |
+| `type: infrastructure` | `5319E7` | CI, Vercel ve repository altyapısı   |
+| `priority: critical`   | `B60205` | Yayını veya kritik akışı engeller    |
+| `priority: high`       | `D93F0B` | Yakın sprintte çözülmeli             |
+| `priority: normal`     | `FBCA04` | Normal plan sırası                   |
+| `status: blocked`      | `000000` | Dış bilgi veya karar bekliyor        |
 
 **Branch protection yaklaşımı**
 
@@ -2171,8 +2174,38 @@ push, açık kullanıcı isteği olmadan yapılmadı.
   check olarak bağlanacak.
 - Force push ve branch silme kapalı olacak.
 - Konuşmalar çözülmeden merge engellenecek.
-- Repository planı destekliyorsa branch protection P1.2'de etkinleştirilecek;
-  desteklemiyorsa aynı politika belgelenip P1.5 sonrasında tekrar denenecek.
+- Branch protection P1.2'de etkinleştirildi.
+
+**Uygulanan GitHub ayarları - 15 Haziran 2026**
+
+- Repository: [aydoganarda93-dot/RainSound](https://github.com/aydoganarda93-dot/RainSound)
+- Görünürlük: `PUBLIC`
+- Varsayılan dal: `main`
+- Issues: açık
+- Konular: `nextjs`, `typescript`, `automotive`, `detailing`
+- Pull request akışı: etkin
+- Zorunlu onay sayısı: tek geliştiricili aşamada `0`
+- Eski onayları dismiss etme: etkin
+- Konuşmalar çözülmeden merge: etkin
+- Lineer geçmiş: etkin
+- Force push: kapalı
+- Branch silme: kapalı
+- Admin bypass: açık; otomasyon ve ilk altyapı aşamasında doğrudan bakım
+  commit'lerine izin verir
+- Zorunlu status check: P1.5 CI iş adları oluşturulduktan sonra eklenecek
+
+**P1.2 kapanış kararı:** GitHub repository'si proje kimliğiyle yapılandırıldı,
+ilk commit remote'a gönderildi, görev sınıflandırması ve `main` dalı koruma
+politikası uygulandı.
+
+### P1.3 Başlangıç Kontrolü
+
+- [ ] Mevcut bağımlılık sürümleri korunarak App Router iskeleti oluşturulsun.
+- [ ] `app` dizini, root layout ve başlangıç sayfası eklensin.
+- [ ] Kaynak kod için `src` dizini kullanımı kesinleştirilsin.
+- [ ] Uygulama dili Türkçe ve metadata başlangıç değerleri tanımlansın.
+- [ ] Geçici başlangıç ekranı açıkça geliştirme durumu olarak işaretlensin.
+- [ ] Yerel geliştirme ve production build doğrulansın.
 
 ---
 
@@ -2344,29 +2377,17 @@ Her çalışma haftasının sonunda aşağıdaki şablon kopyalanıp doldurulabi
 
 **Bu hafta tamamlananlar**
 
--
+- **Devam eden işler**
 
-**Devam eden işler**
+- **Blokajlar**
 
--
+- **İşletmeden beklenenler**
 
-**Blokajlar**
+- **Sonraki hafta hedefi**
 
--
+- **Alınan kararlar**
 
-**İşletmeden beklenenler**
-
--
-
-**Sonraki hafta hedefi**
-
--
-
-**Alınan kararlar**
-
--
-
----
+- ***
 
 ## 27. İlk Kurulum Doğrulama Listesi
 
