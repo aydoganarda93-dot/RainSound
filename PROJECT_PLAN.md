@@ -2298,12 +2298,32 @@ dalına pull request merge edilemez.
 
 ### P1.6 Başlangıç Kontrolü
 
-- [ ] Vercel hesabı ve GitHub entegrasyonu doğrulansın.
-- [ ] `RainSound` repository'si yeni Vercel projesine bağlansın.
-- [ ] Framework preset `Next.js` olarak doğrulansın.
-- [ ] Production dalı `main` olarak ayarlansın.
+- [x] Vercel hesabı ve GitHub entegrasyonu doğrulandı.
+- [x] `RainSound` repository'si `rain-sound` Vercel projesine bağlandı.
+- [x] Framework preset `Next.js` olarak doğrulandı.
+- [x] Vercel runtime ve CI ile uyumlu olacak şekilde Node engine `24.x`
+      sürümüne sabitlendi.
+- [x] Production dalı `main` olarak doğrulandı.
+- [x] İlk production deployment ve `rain-sound.vercel.app` alias'ı oluşturuldu.
 - [ ] Pull request preview deployment'ı çalıştırılsın.
 - [ ] Preview URL üzerinde ana sayfa ve build sonucu doğrulansın.
+
+**P1.6 Vercel proje kaydı - 16 Haziran 2026**
+
+- Hesap/takım: `benmertarda-8738s-projects`
+- Proje adı: `rain-sound`
+- Project ID: `prj_HaxtLuQdLceT7611LkADeooPoEII`
+- Framework: `Next.js`
+- Root directory: `.`
+- Node.js: `24.x`
+- GitHub repository: `aydoganarda93-dot/RainSound`
+- Production dalı: `main`
+- Git deployment: etkin
+- Pull request yorumları: etkin
+- Production URL: [rain-sound.vercel.app](https://rain-sound.vercel.app)
+- İlk production deployment: `dpl_7ZhWyfkoD1kk1EbpGFd2AtqeUCvU`
+- Production HTTP kontrolü: `200 OK`
+- Türkçe metadata ve geçici RAIN SOUND ekranı production üzerinde doğrulandı.
 
 ---
 
