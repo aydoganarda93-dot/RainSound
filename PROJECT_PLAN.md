@@ -2269,7 +2269,9 @@ zinciri yerel ortamda tek komutla tekrar edilebilir hale getirildi.
 - [x] Aynı dal/ref için eski workflow çalışmasını iptal eden concurrency kuralı
       eklendi.
 - [x] Job için 15 dakika timeout tanımlandı.
-- [x] GitHub Actions JavaScript action runtime'ı Node 24'e geçirildi.
+- [x] GitHub Actions JavaScript action'ları native Node 24 kullanan
+      `actions/checkout@v6`, `pnpm/action-setup@v6` ve
+      `actions/setup-node@v6` sürümlerine geçirildi.
 - [x] Başarılı CI iş adı `main` branch protection için zorunlu status check
       olarak tanımlandı.
 - [x] Branch protection status check'i `strict` olarak ayarlandı; PR dalının
