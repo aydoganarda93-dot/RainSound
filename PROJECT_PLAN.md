@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P1 - Repository ve kalite temeli
-> **Aktif mikro hedef:** P2.1 - Temel içerik tiplerini tanımlama
+> **Aktif mikro hedef:** P2.2 - İşletme ve iletişim bilgilerini tip güvenli veri kaynağına taşıma
 
 ---
 
@@ -1492,10 +1492,10 @@ Araştırma kaynakları:
 
 ### P2 - İçerik Sözleşmesi
 
-**Durum:** `Bekliyor`
+**Durum:** `Devam Ediyor`
 **Bağımlılık:** P1 tamamlanmış olmalıdır.
 
-- [ ] **P2.1** `SiteSettings`, `ServiceCategory`, `Service`, `Project`,
+- [x] **P2.1** `SiteSettings`, `ServiceCategory`, `Service`, `Project`,
       `MediaAsset`, `Testimonial` ve `FAQ` tiplerini tanımla.
 - [ ] **P2.2** İşletme ve iletişim bilgilerini tek tip güvenli veri kaynağına
       taşı.
@@ -2353,12 +2353,39 @@ kalite, CI, branch protection ve Vercel teslim zinciri çalışır durumdadır.
 
 ### P2.1 Başlangıç Kontrolü
 
-- [ ] İçerik tiplerinin sorumluluk sınırları kesinleştirilsin.
-- [ ] `SiteSettings`, `ServiceCategory`, `Service`, `Project`, `MediaAsset`,
+- [x] İçerik tiplerinin sorumluluk sınırları kesinleştirildi.
+- [x] `SiteSettings`, `ServiceCategory`, `Service`, `Project`, `MediaAsset`,
       `Testimonial` ve `FAQ` tipleri oluşturulsun.
-- [ ] Slug, demo içerik ve yayın durumu için ortak tipler tanımlansın.
-- [ ] Tipler UI veya CMS bağımlılığı taşımadan `src` altında konumlansın.
-- [ ] Örnek veri TypeScript kontrolünden geçirilsin.
+- [x] Slug, demo içerik ve yayın durumu için ortak tipler tanımlandı.
+- [x] Tipler UI veya CMS bağımlılığı taşımadan `src/content` altında
+      konumlandı.
+- [x] Örnek veri `satisfies` kontrolleriyle TypeScript kontrolünden geçirildi.
+
+**P2.1 uygulama notları - 16 Haziran 2026**
+
+- Tipler: `src/content/types.ts`
+- Örnek veri: `src/content/fixtures.ts`
+- Dışa aktarım noktası: `src/content/index.ts`
+- UI/CMS bağımlılığı: yok
+- Demo içerik işareti: `DemoState`
+- Yayın durumu: `PublishStatus`
+- Medya kaynağı ayrımı: gerçek, AI, demo ve sağlanan içerik
+- Gizlilik/izin alanları: medya ve proje düzeyinde mevcut
+- Doğrulama: `pnpm quality` başarılı
+
+**P2.1 kapanış kararı:** İçerik sözleşmesi arayüzden ve ileride eklenecek
+Sanity şemalarından bağımsız bir TypeScript katmanı olarak kuruldu. Örnek veri
+production içeriği değil, P2.2-P2.5 aşamalarında genişletilecek doğrulama
+zeminidir.
+
+### P2.2 Başlangıç Kontrolü
+
+- [ ] `SiteSettings` verisi ayrı ve tek kaynak olacak şekilde düzenlensin.
+- [ ] RAIN SOUND işletme adı, adres, telefon, WhatsApp, Instagram ve Google Maps
+      bilgileri tip güvenli veri kaynağına taşınsın.
+- [ ] Ana sayfa metadata ve geçici ekran kopyası bu veri kaynağından beslensin.
+- [ ] WhatsApp ve telefon linkleri tek noktadan üretilecek hale gelsin.
+- [ ] Eksik veya değişken bilgiler açık notla temsil edilsin.
 
 ---
 
