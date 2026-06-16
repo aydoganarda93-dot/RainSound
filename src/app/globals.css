@@ -1,10 +1,75 @@
 @import "tailwindcss";
 
+@theme {
+  --color-rain-black: #050505;
+  --color-rain-ink: #08040f;
+  --color-rain-charcoal: #17171d;
+  --color-rain-panel: #202029;
+  --color-rain-silver: #f5f4f7;
+  --color-rain-muted: #a6a3ad;
+  --color-rain-dim: #77737e;
+  --color-rain-purple: #8b3dff;
+  --color-rain-purple-bright: #b06cff;
+  --color-rain-purple-soft: #d9c2ff;
+
+  --font-sans: Arial, Helvetica, sans-serif;
+
+  --text-rain-xs: 0.75rem;
+  --text-rain-sm: 0.82rem;
+  --text-rain-base: 1rem;
+  --text-rain-lg: clamp(1.25rem, 3vw, 2rem);
+  --text-rain-hero: clamp(3rem, 12vw, 7rem);
+
+  --spacing-rain-1: 0.625rem;
+  --spacing-rain-2: 0.875rem;
+  --spacing-rain-3: 1rem;
+  --spacing-rain-4: 1.125rem;
+  --spacing-rain-5: 1.5rem;
+  --spacing-rain-6: 1.75rem;
+  --spacing-rain-7: 2rem;
+  --spacing-rain-8: 2.25rem;
+  --spacing-rain-fluid-card: clamp(2rem, 7vw, 4.5rem);
+
+  --radius-rain-pill: 999px;
+  --radius-rain-card: 1.5rem;
+
+  --shadow-rain-card: 0 2rem 6.25rem rgb(0 0 0 / 55%);
+  --shadow-rain-purple: 0 0 3.75rem rgb(139 61 255 / 28%);
+}
+
 :root {
   color-scheme: dark;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #050505;
-  color: #f5f4f7;
+  --rain-color-bg: var(--color-rain-black);
+  --rain-color-bg-elevated: var(--color-rain-charcoal);
+  --rain-color-bg-panel: var(--color-rain-panel);
+  --rain-color-fg: var(--color-rain-silver);
+  --rain-color-fg-muted: var(--color-rain-muted);
+  --rain-color-fg-dim: var(--color-rain-dim);
+  --rain-color-accent: var(--color-rain-purple);
+  --rain-color-accent-strong: var(--color-rain-purple-bright);
+  --rain-color-accent-soft: var(--color-rain-purple-soft);
+  --rain-color-accent-contrast: var(--color-rain-ink);
+  --rain-border-accent: rgb(176 108 255 / 28%);
+  --rain-border-subtle: rgb(245 244 247 / 14%);
+  --rain-surface-glass: linear-gradient(
+    145deg,
+    rgb(23 23 29 / 92%),
+    rgb(5 5 5 / 96%)
+  );
+  --rain-page-glow: radial-gradient(
+    circle at 50% 15%,
+    rgb(139 61 255 / 18%),
+    transparent 36%
+  );
+  --rain-glow-purple: rgb(139 61 255 / 13%);
+  --rain-glow-blur: 7.5rem;
+  --rain-z-background: 0;
+  --rain-z-content: 10;
+  --rain-z-overlay: 20;
+  --rain-z-modal: 50;
+  font-family: var(--font-sans);
+  background: var(--rain-color-bg);
+  color: var(--rain-color-fg);
 }
 
 * {
@@ -13,15 +78,13 @@
 
 html {
   min-width: 320px;
-  background: #050505;
+  background: var(--rain-color-bg);
 }
 
 body {
   min-height: 100vh;
   margin: 0;
-  background:
-    radial-gradient(circle at 50% 15%, rgb(139 61 255 / 18%), transparent 36%),
-    #050505;
+  background: var(--rain-page-glow), var(--rain-color-bg);
 }
 
 button,
@@ -40,28 +103,30 @@ a {
 
 .development-shell__glow {
   position: absolute;
+  z-index: var(--rain-z-background);
   width: min(680px, 90vw);
   aspect-ratio: 1;
-  border-radius: 50%;
-  background: rgb(139 61 255 / 13%);
-  filter: blur(120px);
+  border-radius: var(--radius-rain-pill);
+  background: var(--rain-glow-purple);
+  filter: blur(var(--rain-glow-blur));
 }
 
 .development-card {
   position: relative;
+  z-index: var(--rain-z-content);
   width: min(760px, 100%);
-  padding: clamp(32px, 7vw, 72px);
-  border: 1px solid rgb(176 108 255 / 28%);
-  border-radius: 24px;
-  background: linear-gradient(145deg, rgb(23 23 29 / 92%), rgb(5 5 5 / 96%));
-  box-shadow: 0 32px 100px rgb(0 0 0 / 55%);
+  padding: var(--spacing-rain-fluid-card);
+  border: 1px solid var(--rain-border-accent);
+  border-radius: var(--radius-rain-card);
+  background: var(--rain-surface-glass);
+  box-shadow: var(--shadow-rain-card);
   text-align: center;
 }
 
 .development-card__eyebrow {
-  margin: 0 0 16px;
-  color: #b06cff;
-  font-size: 0.75rem;
+  margin: 0 0 var(--spacing-rain-3);
+  color: var(--rain-color-accent-strong);
+  font-size: var(--text-rain-xs);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -69,23 +134,23 @@ a {
 
 .development-card h1 {
   margin: 0;
-  font-size: clamp(3rem, 12vw, 7rem);
+  font-size: var(--text-rain-hero);
   line-height: 0.9;
   letter-spacing: -0.06em;
 }
 
 .development-card__tagline {
-  margin: 24px 0 0;
-  color: #f5f4f7;
-  font-size: clamp(1.25rem, 3vw, 2rem);
+  margin: var(--spacing-rain-5) 0 0;
+  color: var(--rain-color-fg);
+  font-size: var(--text-rain-lg);
   font-weight: 700;
 }
 
 .development-card__description {
   max-width: 590px;
-  margin: 18px auto 0;
-  color: #a6a3ad;
-  font-size: 1rem;
+  margin: var(--spacing-rain-4) auto 0;
+  color: var(--rain-color-fg-muted);
+  font-size: var(--text-rain-base);
   line-height: 1.7;
 }
 
@@ -93,8 +158,8 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
-  margin: 28px 0 0;
+  gap: var(--spacing-rain-2);
+  margin: var(--spacing-rain-6) 0 0;
 }
 
 .development-card__cta,
@@ -103,22 +168,23 @@ a {
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  border-radius: 999px;
+  border-radius: var(--radius-rain-pill);
   text-decoration: none;
 }
 
 .development-card__cta {
-  padding: 12px 18px;
-  background: #b06cff;
-  color: #08040f;
+  padding: 0.75rem var(--spacing-rain-4);
+  background: var(--rain-color-accent-strong);
+  box-shadow: var(--shadow-rain-purple);
+  color: var(--rain-color-accent-contrast);
   font-size: 0.9rem;
   font-weight: 800;
 }
 
 .development-card__secondary-link {
-  padding: 11px 17px;
-  border: 1px solid rgb(245 244 247 / 14%);
-  color: #f5f4f7;
+  padding: 0.6875rem var(--spacing-rain-3);
+  border: 1px solid var(--rain-border-subtle);
+  color: var(--rain-color-fg);
   font-size: 0.88rem;
 }
 
@@ -126,24 +192,24 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin: 32px 0 0;
+  gap: var(--spacing-rain-1);
+  margin: var(--spacing-rain-7) 0 0;
   padding: 0;
   list-style: none;
 }
 
 .service-list li {
-  padding: 9px 14px;
+  padding: 0.5625rem var(--spacing-rain-2);
   border: 1px solid rgb(176 108 255 / 24%);
-  border-radius: 999px;
+  border-radius: var(--radius-rain-pill);
   background: rgb(139 61 255 / 9%);
-  color: #d9c2ff;
-  font-size: 0.82rem;
+  color: var(--rain-color-accent-soft);
+  font-size: var(--text-rain-sm);
 }
 
 .development-card__status {
-  margin: 36px 0 0;
-  color: #77737e;
+  margin: var(--spacing-rain-8) 0 0;
+  color: var(--rain-color-fg-dim);
   font-size: 0.78rem;
   line-height: 1.6;
 }

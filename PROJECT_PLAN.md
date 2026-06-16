@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P3 - Tasarım sistemi
-> **Aktif mikro hedef:** P3.1 - Renk, tipografi, spacing, radius, shadow, z-index ve glow token'larını oluşturma
+> **Aktif mikro hedef:** P3.2 - Responsive container, grid ve breakpoint sistemini kurma
 
 ---
 
@@ -1520,7 +1520,7 @@ Araştırma kaynakları:
 **Durum:** `Devam Ediyor`
 **Bağımlılık:** P2 veri sözleşmesi hazır olmalıdır.
 
-- [ ] **P3.1** Renk, tipografi, spacing, radius, shadow, z-index ve glow
+- [x] **P3.1** Renk, tipografi, spacing, radius, shadow, z-index ve glow
       token'larını oluştur.
 - [ ] **P3.2** Responsive container, grid ve breakpoint sistemini kur.
 - [ ] **P3.3** Button, heading, badge, card, section, link ve icon-button
@@ -2544,10 +2544,35 @@ fazı tamamlanmıştır; P3 tasarım sistemi fazına geçilebilir.
 
 ### P3.1 Başlangıç Kontrolü
 
-- [ ] Renk tokenları marka yönüne göre tanımlansın.
-- [ ] Tipografi, font ölçüsü ve satır yüksekliği ölçeği oluşturulsun.
-- [ ] Spacing, radius, shadow, z-index ve glow tokenları belirlensin.
-- [ ] Tokenlar Tailwind v4 ve global CSS kullanımına uygun yapılandırılsın.
+- [x] Renk tokenları marka yönüne göre tanımlansın.
+- [x] Tipografi, font ölçüsü ve satır yüksekliği ölçeği oluşturulsun.
+- [x] Spacing, radius, shadow, z-index ve glow tokenları belirlensin.
+- [x] Tokenlar Tailwind v4 ve global CSS kullanımına uygun yapılandırılsın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P3.1 uygulama notları - 16 Haziran 2026**
+
+- Token kaynağı: `src/app/globals.css`
+- Tailwind v4 entegrasyonu: `@theme` içinde marka renkleri, font, metin,
+  spacing, radius ve shadow tokenları tanımlandı.
+- Global CSS tokenları: `:root` içinde yüzey, metin, accent, border, glow,
+  z-index ve background değişkenleri tanımlandı.
+- Marka yönü: siyah/kömür yüzeyler, elektrik moru vurgu, metalik gümüş metin
+  tonu ve neon glow dengesi korunur.
+- Geçici geliştirme ekranındaki ham renk, radius, shadow ve spacing değerleri
+  token kullanacak şekilde güncellendi.
+- Doğrulama: `pnpm quality` başarılı.
+
+**P3.1 kapanış kararı:** Tasarım sistemi artık ilk marka token katmanına sahip.
+P3.2 aşamasında container, grid ve breakpoint davranışları bu token zemini
+üzerine kurulacaktır.
+
+### P3.2 Başlangıç Kontrolü
+
+- [ ] Ana container genişlikleri ve yatay padding sistemi tanımlansın.
+- [ ] Responsive grid helper yaklaşımı belirlensin.
+- [ ] Mobil, tablet, laptop ve geniş ekran davranışları netleştirilsin.
+- [ ] Geçici geliştirme ekranı yeni container/spacing düzenine uyarlansın.
 - [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
 
 ---
