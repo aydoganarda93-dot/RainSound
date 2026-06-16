@@ -89,6 +89,39 @@ a {
   line-height: 1.7;
 }
 
+.development-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin: 28px 0 0;
+}
+
+.development-card__cta,
+.development-card__secondary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.development-card__cta {
+  padding: 12px 18px;
+  background: #b06cff;
+  color: #08040f;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.development-card__secondary-link {
+  padding: 11px 17px;
+  border: 1px solid rgb(245 244 247 / 14%);
+  color: #f5f4f7;
+  font-size: 0.88rem;
+}
+
 .service-list {
   display: flex;
   flex-wrap: wrap;
