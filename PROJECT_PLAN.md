@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P2 - İçerik sözleşmesi
-> **Aktif mikro hedef:** P2.4 - Demo proje, galeri, video ve before/after veri yapılarını hazırlama
+> **Aktif mikro hedef:** P2.5 - Demo içerikleri production öncesi kontrol edilebilir hale getirme
 
 ---
 
@@ -1501,7 +1501,7 @@ Araştırma kaynakları:
       taşı.
 - [x] **P2.3** On bir hizmeti Detailing, Koruma, Sound & Tech ve Design &
       Performance kategorileri altında tanımla.
-- [ ] **P2.4** Üç demo proje, galeri, video ve before/after veri yapılarını
+- [x] **P2.4** Üç demo proje, galeri, video ve before/after veri yapılarını
       hazırla.
 - [ ] **P2.5** Demo içerikleri veri seviyesinde açıkça işaretle ve production
       öncesi kontrol edilebilir hale getir.
@@ -2445,13 +2445,48 @@ ve proje referansları gelene kadar demo içerik olarak işaretli kalacaktır.
 
 ### P2.4 Başlangıç Kontrolü
 
-- [ ] Üç demo proje için ortak proje verisi oluşturulsun.
-- [ ] Her demo projeye kapak, galeri ve video medya varlıkları bağlansın.
-- [ ] Before/after çifti veri yapısı en az bir demo proje üzerinde
+- [x] Üç demo proje için ortak proje verisi oluşturulsun.
+- [x] Her demo projeye kapak, galeri ve video medya varlıkları bağlansın.
+- [x] Before/after çifti veri yapısı en az bir demo proje üzerinde
       doğrulansın.
-- [ ] Proje-hizmet ilişkileri P2.3 hizmet ID'leriyle bağlansın.
-- [ ] Demo proje içerikleri gerçek müşteri sonucu gibi sunulmayacak şekilde
+- [x] Proje-hizmet ilişkileri P2.3 hizmet ID'leriyle bağlansın.
+- [x] Demo proje içerikleri gerçek müşteri sonucu gibi sunulmayacak şekilde
       işaretlensin.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P2.4 uygulama notları - 16 Haziran 2026**
+
+- Demo proje kaynağı: `src/content/fixtures.ts`
+- Demo proje sayısı: 3
+- Her demo projede kapak görseli, galeri görselleri, dikey video medya varlığı
+  ve before/after çifti bulunur.
+- Koruma ve Detailing projesi: `paint-correction`, `ceramic-coating`,
+  `ppf-coating`
+- Sound & Tech projesi: `car-audio-visual`, `auto-accessories`
+- Design & Performance projesi: `vehicle-wrap`, `headlight-design`,
+  `body-kit`, `varex-exhaust`
+- Medya varlıkları `demo` kaynaklıdır; production öncesi gerçek veya onaylı
+  görsellerle değiştirilecektir.
+- Proje izinleri: `privacyReviewed: false` ve
+  `publishPermissionConfirmed: false` olarak tutulur.
+- Durum: demo projeler `draft` statüsündedir, gerçek müşteri sonucu gibi
+  yayınlanmayacaktır.
+- Doğrulama: `pnpm quality` başarılı.
+
+**P2.4 kapanış kararı:** Proje, galeri, video ve before/after veri akışı artık
+sayfa geliştirmesi için test edilebilir durumda. P2.5 aşamasında demo
+içeriklerin production öncesi yakalanmasını kolaylaştıracak kontroller
+netleştirilecektir.
+
+### P2.5 Başlangıç Kontrolü
+
+- [ ] Demo içerik taşıyan hizmet, proje, medya, yorum ve FAQ kayıtları tek
+      bakışta raporlanabilir hale getirilsin.
+- [ ] Production öncesi değiştirilmesi zorunlu demo alanları açıkça
+      işaretlensin.
+- [ ] Gerçek içerik ile demo/AI/temsili içerik ayrımı veri seviyesinde
+      doğrulansın.
+- [ ] Yayın öncesi kontrol listesi `PROJECT_PLAN.md` içinde güncellensin.
 - [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
 
 ---
