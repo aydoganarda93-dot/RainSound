@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P4 - Global site kabuğu
-> **Aktif mikro hedef:** P4.3 - Erişilebilir mobil menüyü geliştirme
+> **Aktif mikro hedef:** P4.4 - Footer ve hızlı iletişim kısa yollarını ekleme
 
 ---
 
@@ -1547,7 +1547,7 @@ Araştırma kaynakları:
 - [x] **P4.1** Root layout, HTML dil ayarı, metadata temeli ve font yüklemesini
       kur.
 - [x] **P4.2** Masaüstü header, ana navigasyon ve aktif rota durumunu geliştir.
-- [ ] **P4.3** Focus trap, Escape ile kapanma ve scroll kilidi içeren
+- [x] **P4.3** Focus trap, Escape ile kapanma ve scroll kilidi içeren
       erişilebilir mobil menüyü geliştir.
 - [ ] **P4.4** Footer, sabit WhatsApp CTA, telefon ve yol tarifi kısa yollarını
       ekle.
@@ -1625,6 +1625,42 @@ ana navigasyon ve aktif rota davranışı bu kabuğun üzerine kurulacaktır.
 **P4.2 kapanış kararı:** Masaüstü header, merkezi navigasyon ve aktif rota
 temeli hazır. P4.3 aşamasında aynı navigasyon verisiyle erişilebilir mobil menü
 davranışı kurulacaktır.
+
+### P4.3 Başlangıç Kontrolü
+
+- [x] Mobil menü butonu `aria-expanded`, `aria-controls` ve anlaşılır
+      `aria-label` değerleriyle oluşturulsun.
+- [x] Mobil menü mevcut `primaryNavigation` verisini kullansın.
+- [x] Mobil CTA mevcut `generalWhatsAppLink` verisini kullansın.
+- [x] Menü açıldığında ilk odaklanabilir elemana focus taşınsın.
+- [x] Tab ve Shift+Tab menü içinde dönecek şekilde focus trap kurulsun.
+- [x] Escape tuşu menüyü kapatsın ve odağı menü butonuna geri taşısın.
+- [x] Menü açıkken body scroll kilitlensin.
+- [x] Mobil link veya CTA seçildiğinde mobil menü kapansın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P4.3 uygulama notları - 16 Haziran 2026**
+
+- `SiteHeader` içinde mobil menü state'i, menü butonu ve paneli eklendi.
+- Menü butonu `aria-expanded`, `aria-controls` ve duruma göre değişen Türkçe
+  `aria-label` kullanıyor.
+- Mobil panel mevcut `primaryNavigation` listesini kullanıyor; aktif rota
+  `aria-current="page"` ile masaüstü navigasyonla aynı mantıkta işaretleniyor.
+- Menü açıldığında ilk odaklanabilir öğeye focus veriliyor. Tab ve Shift+Tab
+  davranışı panel içinde dönecek şekilde sınırlandı.
+- Escape tuşu menüyü kapatıyor ve odağı menü butonuna geri taşıyor.
+- Menü açıkken `document.body.style.overflow = "hidden"` ile sayfa scroll'u
+  kilitleniyor; kapanışta eski değer geri yükleniyor.
+- Mobil link veya CTA seçildiğinde menü kapanıyor. Bu, seçim sonrası panelin
+  açık kalmasını engeller.
+- Mobil CTA `generalWhatsAppLink` üzerinden beslendi; WhatsApp mesaj şablonu ve
+  URL encoding merkezi veri katmanında kalmaya devam ediyor.
+- Masaüstünde `64rem` ve üzeri mobil buton/panel gizleniyor; desktop nav ve CTA
+  görünür kalıyor.
+
+**P4.3 kapanış kararı:** Mobil menü temel erişilebilirlik davranışlarıyla hazır.
+P4.4 aşamasında footer, sabit WhatsApp CTA, telefon ve yol tarifi kısa yolları
+global kabuğa eklenecektir.
 
 ### P5 - Temel Sayfalar
 

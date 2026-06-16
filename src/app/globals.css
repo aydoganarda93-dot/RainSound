@@ -342,6 +342,11 @@ a {
     color: var(--rain-color-fg);
     background: rgb(176 108 255 / 10%);
   }
+
+  .site-header__mobile-link:hover {
+    color: var(--rain-color-fg);
+    background: rgb(176 108 255 / 12%);
+  }
 }
 
 .rain-button:active,
@@ -433,8 +438,87 @@ a {
 }
 
 .site-header__cta {
+  display: none;
   justify-self: end;
   white-space: nowrap;
+}
+
+.site-header__menu-button {
+  justify-self: end;
+}
+
+.site-header__menu-icon,
+.site-header__menu-icon::before,
+.site-header__menu-icon::after {
+  display: block;
+  width: 1.125rem;
+  height: 0.125rem;
+  border-radius: var(--radius-rain-pill);
+  background: currentcolor;
+  content: "";
+}
+
+.site-header__menu-icon {
+  position: relative;
+}
+
+.site-header__menu-icon::before,
+.site-header__menu-icon::after {
+  position: absolute;
+  left: 0;
+}
+
+.site-header__menu-icon::before {
+  top: -0.375rem;
+}
+
+.site-header__menu-icon::after {
+  top: 0.375rem;
+}
+
+.site-header__mobile-panel {
+  position: fixed;
+  inset: 4.75rem var(--rain-section-padding-inline) auto;
+  z-index: var(--rain-z-overlay);
+  display: grid;
+  gap: var(--spacing-rain-4);
+  max-height: calc(100dvh - 6rem);
+  overflow: auto;
+  padding: var(--spacing-rain-5);
+  border: 1px solid var(--rain-border-accent);
+  border-radius: var(--radius-rain-card);
+  background: var(--rain-surface-glass);
+  box-shadow: var(--shadow-rain-card);
+}
+
+.site-header__mobile-panel[hidden] {
+  display: none;
+}
+
+.site-header__mobile-nav {
+  display: grid;
+  gap: var(--spacing-rain-1);
+}
+
+.site-header__mobile-link {
+  border-radius: calc(var(--radius-rain-card) * 0.72);
+  color: var(--rain-color-fg-muted);
+  font-size: var(--text-rain-base);
+  font-weight: 800;
+  padding: var(--spacing-rain-3);
+  text-decoration: none;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.site-header__mobile-link[aria-current="page"] {
+  background: rgb(176 108 255 / 16%);
+  color: var(--rain-color-fg);
+}
+
+.site-header__mobile-cta {
+  width: 100%;
 }
 
 .development-shell {
@@ -533,6 +617,15 @@ a {
 }
 
 @media (width >= 64rem) {
+  .site-header__cta {
+    display: inline-flex;
+  }
+
+  .site-header__menu-button,
+  .site-header__mobile-panel {
+    display: none;
+  }
+
   .site-header__nav {
     display: inline-flex;
   }
