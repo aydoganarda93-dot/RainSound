@@ -1,25 +1,45 @@
-const serviceGroups = [
-  "Detailing",
-  "Koruma",
-  "Sound & Tech",
-  "Design & Performance",
-];
+import {
+  getContactByChannel,
+  serviceCategories,
+  siteSettings,
+} from "@/content";
+
+const serviceGroups = serviceCategories
+  .filter((category) => category.status === "published")
+  .sort((current, next) => current.order - next.order)
+  .map((category) => category.title);
 
 export default function Home() {
+  const phoneContact = getContactByChannel("phone");
+
   return (
     <main className="development-shell">
       <div className="development-shell__glow" aria-hidden="true" />
 
       <section className="development-card" aria-labelledby="page-title">
         <p className="development-card__eyebrow">Geliştirme Ön İzlemesi</p>
-        <h1 id="page-title">RAIN SOUND</h1>
-        <p className="development-card__tagline">
-          Aracın karakterini ortaya çıkar.
-        </p>
+        <h1 id="page-title">{siteSettings.siteName}</h1>
+        <p className="development-card__tagline">{siteSettings.tagline}</p>
         <p className="development-card__description">
-          Premium detailing, koruma, ses sistemleri ve otomotiv uygulamaları
-          için yeni dijital deneyim hazırlanıyor.
+          {siteSettings.description} Yeni dijital deneyim hazırlanıyor.
         </p>
+
+        <div className="development-card__actions">
+          <a
+            className="development-card__cta"
+            href={siteSettings.primaryCta.href}
+          >
+            {siteSettings.primaryCta.label}
+          </a>
+          {phoneContact ? (
+            <a
+              className="development-card__secondary-link"
+              href={phoneContact.href}
+            >
+              {phoneContact.value}
+            </a>
+          ) : null}
+        </div>
 
         <ul className="service-list" aria-label="Planlanan hizmet kategorileri">
           {serviceGroups.map((service) => (

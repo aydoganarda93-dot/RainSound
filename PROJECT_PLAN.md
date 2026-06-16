@@ -6,8 +6,8 @@
 > **Ana mesaj:** Aracın karakterini ortaya çıkar.
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
-> **Mevcut aşama:** P1 - Repository ve kalite temeli
-> **Aktif mikro hedef:** P2.2 - İşletme ve iletişim bilgilerini tip güvenli veri kaynağına taşıma
+> **Mevcut aşama:** P2 - İçerik sözleşmesi
+> **Aktif mikro hedef:** P2.3 - Hizmetleri kategori yapısında tanımlama
 
 ---
 
@@ -1497,7 +1497,7 @@ Araştırma kaynakları:
 
 - [x] **P2.1** `SiteSettings`, `ServiceCategory`, `Service`, `Project`,
       `MediaAsset`, `Testimonial` ve `FAQ` tiplerini tanımla.
-- [ ] **P2.2** İşletme ve iletişim bilgilerini tek tip güvenli veri kaynağına
+- [x] **P2.2** İşletme ve iletişim bilgilerini tek tip güvenli veri kaynağına
       taşı.
 - [ ] **P2.3** On bir hizmeti Detailing, Koruma, Sound & Tech ve Design &
       Performance kategorileri altında tanımla.
@@ -2380,12 +2380,44 @@ zeminidir.
 
 ### P2.2 Başlangıç Kontrolü
 
-- [ ] `SiteSettings` verisi ayrı ve tek kaynak olacak şekilde düzenlensin.
-- [ ] RAIN SOUND işletme adı, adres, telefon, WhatsApp, Instagram ve Google Maps
+- [x] `SiteSettings` verisi ayrı ve tek kaynak olacak şekilde düzenlensin.
+- [x] RAIN SOUND işletme adı, adres, telefon, WhatsApp, Instagram ve Google Maps
       bilgileri tip güvenli veri kaynağına taşınsın.
-- [ ] Ana sayfa metadata ve geçici ekran kopyası bu veri kaynağından beslensin.
-- [ ] WhatsApp ve telefon linkleri tek noktadan üretilecek hale gelsin.
-- [ ] Eksik veya değişken bilgiler açık notla temsil edilsin.
+- [x] Ana sayfa metadata ve geçici ekran kopyası bu veri kaynağından beslensin.
+- [x] WhatsApp ve telefon linkleri tek noktadan üretilecek hale gelsin.
+- [x] Eksik veya değişken bilgiler açık notla temsil edilsin.
+
+**P2.2 uygulama notları - 16 Haziran 2026**
+
+- İşletme ve iletişim kaynağı: `src/content/site-settings.ts`
+- Merkezi link kaynağı: `businessContactLinks`
+- Ana site ayarı kaynağı: `siteSettings`
+- Telefon/WhatsApp erişimi: `getContactByChannel`
+- Ana sayfa metadata: `siteSettings.siteName` ve `siteSettings.description`
+  üzerinden beslenir.
+- Geçici geliştirme ekranı: marka adı, slogan, açıklama, hizmet kategorileri,
+  WhatsApp CTA ve telefon linkini içerik katmanından alır.
+- Fiyat politikası: sitede fiyat yayınlanmaz; bilgi ve fiyat talepleri
+  WhatsApp'a yönlendirilir.
+- Çalışma saatleri: pazartesi-cumartesi 09:00-20:00, pazar kapalı; özel gün
+  saatleri değişken olduğu için yayınlanmaz.
+- Doğrulama: `pnpm quality` başarılı.
+
+**P2.2 kapanış kararı:** RAIN SOUND işletme bilgileri artık UI dosyalarına
+dağılmayacak. Metadata, geçici ekran ve iletişim aksiyonları tek tip güvenli
+veri kaynağından okunacaktır.
+
+### P2.3 Başlangıç Kontrolü
+
+- [ ] Hizmet kategorileri P0-P2 kararlarına göre son kez gözden geçirilsin.
+- [ ] İç dış yıkama, seramik kaplama, pasta cila, PPF folyo kaplama, cam filmi,
+      araç kaplama, oto ses ve görüntü sistemleri, oto aksesuar, far tasarımı,
+      body kit ve varex egzoz hizmetleri veri katmanına eklensin.
+- [ ] Her hizmet için özet, fayda, süreç, süre notu, fiyat notu, garanti notu,
+      medya ihtiyacı ve CTA bağlamı tanımlansın.
+- [ ] Demo metin olduğu açıkça işaretlensin; gerçek uygulama iddiası
+      oluşturulmasın.
+- [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
 
 ---
 

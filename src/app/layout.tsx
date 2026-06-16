@@ -1,14 +1,15 @@
 import type { Metadata, Viewport } from "next";
 
+import { siteSettings } from "@/content";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "RAIN SOUND | Oto Detailing ve Ses Sistemleri",
-    template: "%s | RAIN SOUND",
+    default: `${siteSettings.siteName} | Oto Detailing ve Ses Sistemleri`,
+    template: `%s | ${siteSettings.siteName}`,
   },
-  description:
-    "Eskişehir'de oto detailing, araç koruma, ses sistemleri, aksesuar ve modifiye uygulamaları.",
+  description: siteSettings.description,
 };
 
 export const viewport: Viewport = {
@@ -22,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr">
+    <html lang={siteSettings.locale}>
       <body className="antialiased">{children}</body>
     </html>
   );

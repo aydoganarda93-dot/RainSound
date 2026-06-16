@@ -4,7 +4,6 @@ import type {
   Project,
   Service,
   ServiceCategory,
-  SiteSettings,
   Testimonial,
 } from "./types";
 
@@ -22,69 +21,6 @@ const demoContent = (note: string) =>
     replacementRequiredBeforeProduction: true,
     note,
   }) satisfies MediaAsset["demo"];
-
-export const siteSettings = {
-  locale: "tr",
-  siteName: "RAIN SOUND",
-  legalName: "RAIN SOUND",
-  tagline: "Aracın karakterini ortaya çıkar.",
-  description:
-    "Eskişehir'de oto detailing, araç koruma, ses sistemleri, aksesuar ve modifiye uygulamaları.",
-  address: {
-    street: "Ihlamurkent, Yaşar Kemal Cd. No:8 D:C",
-    district: "Odunpazarı",
-    city: "Eskişehir",
-    postalCode: "26050",
-    countryCode: "TR",
-    display:
-      "Ihlamurkent, Yaşar Kemal Cd. No:8 D:C, 26050 Odunpazarı/Eskişehir",
-  },
-  contacts: [
-    {
-      channel: "whatsapp",
-      label: "WhatsApp",
-      href: "https://wa.me/905539304575",
-      value: "+90 553 930 45 75",
-      isPrimary: true,
-    },
-    {
-      channel: "phone",
-      label: "Telefon",
-      href: "tel:+905539304575",
-      value: "0553 930 45 75",
-    },
-  ],
-  businessHours: [
-    { day: "monday", opensAt: "09:00", closesAt: "20:00", isClosed: false },
-    { day: "tuesday", opensAt: "09:00", closesAt: "20:00", isClosed: false },
-    {
-      day: "wednesday",
-      opensAt: "09:00",
-      closesAt: "20:00",
-      isClosed: false,
-    },
-    { day: "thursday", opensAt: "09:00", closesAt: "20:00", isClosed: false },
-    { day: "friday", opensAt: "09:00", closesAt: "20:00", isClosed: false },
-    { day: "saturday", opensAt: "09:00", closesAt: "20:00", isClosed: false },
-    { day: "sunday", opensAt: null, closesAt: null, isClosed: true },
-  ],
-  socialLinks: [
-    {
-      label: "Instagram",
-      href: "https://www.instagram.com/rainsound2634/",
-      target: "_blank",
-    },
-    {
-      label: "Google Maps",
-      href: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x14cc3d75025d88ff:0x2767f568f912a257",
-      target: "_blank",
-    },
-  ],
-  primaryCta: {
-    label: "WhatsApp'tan Bilgi Al",
-    href: "https://wa.me/905539304575",
-  },
-} satisfies SiteSettings;
 
 export const serviceCategories = [
   {
