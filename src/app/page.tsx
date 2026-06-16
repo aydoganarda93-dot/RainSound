@@ -19,26 +19,32 @@ export default function Home() {
 
       <div className="rain-container development-shell__container">
         <section
-          className="rain-container--readable development-card"
+          className="rain-container--readable rain-card development-card"
           aria-labelledby="page-title"
         >
-          <p className="development-card__eyebrow">Geliştirme Ön İzlemesi</p>
-          <h1 id="page-title">{siteSettings.siteName}</h1>
-          <p className="development-card__tagline">{siteSettings.tagline}</p>
+          <p className="rain-badge development-card__eyebrow">
+            Geliştirme Ön İzlemesi
+          </p>
+          <h1 id="page-title" className="rain-heading rain-heading--hero">
+            {siteSettings.siteName}
+          </h1>
+          <p className="rain-heading rain-heading--section development-card__tagline">
+            {siteSettings.tagline}
+          </p>
           <p className="development-card__description">
             {siteSettings.description} Yeni dijital deneyim hazırlanıyor.
           </p>
 
           <div className="development-card__actions">
             <a
-              className="development-card__cta"
+              className="rain-button rain-button--primary development-card__cta"
               href={generalWhatsAppLink.href}
             >
               {generalWhatsAppLink.label}
             </a>
             {phoneContact ? (
               <a
-                className="development-card__secondary-link"
+                className="rain-button rain-button--secondary development-card__secondary-link"
                 href={phoneContact.href}
               >
                 {phoneContact.value}
