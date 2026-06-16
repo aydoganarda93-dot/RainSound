@@ -216,3 +216,17 @@ export type DemoContentReport = {
   items: DemoAuditItem[];
   productionBlockers: DemoAuditItem[];
 };
+
+export type WhatsAppMessageContext = "general" | "service" | "project";
+
+export type WhatsAppMessageTemplate = {
+  id: string;
+  context: WhatsAppMessageContext;
+  label: string;
+};
+
+export type WhatsAppMessageLink = {
+  label: string;
+  href: string;
+  message: string;
+};

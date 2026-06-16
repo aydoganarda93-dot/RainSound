@@ -1,4 +1,5 @@
 import {
+  generalWhatsAppLink,
   getContactByChannel,
   serviceCategories,
   siteSettings,
@@ -25,11 +26,8 @@ export default function Home() {
         </p>
 
         <div className="development-card__actions">
-          <a
-            className="development-card__cta"
-            href={siteSettings.primaryCta.href}
-          >
-            {siteSettings.primaryCta.label}
+          <a className="development-card__cta" href={generalWhatsAppLink.href}>
+            {generalWhatsAppLink.label}
           </a>
           {phoneContact ? (
             <a
