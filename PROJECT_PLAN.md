@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P3 - Tasarım sistemi
-> **Aktif mikro hedef:** P3.3 - Button, heading, badge, card, section, link ve icon-button temellerini oluşturma
+> **Aktif mikro hedef:** P3.4 - Focus, hover, active, loading, disabled ve validation durumlarını tanımlama
 
 ---
 
@@ -1523,7 +1523,7 @@ Araştırma kaynakları:
 - [x] **P3.1** Renk, tipografi, spacing, radius, shadow, z-index ve glow
       token'larını oluştur.
 - [x] **P3.2** Responsive container, grid ve breakpoint sistemini kur.
-- [ ] **P3.3** Button, heading, badge, card, section, link ve icon-button
+- [x] **P3.3** Button, heading, badge, card, section, link ve icon-button
       temellerini oluştur.
 - [ ] **P3.4** Focus, hover, active, loading, disabled ve validation
       durumlarını tanımla.
@@ -2595,11 +2595,40 @@ primitive'leri tanımlanacaktır.
 
 ### P3.3 Başlangıç Kontrolü
 
-- [ ] Button temel varyantları tanımlansın.
-- [ ] Heading ve section başlığı temelleri oluşturulsun.
-- [ ] Badge, card, link ve icon-button primitive sınıfları eklensin.
-- [ ] Geçici geliştirme ekranı uygun primitive'leri kullanacak şekilde
+- [x] Button temel varyantları tanımlansın.
+- [x] Heading ve section başlığı temelleri oluşturulsun.
+- [x] Badge, card, link ve icon-button primitive sınıfları eklensin.
+- [x] Geçici geliştirme ekranı uygun primitive'leri kullanacak şekilde
       uyarlansın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P3.3 uygulama notları - 16 Haziran 2026**
+
+- Primitive kaynak dosyası: `src/app/globals.css`
+- Section primitive: `.rain-section`
+- Card primitive: `.rain-card`
+- Badge primitive: `.rain-badge`
+- Heading primitive: `.rain-heading`, `.rain-heading--hero`,
+  `.rain-heading--section`
+- Button primitive: `.rain-button`, `.rain-button--primary`,
+  `.rain-button--secondary`
+- Link primitive: `.rain-link`
+- Icon button primitive: `.rain-icon-button`
+- Geçici geliştirme ekranı `rain-card`, `rain-badge`, `rain-heading` ve
+  `rain-button` primitive'lerini kullanacak şekilde uyarlanmıştır.
+- Doğrulama: `pnpm quality` başarılı.
+
+**P3.3 kapanış kararı:** Tasarım sistemi temel arayüz primitive sınıflarına
+sahip. P3.4 aşamasında bu primitive'lerin focus, hover, active, loading,
+disabled ve validation durumları netleştirilecektir.
+
+### P3.4 Başlangıç Kontrolü
+
+- [ ] Focus ring ve klavye görünürlüğü tanımlansın.
+- [ ] Hover ve active durumları pointer cihazlar için belirlensin.
+- [ ] Loading ve disabled görünümleri primitive sınıflara eklensin.
+- [ ] Validation/success/error/warning durum tokenları ve sınıfları
+      tanımlansın.
 - [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
 
 ---
