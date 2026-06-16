@@ -6,8 +6,8 @@
 > **Ana mesaj:** Aracın karakterini ortaya çıkar.
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
-> **Mevcut aşama:** P3 - Tasarım sistemi
-> **Aktif mikro hedef:** P3.6 - Logo kullanım noktaları ve güvenli boşluk kurallarını hazırlama
+> **Mevcut aşama:** P4 - Global site kabuğu
+> **Aktif mikro hedef:** P4.1 - Root layout, HTML dil ayarı, metadata temeli ve font yüklemesini tamamlama
 
 ---
 
@@ -1517,7 +1517,7 @@ Araştırma kaynakları:
 
 ### P3 - Tasarım Sistemi
 
-**Durum:** `Devam Ediyor`
+**Durum:** `Tamamlandı`
 **Bağımlılık:** P2 veri sözleşmesi hazır olmalıdır.
 
 - [x] **P3.1** Renk, tipografi, spacing, radius, shadow, z-index ve glow
@@ -1529,7 +1529,7 @@ Araştırma kaynakları:
       durumlarını tanımla.
 - [x] **P3.5** Türkçe karakter, font yükleme, metin ölçekleme ve WCAG AA
       kontrast kontrollerini yap.
-- [ ] **P3.6** Tam logo, sembol, monogram ve favicon için bileşen kullanım
+- [x] **P3.6** Tam logo, sembol, monogram ve favicon için bileşen kullanım
       noktalarını ve güvenli boşluk kurallarını hazırla.
 
 **P3 çıkış kapısı**
@@ -1541,7 +1541,7 @@ Araştırma kaynakları:
 
 ### P4 - Global Site Kabuğu
 
-**Durum:** `Bekliyor`
+**Durum:** `Devam Ediyor`
 **Bağımlılık:** P3 tamamlanmış olmalıdır.
 
 - [ ] **P4.1** Root layout, HTML dil ayarı, metadata temeli ve font yüklemesini
@@ -2701,12 +2701,76 @@ güvenli boşluk kuralları netleştirilecektir.
 
 ### P3.6 Başlangıç Kontrolü
 
-- [ ] Mevcut Rain Sound logosunun kullanım noktaları listelensin.
-- [ ] Tam logo, sembol/monogram ve favicon ihtiyacı ayrıştırılsın.
-- [ ] Koyu zemin, kart üstü, header ve mobil kullanım için güvenli boşluk
+- [x] Mevcut Rain Sound logosunun kullanım noktaları listelensin.
+- [x] Tam logo, sembol/monogram ve favicon ihtiyacı ayrıştırılsın.
+- [x] Koyu zemin, kart üstü, header ve mobil kullanım için güvenli boşluk
       kuralları yazılsın.
-- [ ] Logo dosyası gelene kadar kullanılacak geçici metinsel marka gösterimi
+- [x] Logo dosyası gelene kadar kullanılacak geçici metinsel marka gösterimi
       belirlensin.
+
+**P3.6 uygulama notları - 16 Haziran 2026**
+
+Mevcut durumda repo içinde kaynak logo dosyası yoktur. Kanonik marka referansı,
+sohbette paylaşılan kare Rain Sound logosudur. Bu aşamada yeni logo tasarımı
+üretilmeyecek; kullanım kuralları mevcut logoyu koruyacak şekilde yazılmıştır.
+
+**Logo varyantları ve kullanım noktaları**
+
+| Varyant               | Durum                          | Kullanım noktası                                                        | Not                                                          |
+| --------------------- | ------------------------------ | ----------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Tam renkli kare logo  | Referans var, dosya bekleniyor | Hero, hakkımızda, footer marka alanı, sosyal paylaşım görseli           | Büyük alanlarda kullanılacak ana marka varlığı               |
+| Yatay tam logo        | Üretim bekleniyor              | Desktop header, sticky nav, teklif/iletişim alanları                    | Mevcut logodan türetilmeli; yeni marka dili icat edilmeyecek |
+| Sadece aslan sembolü  | Üretim bekleniyor              | Mobil header, kart üstü watermark, loader, küçük badge                  | Metin okunmayacak kadar küçülen yerlerde kullanılacak        |
+| `RS` monogram         | Üretim bekleniyor              | Favicon alternatifi, app icon, küçük sosyal avatar                      | Aslan sembolü faviconda okunmazsa devreye alınacak           |
+| Tek renk/negatif logo | Üretim bekleniyor              | Çok koyu görsel üstü, düşük kontrastlı medya, baskı benzeri kullanımlar | Mor/gümüş marka hissi korunmalı                              |
+
+**Geçici marka gösterimi kararı**
+
+- Kaynak logo dosyası eklenene kadar arayüzde gerçek görsel logo yerine metinsel
+  `RAIN SOUND` marka kilidi kullanılacak.
+- Geçici marka gösterimi `siteSettings.siteName` verisinden beslenecek; sabit
+  kopya metinler çoğaltılmayacak.
+- Header ve hero alanlarında metinsel marka, `rain-heading`/tasarım tokenları
+  ile mor-siyah sistemde gösterilecek.
+- Favicon için bu aşamada rastgele veya AI üretimi görsel kullanılmayacak.
+  Kaynak logo işlenene kadar tarayıcı varsayılan favicon davranışı kabul edilir.
+- Geçici metinsel marka gösterimi gerçek logonun yerini kalıcı olarak almaz;
+  P4/P5 sırasında logo asset'i geldiğinde bileşenle değiştirilecektir.
+
+**Güvenli boşluk ve okunabilirlik kuralları**
+
+- Tam logo çevresinde minimum güvenli boşluk, logo yüksekliğinin `1/4`'ü kadar
+  olmalıdır.
+- Sembol/monogram çevresinde minimum güvenli boşluk, işaret genişliğinin `1/3`'ü
+  kadar olmalıdır.
+- Logo, yoğun drift dumanı, parlama veya araç kaporta yansımasının doğrudan
+  üzerine maskesiz yerleştirilmemelidir.
+- Görsel üstü kullanımda logo arkasına koyu gradient, blur panel veya en az
+  `rgb(5 5 5 / 72%)` seviyesinde okunabilirlik desteği verilmelidir.
+- Tam logo desktop header içinde önerilen minimum yükseklik `40px`, hero içinde
+  `96px`, footer içinde `56px` olmalıdır.
+- Mobil header için tam logo yalnızca okunurluk korunuyorsa kullanılmalı;
+  okunurluk düşerse sembol veya `RAIN SOUND` metinsel kilidi tercih edilmelidir.
+- Favicon için tam kare logo doğrudan küçültülmeyecek; önce aslan sembolü,
+  okunurluk yetersiz kalırsa `RS` monogram kullanılacaktır.
+
+**Logo asset kabul kriterleri**
+
+- Ana logo: şeffaf zeminli PNG veya WebP, tercihen SVG/vektör kaynakla birlikte.
+- Minimum raster ölçü: `1024x1024`.
+- Web kullanım varyantları: tam kare logo, yatay logo, sembol, monogram,
+  tek renk negatif.
+- Favicon seti: `16x16`, `32x32`, `48x48`, `180x180`, `512x512`.
+- Dosya adları ASCII ve küçük harfli olmalıdır: örnek
+  `rain-sound-logo-full.png`, `rain-sound-symbol.png`, `rain-sound-rs-icon.svg`.
+- Asset geldiğinde gerçek/düzenlenmiş kaynak ayrımı plan içinde kaydedilecek ve
+  görselin işletme onayı alınmadan production marka varlığı olarak
+  kullanılmayacaktır.
+
+**P3.6 kapanış kararı:** P3 tasarım sistemi fazı tamamlandı. Logo varlığı henüz
+dosya olarak gelmediği için uygulamada güvenli geçici metinsel marka gösterimi
+korunacak; tam logo, sembol, monogram ve favicon üretimi asset geldiğinde P4/P5
+işleri içinde bileşene bağlanacaktır.
 
 ---
 
