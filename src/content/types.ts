@@ -126,6 +126,17 @@ export type Service = {
   estimatedDurationNote: string;
   pricingNote: string;
   warrantyNote: string;
+  mediaNeeds: string[];
+  ctaContext: {
+    label: string;
+    intent:
+      | "appointment"
+      | "quote"
+      | "consultation"
+      | "product-info"
+      | "project-review";
+    messageHint: string;
+  };
   media: MediaAsset[];
   relatedServiceIds: Service["id"][];
   status: PublishStatus;
