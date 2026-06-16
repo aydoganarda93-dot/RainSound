@@ -187,3 +187,32 @@ export type FAQ = {
   status: PublishStatus;
   demo: DemoState;
 };
+
+export type DemoAuditCollection =
+  | "service-category"
+  | "service"
+  | "project"
+  | "media"
+  | "testimonial"
+  | "faq";
+
+export type DemoAuditItem = {
+  collection: DemoAuditCollection;
+  id: string;
+  label: string;
+  status?: PublishStatus;
+  source?: MediaSource;
+  demo: DemoState;
+};
+
+export type DemoContentReport = {
+  summary: {
+    totalItems: number;
+    demoItems: number;
+    productionBlockers: number;
+    realItems: number;
+    mediaSourceCounts: Record<MediaSource, number>;
+  };
+  items: DemoAuditItem[];
+  productionBlockers: DemoAuditItem[];
+};
