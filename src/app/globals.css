@@ -28,6 +28,9 @@
   --spacing-rain-6: 1.75rem;
   --spacing-rain-7: 2rem;
   --spacing-rain-8: 2.25rem;
+  --spacing-rain-section: clamp(3rem, 8vw, 6rem);
+  --spacing-rain-container: clamp(1.25rem, 4vw, 3rem);
+  --spacing-rain-grid: clamp(1rem, 2.5vw, 1.75rem);
   --spacing-rain-fluid-card: clamp(2rem, 7vw, 4.5rem);
 
   --radius-rain-pill: 999px;
@@ -35,6 +38,11 @@
 
   --shadow-rain-card: 0 2rem 6.25rem rgb(0 0 0 / 55%);
   --shadow-rain-purple: 0 0 3.75rem rgb(139 61 255 / 28%);
+
+  --breakpoint-rain-sm: 40rem;
+  --breakpoint-rain-md: 48rem;
+  --breakpoint-rain-lg: 64rem;
+  --breakpoint-rain-xl: 80rem;
 }
 
 :root {
@@ -63,6 +71,12 @@
   );
   --rain-glow-purple: rgb(139 61 255 / 13%);
   --rain-glow-blur: 7.5rem;
+  --rain-container-max: 72rem;
+  --rain-container-readable: 47.5rem;
+  --rain-grid-min-column: 16rem;
+  --rain-grid-gap: var(--spacing-rain-grid);
+  --rain-section-padding-block: var(--spacing-rain-section);
+  --rain-section-padding-inline: var(--spacing-rain-container);
   --rain-z-background: 0;
   --rain-z-content: 10;
   --rain-z-overlay: 20;
@@ -92,13 +106,42 @@ a {
   font: inherit;
 }
 
+.rain-container {
+  width: min(
+    100% - calc(var(--rain-section-padding-inline) * 2),
+    var(--rain-container-max)
+  );
+  margin-inline: auto;
+}
+
+.rain-container--readable {
+  max-width: var(--rain-container-readable);
+}
+
+.rain-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--rain-grid-min-column)), 1fr)
+  );
+  gap: var(--rain-grid-gap);
+}
+
 .development-shell {
   position: relative;
   display: grid;
   min-height: 100vh;
-  place-items: center;
+  align-items: center;
   overflow: hidden;
-  padding: 32px 20px;
+  padding-block: var(--rain-section-padding-block);
+}
+
+.development-shell__container {
+  position: relative;
+  z-index: var(--rain-z-content);
+  display: grid;
+  min-height: calc(100vh - (var(--rain-section-padding-block) * 2));
+  place-items: center;
 }
 
 .development-shell__glow {
@@ -114,7 +157,7 @@ a {
 .development-card {
   position: relative;
   z-index: var(--rain-z-content);
-  width: min(760px, 100%);
+  width: 100%;
   padding: var(--spacing-rain-fluid-card);
   border: 1px solid var(--rain-border-accent);
   border-radius: var(--radius-rain-card);
@@ -212,4 +255,16 @@ a {
   color: var(--rain-color-fg-dim);
   font-size: 0.78rem;
   line-height: 1.6;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --rain-grid-min-column: 18rem;
+  }
+}
+
+@media (width >= 80rem) {
+  :root {
+    --rain-container-max: 78rem;
+  }
 }
