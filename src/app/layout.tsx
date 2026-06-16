@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 
+import { SiteHeader } from "@/components/site-header";
 import { siteSettings } from "@/content";
 
 import "./globals.css";
@@ -86,7 +87,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={siteSettings.locale}>
-      <body className={`${rainSans.variable} antialiased`}>{children}</body>
+      <body className={`${rainSans.variable} antialiased`}>
+        <div className="site-shell">
+          <SiteHeader />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

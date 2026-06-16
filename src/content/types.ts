@@ -18,6 +18,13 @@ export type ExternalLink = {
   target?: LinkTarget;
 };
 
+export type NavigationItem = {
+  label: string;
+  href: string;
+  matchPath: string;
+  isPrimary?: boolean;
+};
+
 export type ContactChannel =
   | "phone"
   | "whatsapp"

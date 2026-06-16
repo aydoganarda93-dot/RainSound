@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P4 - Global site kabuğu
-> **Aktif mikro hedef:** P4.2 - Masaüstü header, ana navigasyon ve aktif rota durumunu geliştirme
+> **Aktif mikro hedef:** P4.3 - Erişilebilir mobil menüyü geliştirme
 
 ---
 
@@ -1546,7 +1546,7 @@ Araştırma kaynakları:
 
 - [x] **P4.1** Root layout, HTML dil ayarı, metadata temeli ve font yüklemesini
       kur.
-- [ ] **P4.2** Masaüstü header, ana navigasyon ve aktif rota durumunu geliştir.
+- [x] **P4.2** Masaüstü header, ana navigasyon ve aktif rota durumunu geliştir.
 - [ ] **P4.3** Focus trap, Escape ile kapanma ve scroll kilidi içeren
       erişilebilir mobil menüyü geliştir.
 - [ ] **P4.4** Footer, sabit WhatsApp CTA, telefon ve yol tarifi kısa yollarını
@@ -1594,6 +1594,37 @@ Araştırma kaynakları:
 **P4.1 kapanış kararı:** Global root kabuğun HTML dili, font yüklemesi,
 metadata, viewport ve manifest temeli hazır. P4.2 aşamasında masaüstü header,
 ana navigasyon ve aktif rota davranışı bu kabuğun üzerine kurulacaktır.
+
+### P4.2 Başlangıç Kontrolü
+
+- [x] Header global layout içinde tüm sayfaların üstünde görünecek şekilde
+      konumlansın.
+- [x] Geçici metinsel `RAIN SOUND` marka kilidi P3.6 kararına uygun kullanılsın.
+- [x] Ana navigasyon verisi merkezi içerik katmanından beslensin.
+- [x] Aktif rota durumu `aria-current="page"` ile erişilebilir tanımlansın.
+- [x] İletişim CTA'sı merkezi WhatsApp bağlantısından beslensin.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P4.2 uygulama notları - 16 Haziran 2026**
+
+- `SiteHeader` bileşeni global root layout içine eklendi; böylece tüm sayfalar
+  aynı üst menü kabuğunu kullanmaya başladı.
+- Logo asset'i henüz gelmediği için P3.6 kararına uygun geçici metinsel marka
+  kilidi kullanıldı. Küçük dairesel `RS` işareti yalnızca geçici arayüz işareti
+  olarak tanımlandı; kalıcı logo/favikon yerine geçmez.
+- `primaryNavigation` merkezi içerik katmanına taşındı. İlk rota seti: Ana
+  Sayfa, Hizmetler, Projeler ve İletişim.
+- Aktif rota durumu `usePathname` ile belirleniyor ve aktif linke
+  `aria-current="page"` atanıyor.
+- Masaüstü navigasyon `64rem` ve üzeri görünür olacak şekilde kuruldu. Mobil
+  menü P4.3 aşamasında focus trap, Escape ve scroll kilidiyle ayrıca
+  geliştirilecektir.
+- Header CTA'sı `generalWhatsAppLink` üzerinden beslendi; WhatsApp mesajı ve URL
+  encoding merkezi şablon sisteminde kalmaya devam ediyor.
+
+**P4.2 kapanış kararı:** Masaüstü header, merkezi navigasyon ve aktif rota
+temeli hazır. P4.3 aşamasında aynı navigasyon verisiyle erişilebilir mobil menü
+davranışı kurulacaktır.
 
 ### P5 - Temel Sayfalar
 
