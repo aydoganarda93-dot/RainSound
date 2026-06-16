@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P2 - İçerik sözleşmesi
-> **Aktif mikro hedef:** P2.3 - Hizmetleri kategori yapısında tanımlama
+> **Aktif mikro hedef:** P2.4 - Demo proje, galeri, video ve before/after veri yapılarını hazırlama
 
 ---
 
@@ -1499,7 +1499,7 @@ Araştırma kaynakları:
       `MediaAsset`, `Testimonial` ve `FAQ` tiplerini tanımla.
 - [x] **P2.2** İşletme ve iletişim bilgilerini tek tip güvenli veri kaynağına
       taşı.
-- [ ] **P2.3** On bir hizmeti Detailing, Koruma, Sound & Tech ve Design &
+- [x] **P2.3** On bir hizmeti Detailing, Koruma, Sound & Tech ve Design &
       Performance kategorileri altında tanımla.
 - [ ] **P2.4** Üç demo proje, galeri, video ve before/after veri yapılarını
       hazırla.
@@ -2409,14 +2409,49 @@ veri kaynağından okunacaktır.
 
 ### P2.3 Başlangıç Kontrolü
 
-- [ ] Hizmet kategorileri P0-P2 kararlarına göre son kez gözden geçirilsin.
-- [ ] İç dış yıkama, seramik kaplama, pasta cila, PPF folyo kaplama, cam filmi,
+- [x] Hizmet kategorileri P0-P2 kararlarına göre son kez gözden geçirilsin.
+- [x] İç dış yıkama, seramik kaplama, pasta cila, PPF folyo kaplama, cam filmi,
       araç kaplama, oto ses ve görüntü sistemleri, oto aksesuar, far tasarımı,
       body kit ve varex egzoz hizmetleri veri katmanına eklensin.
-- [ ] Her hizmet için özet, fayda, süreç, süre notu, fiyat notu, garanti notu,
+- [x] Her hizmet için özet, fayda, süreç, süre notu, fiyat notu, garanti notu,
       medya ihtiyacı ve CTA bağlamı tanımlansın.
-- [ ] Demo metin olduğu açıkça işaretlensin; gerçek uygulama iddiası
+- [x] Demo metin olduğu açıkça işaretlensin; gerçek uygulama iddiası
       oluşturulmasın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P2.3 uygulama notları - 16 Haziran 2026**
+
+- Veri modeli: `Service` tipine `mediaNeeds` ve `ctaContext` alanları eklendi.
+- Hizmet kaynağı: `src/content/fixtures.ts`
+- Kategori sayısı: 4
+- Hizmet sayısı: 11
+- `mediaNeeds` tanımı bulunan hizmet sayısı: 11
+- `ctaContext` tanımı bulunan hizmet sayısı: 11
+- Detailing: iç dış yıkama, pasta cila
+- Koruma: seramik kaplama, PPF folyo kaplama, cam filmi, araç kaplama
+- Sound & Tech: oto ses ve görüntü sistemleri, oto aksesuar
+- Design & Performance: far tasarımı, body kit, varex egzoz
+- Fiyat politikası: fiyat yayınlanmaz; kullanıcı bilgi ve fiyat için
+  WhatsApp'a yönlendirilir.
+- Garanti politikası: genel garanti vaadi yayınlanmaz; ürün/marka/işlem
+  kapsamı netleşmeden kesin garanti ifadesi kullanılmaz.
+- İçerik durumu: metinler demo/tanıtım seviyesindedir, gerçek proje iddiası
+  taşımaz.
+- Doğrulama: `pnpm quality` başarılı.
+
+**P2.3 kapanış kararı:** Hizmet kataloğu artık sayfa geliştirmesi ve ilerideki
+CMS şema tasarımı için yeterli yapısal veriyi taşıyor. Hizmetler gerçek medya
+ve proje referansları gelene kadar demo içerik olarak işaretli kalacaktır.
+
+### P2.4 Başlangıç Kontrolü
+
+- [ ] Üç demo proje için ortak proje verisi oluşturulsun.
+- [ ] Her demo projeye kapak, galeri ve video medya varlıkları bağlansın.
+- [ ] Before/after çifti veri yapısı en az bir demo proje üzerinde
+      doğrulansın.
+- [ ] Proje-hizmet ilişkileri P2.3 hizmet ID'leriyle bağlansın.
+- [ ] Demo proje içerikleri gerçek müşteri sonucu gibi sunulmayacak şekilde
+      işaretlensin.
 - [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
 
 ---
