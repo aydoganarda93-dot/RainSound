@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P4 - Global site kabuğu
-> **Aktif mikro hedef:** P4.1 - Root layout, HTML dil ayarı, metadata temeli ve font yüklemesini tamamlama
+> **Aktif mikro hedef:** P4.2 - Masaüstü header, ana navigasyon ve aktif rota durumunu geliştirme
 
 ---
 
@@ -1544,7 +1544,7 @@ Araştırma kaynakları:
 **Durum:** `Devam Ediyor`
 **Bağımlılık:** P3 tamamlanmış olmalıdır.
 
-- [ ] **P4.1** Root layout, HTML dil ayarı, metadata temeli ve font yüklemesini
+- [x] **P4.1** Root layout, HTML dil ayarı, metadata temeli ve font yüklemesini
       kur.
 - [ ] **P4.2** Masaüstü header, ana navigasyon ve aktif rota durumunu geliştir.
 - [ ] **P4.3** Focus trap, Escape ile kapanma ve scroll kilidi içeren
@@ -1560,6 +1560,40 @@ Araştırma kaynakları:
 - Tüm sayfalar aynı erişilebilir navigasyon ve iletişim kabuğunu kullanır.
 - Mobil menü klavye ve dokunmayla eksiksiz çalışır.
 - Hata durumlarında iletişim yolları erişilebilir kalır.
+
+### P4.1 Başlangıç Kontrolü
+
+- [x] Root layout `lang="tr"` ve merkezi `siteSettings.locale` ile doğrulansın.
+- [x] Font yükleme P3.5 kararlarıyla uyumlu şekilde `next/font` üzerinden
+      korunsun.
+- [x] Metadata temeli merkezi işletme verisinden beslensin.
+- [x] Viewport ve koyu tema davranışı netleştirilsin.
+- [x] Manifest kararı P3.6 logo/favikon kurallarıyla uyumlu şekilde uygulansın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P4.1 uygulama notları - 16 Haziran 2026**
+
+- `siteSettings.siteUrl` merkezi veri kaynağına eklendi ve root metadata için
+  `metadataBase` olarak kullanıldı.
+- Root layout `siteSettings.locale` üzerinden Türkçe HTML dil ayarını koruyor.
+- P3.5'te eklenen Inter `latin` + `latin-ext` font yüklemesi
+  `--font-rain-sans` değişkeniyle korunuyor; yeni bir font kararı
+  oluşturulmadı.
+- Metadata seti `applicationName`, `title`, `description`, `keywords`,
+  `creator`, `publisher`, `category`, canonical URL, Open Graph, Twitter ve
+  robot yönergeleriyle genişletildi.
+- Viewport ayarı `width=device-width`, `initial-scale=1`, koyu tema ve marka
+  theme color değerini içerecek şekilde netleştirildi.
+- `src/app/manifest.ts` ile Next.js manifest route'u eklendi. Manifest adı,
+  kısa adı, açıklaması, dili, start URL, scope, display, background color,
+  theme color ve kategori bilgileri merkezi ayarlardan beslendi.
+- P3.6 kararı gereği logo asset'i gelmeden rastgele/AI favicon veya manifest
+  icon seti eklenmedi. İkonlar, onaylı logo varyantları geldiğinde ayrıca
+  üretilecek.
+
+**P4.1 kapanış kararı:** Global root kabuğun HTML dili, font yüklemesi,
+metadata, viewport ve manifest temeli hazır. P4.2 aşamasında masaüstü header,
+ana navigasyon ve aktif rota davranışı bu kabuğun üzerine kurulacaktır.
 
 ### P5 - Temel Sayfalar
 
