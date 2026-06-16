@@ -6,8 +6,8 @@
 > **Ana mesaj:** Aracın karakterini ortaya çıkar.
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
-> **Mevcut aşama:** P2 - İçerik sözleşmesi
-> **Aktif mikro hedef:** P2.6 - WhatsApp mesaj şablonlarını merkezi olarak tanımlama
+> **Mevcut aşama:** P3 - Tasarım sistemi
+> **Aktif mikro hedef:** P3.1 - Renk, tipografi, spacing, radius, shadow, z-index ve glow token'larını oluşturma
 
 ---
 
@@ -1492,7 +1492,7 @@ Araştırma kaynakları:
 
 ### P2 - İçerik Sözleşmesi
 
-**Durum:** `Devam Ediyor`
+**Durum:** `Tamamlandı`
 **Bağımlılık:** P1 tamamlanmış olmalıdır.
 
 - [x] **P2.1** `SiteSettings`, `ServiceCategory`, `Service`, `Project`,
@@ -1505,7 +1505,7 @@ Araştırma kaynakları:
       hazırla.
 - [x] **P2.5** Demo içerikleri veri seviyesinde açıkça işaretle ve production
       öncesi kontrol edilebilir hale getir.
-- [ ] **P2.6** Genel, hizmet ve proje bağlamlı WhatsApp mesaj şablonlarını
+- [x] **P2.6** Genel, hizmet ve proje bağlamlı WhatsApp mesaj şablonlarını
       merkezi olarak tanımla.
 
 **P2 çıkış kapısı**
@@ -1517,7 +1517,7 @@ Araştırma kaynakları:
 
 ### P3 - Tasarım Sistemi
 
-**Durum:** `Bekliyor`
+**Durum:** `Devam Ediyor`
 **Bağımlılık:** P2 veri sözleşmesi hazır olmalıdır.
 
 - [ ] **P3.1** Renk, tipografi, spacing, radius, shadow, z-index ve glow
@@ -2513,13 +2513,41 @@ mesajları bu içerik sözleşmesine bağlanacaktır.
 
 ### P2.6 Başlangıç Kontrolü
 
-- [ ] Genel iletişim, hizmet detay ve proje detay bağlamları için WhatsApp
+- [x] Genel iletişim, hizmet detay ve proje detay bağlamları için WhatsApp
       mesaj şablonları tanımlansın.
-- [ ] Telefon numarası ve WhatsApp temel URL'si P2.2 merkezi link kaynağıyla
+- [x] Telefon numarası ve WhatsApp temel URL'si P2.2 merkezi link kaynağıyla
       uyumlu kalsın.
-- [ ] Hizmet `ctaContext` alanları mesaj şablonlarına bağlanabilir hale
+- [x] Hizmet `ctaContext` alanları mesaj şablonlarına bağlanabilir hale
       getirilsin.
-- [ ] Mesajlar Türkçe, kısa ve URL encoded üretime uygun tasarlansın.
+- [x] Mesajlar Türkçe, kısa ve URL encoded üretime uygun tasarlansın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P2.6 uygulama notları - 16 Haziran 2026**
+
+- WhatsApp mesaj kaynağı: `src/content/whatsapp.ts`
+- Merkezi temel URL: `businessContactLinks.whatsapp`
+- Genel mesaj: `createGeneralWhatsAppMessage`
+- Hizmet mesajı: `createServiceWhatsAppMessage`
+- Proje mesajı: `createProjectWhatsAppMessage`
+- URL üretimi: `createWhatsAppLink`
+- Encoding: `encodeWhatsAppMessage`
+- Hazır linkler: `generalWhatsAppLink`, `serviceWhatsAppLinks`,
+  `projectWhatsAppLinks`
+- Hizmet CTA bağlantısı: `Service.ctaContext.label` ve
+  `Service.ctaContext.intent` mesaj üretiminde kullanılır.
+- Geçici ana sayfa CTA'sı artık encoded genel WhatsApp mesaj linkini kullanır.
+- Doğrulama: `pnpm quality` başarılı.
+
+**P2.6 kapanış kararı:** Genel, hizmet ve proje WhatsApp mesajları artık
+dağınık linkler yerine merkezi içerik katmanından üretilir. P2 içerik sözleşmesi
+fazı tamamlanmıştır; P3 tasarım sistemi fazına geçilebilir.
+
+### P3.1 Başlangıç Kontrolü
+
+- [ ] Renk tokenları marka yönüne göre tanımlansın.
+- [ ] Tipografi, font ölçüsü ve satır yüksekliği ölçeği oluşturulsun.
+- [ ] Spacing, radius, shadow, z-index ve glow tokenları belirlensin.
+- [ ] Tokenlar Tailwind v4 ve global CSS kullanımına uygun yapılandırılsın.
 - [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
 
 ---
