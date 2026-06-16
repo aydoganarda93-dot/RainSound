@@ -7,7 +7,7 @@
   --color-rain-panel: #202029;
   --color-rain-silver: #f5f4f7;
   --color-rain-muted: #a6a3ad;
-  --color-rain-dim: #77737e;
+  --color-rain-dim: #817d89;
   --color-rain-purple: #8b3dff;
   --color-rain-purple-bright: #b06cff;
   --color-rain-purple-soft: #d9c2ff;
@@ -15,13 +15,14 @@
   --color-rain-warning: #ffd166;
   --color-rain-error: #ff5c7a;
 
-  --font-sans: Arial, Helvetica, sans-serif;
+  --font-sans:
+    var(--font-rain-sans), "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
 
   --text-rain-xs: 0.75rem;
-  --text-rain-sm: 0.82rem;
+  --text-rain-sm: 0.875rem;
   --text-rain-base: 1rem;
-  --text-rain-lg: clamp(1.25rem, 3vw, 2rem);
-  --text-rain-hero: clamp(3rem, 12vw, 7rem);
+  --text-rain-lg: clamp(1.25rem, 2.5vw, 2rem);
+  --text-rain-hero: clamp(2.75rem, 11vw, 7rem);
 
   --spacing-rain-1: 0.625rem;
   --spacing-rain-2: 0.875rem;
@@ -104,6 +105,7 @@
 
 html {
   min-width: 320px;
+  text-size-adjust: 100%;
   background: var(--rain-color-bg);
 }
 
@@ -111,6 +113,10 @@ body {
   min-height: 100vh;
   margin: 0;
   background: var(--rain-page-glow), var(--rain-color-bg);
+  font-size: var(--text-rain-base);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  text-rendering: optimizeLegibility;
 }
 
 button,
@@ -180,7 +186,7 @@ a {
   color: var(--rain-color-accent-strong);
   font-size: var(--text-rain-xs);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -189,6 +195,8 @@ a {
   color: var(--rain-color-fg);
   font-weight: 800;
   letter-spacing: -0.06em;
+  text-wrap: balance;
+  overflow-wrap: normal;
 }
 
 .rain-heading--hero {
@@ -378,6 +386,7 @@ a {
   color: var(--rain-color-fg-muted);
   font-size: var(--text-rain-base);
   line-height: 1.7;
+  text-wrap: pretty;
 }
 
 .development-card__actions {

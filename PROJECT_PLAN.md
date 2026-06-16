@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P3 - Tasarım sistemi
-> **Aktif mikro hedef:** P3.5 - Türkçe karakter, font yükleme, metin ölçekleme ve WCAG AA kontrast kontrollerini yapma
+> **Aktif mikro hedef:** P3.6 - Logo kullanım noktaları ve güvenli boşluk kurallarını hazırlama
 
 ---
 
@@ -1527,7 +1527,7 @@ Araştırma kaynakları:
       temellerini oluştur.
 - [x] **P3.4** Focus, hover, active, loading, disabled ve validation
       durumlarını tanımla.
-- [ ] **P3.5** Türkçe karakter, font yükleme, metin ölçekleme ve WCAG AA
+- [x] **P3.5** Türkçe karakter, font yükleme, metin ölçekleme ve WCAG AA
       kontrast kontrollerini yap.
 - [ ] **P3.6** Tam logo, sembol, monogram ve favicon için bileşen kullanım
       noktalarını ve güvenli boşluk kurallarını hazırla.
@@ -2655,12 +2655,58 @@ kontrast kontrolleri yapılacaktır.
 
 ### P3.5 Başlangıç Kontrolü
 
-- [ ] Türkçe karakter desteği ve font fallback davranışı kontrol edilsin.
-- [ ] Metin ölçekleme ve uzun Türkçe metin davranışları gözden geçirilsin.
-- [ ] WCAG AA kontrast kontrolleri marka renkleri üzerinde belgelensin.
-- [ ] Gerekirse font/token ayarları erişilebilirlik için düzeltilecek şekilde
+- [x] Türkçe karakter desteği ve font fallback davranışı kontrol edilsin.
+- [x] Metin ölçekleme ve uzun Türkçe metin davranışları gözden geçirilsin.
+- [x] WCAG AA kontrast kontrolleri marka renkleri üzerinde belgelensin.
+- [x] Gerekirse font/token ayarları erişilebilirlik için düzeltilecek şekilde
       güncellensin.
-- [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P3.5 uygulama notları - 16 Haziran 2026**
+
+- `next/font/google` ile Inter fontu `latin` ve `latin-ext` subset'leriyle
+  yüklendi; Türkçe karakter desteği ve `font-display: swap` davranışı güvenceye
+  alındı.
+- Font ailesi `--font-rain-sans` değişkeni üzerinden tasarım token sistemine
+  bağlandı; sistem fallback sırası Inter, Segoe UI, Arial, Helvetica ve
+  `sans-serif` olarak korundu.
+- Uzun Türkçe metinlerde taşma riskini azaltmak için gövdeye `overflow-wrap`,
+  başlıklara `text-wrap: balance`, açıklama metinlerine `text-wrap: pretty`
+  eklendi.
+- Mobil tarayıcılarda metin ölçekleme davranışı için `text-size-adjust: 100%`
+  tanımlandı; temel gövde satır yüksekliği okunabilirlik için `1.5` olarak
+  sabitlendi.
+- `--color-rain-dim` rengi `#77737e` değerinden `#817d89` değerine yükseltildi.
+  Böylece siyah zemin üzerindeki düşük öncelikli metin kontrastı 4.40:1
+  seviyesinden yaklaşık 5.07:1 seviyesine taşındı ve normal metin için WCAG AA
+  eşiğini geçti.
+
+**P3.5 kontrast kontrol özeti**
+
+| Kullanım              | Ön plan   | Arka plan | Yaklaşık oran | Sonuç        |
+| --------------------- | --------- | --------- | ------------- | ------------ |
+| Ana metin             | `#f5f4f7` | `#050505` | 18.60:1       | AA/AAA uygun |
+| İkincil metin         | `#a6a3ad` | `#050505` | 8.21:1        | AA/AAA uygun |
+| Düşük öncelikli metin | `#817d89` | `#050505` | 5.07:1        | AA uygun     |
+| Birincil CTA metni    | `#08040f` | `#b06cff` | 6.22:1        | AA uygun     |
+| Mor vurgu metni       | `#d9c2ff` | `#050505` | 12.72:1       | AA/AAA uygun |
+| Başarı metni          | `#3fffa8` | `#050505` | 15.61:1       | AA/AAA uygun |
+| Uyarı metni           | `#ffd166` | `#050505` | 14.14:1       | AA/AAA uygun |
+| Hata metni            | `#ff5c7a` | `#050505` | 6.86:1        | AA uygun     |
+
+**P3.5 kapanış kararı:** Tipografi katmanı Türkçe karakterler, kontrollü font
+yükleme, okunabilir metin ölçeği ve WCAG AA kontrast gereksinimleri için hazır.
+P3.6 aşamasında logo kullanım noktaları, sadeleştirilmiş işaret ihtiyacı ve
+güvenli boşluk kuralları netleştirilecektir.
+
+### P3.6 Başlangıç Kontrolü
+
+- [ ] Mevcut Rain Sound logosunun kullanım noktaları listelensin.
+- [ ] Tam logo, sembol/monogram ve favicon ihtiyacı ayrıştırılsın.
+- [ ] Koyu zemin, kart üstü, header ve mobil kullanım için güvenli boşluk
+      kuralları yazılsın.
+- [ ] Logo dosyası gelene kadar kullanılacak geçici metinsel marka gösterimi
+      belirlensin.
 
 ---
 

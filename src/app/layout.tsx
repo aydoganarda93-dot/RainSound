@@ -1,8 +1,15 @@
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 
 import { siteSettings } from "@/content";
 
 import "./globals.css";
+
+const rainSans = Inter({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-rain-sans",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={siteSettings.locale}>
-      <body className="antialiased">{children}</body>
+      <body className={`${rainSans.variable} antialiased`}>{children}</body>
     </html>
   );
 }
