@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P3 - Tasarım sistemi
-> **Aktif mikro hedef:** P3.2 - Responsive container, grid ve breakpoint sistemini kurma
+> **Aktif mikro hedef:** P3.3 - Button, heading, badge, card, section, link ve icon-button temellerini oluşturma
 
 ---
 
@@ -1522,7 +1522,7 @@ Araştırma kaynakları:
 
 - [x] **P3.1** Renk, tipografi, spacing, radius, shadow, z-index ve glow
       token'larını oluştur.
-- [ ] **P3.2** Responsive container, grid ve breakpoint sistemini kur.
+- [x] **P3.2** Responsive container, grid ve breakpoint sistemini kur.
 - [ ] **P3.3** Button, heading, badge, card, section, link ve icon-button
       temellerini oluştur.
 - [ ] **P3.4** Focus, hover, active, loading, disabled ve validation
@@ -2569,10 +2569,37 @@ P3.2 aşamasında container, grid ve breakpoint davranışları bu token zemini
 
 ### P3.2 Başlangıç Kontrolü
 
-- [ ] Ana container genişlikleri ve yatay padding sistemi tanımlansın.
-- [ ] Responsive grid helper yaklaşımı belirlensin.
-- [ ] Mobil, tablet, laptop ve geniş ekran davranışları netleştirilsin.
-- [ ] Geçici geliştirme ekranı yeni container/spacing düzenine uyarlansın.
+- [x] Ana container genişlikleri ve yatay padding sistemi tanımlansın.
+- [x] Responsive grid helper yaklaşımı belirlensin.
+- [x] Mobil, tablet, laptop ve geniş ekran davranışları netleştirilsin.
+- [x] Geçici geliştirme ekranı yeni container/spacing düzenine uyarlansın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P3.2 uygulama notları - 16 Haziran 2026**
+
+- Layout token kaynağı: `src/app/globals.css`
+- Container utility: `.rain-container`
+- Okunabilir içerik genişliği utility'si: `.rain-container--readable`
+- Responsive grid utility: `.rain-grid`
+- Breakpoint tokenları: `rain-sm`, `rain-md`, `rain-lg`, `rain-xl`
+- Container genişliği: varsayılan `72rem`, geniş ekranda `78rem`
+- Container padding: `clamp(1.25rem, 4vw, 3rem)`
+- Grid kolon yaklaşımı: `auto-fit` ve `minmax(min(100%, var(--rain-grid-min-column)), 1fr)`
+- Geçici geliştirme ekranı `rain-container` ve readable container düzenine
+  taşındı.
+- Doğrulama: `pnpm quality` başarılı.
+
+**P3.2 kapanış kararı:** Sayfa iskeletleri için temel responsive container ve
+grid altyapısı kuruldu. P3.3 aşamasında bu altyapı üstünde reusable arayüz
+primitive'leri tanımlanacaktır.
+
+### P3.3 Başlangıç Kontrolü
+
+- [ ] Button temel varyantları tanımlansın.
+- [ ] Heading ve section başlığı temelleri oluşturulsun.
+- [ ] Badge, card, link ve icon-button primitive sınıfları eklensin.
+- [ ] Geçici geliştirme ekranı uygun primitive'leri kullanacak şekilde
+      uyarlansın.
 - [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
 
 ---
