@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P2 - İçerik sözleşmesi
-> **Aktif mikro hedef:** P2.5 - Demo içerikleri production öncesi kontrol edilebilir hale getirme
+> **Aktif mikro hedef:** P2.6 - WhatsApp mesaj şablonlarını merkezi olarak tanımlama
 
 ---
 
@@ -1503,7 +1503,7 @@ Araştırma kaynakları:
       Performance kategorileri altında tanımla.
 - [x] **P2.4** Üç demo proje, galeri, video ve before/after veri yapılarını
       hazırla.
-- [ ] **P2.5** Demo içerikleri veri seviyesinde açıkça işaretle ve production
+- [x] **P2.5** Demo içerikleri veri seviyesinde açıkça işaretle ve production
       öncesi kontrol edilebilir hale getir.
 - [ ] **P2.6** Genel, hizmet ve proje bağlamlı WhatsApp mesaj şablonlarını
       merkezi olarak tanımla.
@@ -2480,13 +2480,46 @@ netleştirilecektir.
 
 ### P2.5 Başlangıç Kontrolü
 
-- [ ] Demo içerik taşıyan hizmet, proje, medya, yorum ve FAQ kayıtları tek
+- [x] Demo içerik taşıyan hizmet, proje, medya, yorum ve FAQ kayıtları tek
       bakışta raporlanabilir hale getirilsin.
-- [ ] Production öncesi değiştirilmesi zorunlu demo alanları açıkça
+- [x] Production öncesi değiştirilmesi zorunlu demo alanları açıkça
       işaretlensin.
-- [ ] Gerçek içerik ile demo/AI/temsili içerik ayrımı veri seviyesinde
+- [x] Gerçek içerik ile demo/AI/temsili içerik ayrımı veri seviyesinde
       doğrulansın.
-- [ ] Yayın öncesi kontrol listesi `PROJECT_PLAN.md` içinde güncellensin.
+- [x] Yayın öncesi kontrol listesi `PROJECT_PLAN.md` içinde güncellensin.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P2.5 uygulama notları - 16 Haziran 2026**
+
+- Demo denetim kaynağı: `src/content/demo-audit.ts`
+- Denetim tipleri: `DemoAuditItem`, `DemoContentReport`,
+  `DemoAuditCollection`
+- Dışa aktarım noktası: `src/content/index.ts`
+- Raporlanan koleksiyonlar: service category, service, project, media,
+  testimonial ve FAQ
+- `demoContentAuditItems`: tüm denetlenebilir kayıtları listeler.
+- `demoContentProductionBlockers`: production öncesi değiştirilmesi zorunlu
+  demo kayıtları listeler.
+- `demoContentReport.summary.mediaSourceCounts`: `real`, `ai`, `demo` ve
+  `provided` medya ayrımını veri seviyesinde sayar.
+- Tekrarlı kullanılan medya varlıkları ID üzerinden tekilleştirilir.
+- Production kuralı: `replacementRequiredBeforeProduction: true` olan kayıt
+  canlı yayın öncesi çözülmeden yayın kabulü verilmeyecektir.
+- Doğrulama: `pnpm quality` başarılı.
+
+**P2.5 kapanış kararı:** Demo içerik artık yalnızca metin notlarında değil,
+tipli veri raporunda da izlenebilir durumdadır. P2.6 aşamasında WhatsApp CTA
+mesajları bu içerik sözleşmesine bağlanacaktır.
+
+### P2.6 Başlangıç Kontrolü
+
+- [ ] Genel iletişim, hizmet detay ve proje detay bağlamları için WhatsApp
+      mesaj şablonları tanımlansın.
+- [ ] Telefon numarası ve WhatsApp temel URL'si P2.2 merkezi link kaynağıyla
+      uyumlu kalsın.
+- [ ] Hizmet `ctaContext` alanları mesaj şablonlarına bağlanabilir hale
+      getirilsin.
+- [ ] Mesajlar Türkçe, kısa ve URL encoded üretime uygun tasarlansın.
 - [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
 
 ---
@@ -2555,6 +2588,8 @@ kalmaya devam etmelidir.
 - [ ] Tüm hizmetler işletme tarafından onaylı
 - [ ] Fiyat ve garanti ifadeleri doğrulanmış
 - [ ] Proje görselleri izinli
+- [ ] Demo audit raporunda production blocker kalmamış
+- [ ] AI/demo/gerçek medya ayrımı yayın sayfalarında doğru temsil edilmiş
 - [ ] Yazım ve Türkçe karakter kontrolü tamam
 
 ### Tasarım
