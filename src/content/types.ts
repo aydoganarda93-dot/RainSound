@@ -54,6 +54,7 @@ export type SiteSettings = {
   locale: Locale;
   siteName: string;
   legalName: string;
+  siteUrl: string;
   tagline: string;
   description: string;
   address: {
