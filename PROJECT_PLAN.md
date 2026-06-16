@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
 > **Mevcut aşama:** P3 - Tasarım sistemi
-> **Aktif mikro hedef:** P3.4 - Focus, hover, active, loading, disabled ve validation durumlarını tanımlama
+> **Aktif mikro hedef:** P3.5 - Türkçe karakter, font yükleme, metin ölçekleme ve WCAG AA kontrast kontrollerini yapma
 
 ---
 
@@ -1525,7 +1525,7 @@ Araştırma kaynakları:
 - [x] **P3.2** Responsive container, grid ve breakpoint sistemini kur.
 - [x] **P3.3** Button, heading, badge, card, section, link ve icon-button
       temellerini oluştur.
-- [ ] **P3.4** Focus, hover, active, loading, disabled ve validation
+- [x] **P3.4** Focus, hover, active, loading, disabled ve validation
       durumlarını tanımla.
 - [ ] **P3.5** Türkçe karakter, font yükleme, metin ölçekleme ve WCAG AA
       kontrast kontrollerini yap.
@@ -2624,11 +2624,42 @@ disabled ve validation durumları netleştirilecektir.
 
 ### P3.4 Başlangıç Kontrolü
 
-- [ ] Focus ring ve klavye görünürlüğü tanımlansın.
-- [ ] Hover ve active durumları pointer cihazlar için belirlensin.
-- [ ] Loading ve disabled görünümleri primitive sınıflara eklensin.
-- [ ] Validation/success/error/warning durum tokenları ve sınıfları
+- [x] Focus ring ve klavye görünürlüğü tanımlansın.
+- [x] Hover ve active durumları pointer cihazlar için belirlensin.
+- [x] Loading ve disabled görünümleri primitive sınıflara eklensin.
+- [x] Validation/success/error/warning durum tokenları ve sınıfları
       tanımlansın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P3.4 uygulama notları - 16 Haziran 2026**
+
+- Focus tokenları: `--rain-focus-ring`, `--rain-focus-ring-offset`
+- Disabled tokenı: `--rain-state-disabled-opacity`
+- Durum renkleri: `--rain-color-success`, `--rain-color-warning`,
+  `--rain-color-error`
+- Durum border tokenları: `--rain-border-success`, `--rain-border-warning`,
+  `--rain-border-error`
+- Klavye görünürlüğü: `:focus-visible` için global erişilebilir ring
+  tanımlandı.
+- Hover durumları: yalnızca `(hover: hover) and (pointer: fine)` cihazlarda
+  aktif olacak şekilde tanımlandı.
+- Button/icon-button loading ve disabled durumları primitive sınıflara eklendi.
+- Validation sınıfları: `.rain-field--success`, `.rain-field--warning`,
+  `.rain-field--error`, `.rain-state-text--success`,
+  `.rain-state-text--warning`, `.rain-state-text--error`
+- Doğrulama: `pnpm quality` başarılı.
+
+**P3.4 kapanış kararı:** Primitive katmanı artık klavye, pointer ve form durum
+stillerini taşıyor. P3.5 aşamasında Türkçe karakter, font yükleme, ölçekleme ve
+kontrast kontrolleri yapılacaktır.
+
+### P3.5 Başlangıç Kontrolü
+
+- [ ] Türkçe karakter desteği ve font fallback davranışı kontrol edilsin.
+- [ ] Metin ölçekleme ve uzun Türkçe metin davranışları gözden geçirilsin.
+- [ ] WCAG AA kontrast kontrolleri marka renkleri üzerinde belgelensin.
+- [ ] Gerekirse font/token ayarları erişilebilirlik için düzeltilecek şekilde
+      güncellensin.
 - [ ] TypeScript, lint, format ve build kontrolü çalıştırılsın.
 
 ---
