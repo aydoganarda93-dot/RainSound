@@ -2,6 +2,7 @@ import type {
   FAQ,
   MediaAsset,
   Project,
+  ProjectContentReadiness,
   Service,
   ServiceCategory,
   Testimonial,
@@ -97,6 +98,33 @@ const demoProjectMedia = ({
     requiresPrivacyReview: false,
     demo: demoContent(note),
   }) satisfies MediaAsset;
+
+const draftProjectReadiness = ({
+  requiredRealMedia,
+  beforeAfterRequirements,
+}: {
+  requiredRealMedia: string[];
+  beforeAfterRequirements: string[];
+}) =>
+  ({
+    productionCandidate: false,
+    realProjectRequired: true,
+    permissionStatus: "not-started",
+    requiredRealMedia,
+    beforeAfterRequirements,
+    mediaAcceptanceGates: [
+      "Gerçek müşteri/proje medyası eklenecek.",
+      "Araç sahibi yayın izni doğrulanacak.",
+      "Plaka, yüz, konum ve kişisel bilgi kontrolü yapılacak.",
+      "Demo medya production öncesi kaldırılacak veya gerçek içerikle değiştirilecek.",
+      "Her medya için kaynak türü, alt metin ve mobil kırpım kontrolü tamamlanacak.",
+    ],
+    mobileCropRequirements: [
+      "Desktop ve mobil kırpımlar ayrı kontrol edilecek.",
+      "CTA, başlık ve ana özne mobilde kapanmayacak.",
+      "Mobil kırpımda plaka, yüz veya konum bilgisi yeni görünür hale gelmeyecek.",
+    ],
+  }) satisfies ProjectContentReadiness;
 
 export const services = [
   {
@@ -636,6 +664,19 @@ export const projects = [
     ],
     privacyReviewed: false,
     publishPermissionConfirmed: false,
+    contentReadiness: draftProjectReadiness({
+      requiredRealMedia: [
+        "Gerçek koruma/detailing proje kapak fotoğrafı",
+        "Seramik kaplama veya pasta cila kaporta yansıması yakın planı",
+        "PPF uygulama detay fotoğrafı",
+        "Kısa dikey teslim veya walkaround videosu",
+      ],
+      beforeAfterRequirements: [
+        "Aynı araç, aynı açı ve benzer ışıkta işlem öncesi fotoğraf",
+        "Aynı kadrajda işlem sonrası parlaklık/koruma sonucu",
+        "Before/after çiftinde plaka ve kişisel bilgi kontrolü",
+      ],
+    }),
     status: "draft",
     demo: demoContent(
       "Gerçek müşteri aracı değildir; tasarım ve veri akışı testi için tutulur.",
@@ -720,6 +761,19 @@ export const projects = [
     ],
     privacyReviewed: false,
     publishPermissionConfirmed: false,
+    contentReadiness: draftProjectReadiness({
+      requiredRealMedia: [
+        "Gerçek ses sistemi veya multimedya proje kapak fotoğrafı",
+        "Ürün yakın planı ve marka/ürün kullanım izni kontrolü",
+        "Montaj öncesi/sonrası bagaj veya konsol fotoğrafı",
+        "Kullanıcı kontrollü kısa sistem demo videosu",
+      ],
+      beforeAfterRequirements: [
+        "Montaj öncesi araç içi veya bagaj görünümü",
+        "Montaj sonrası aynı bölgenin temiz ve düzenli görünümü",
+        "Ürün/fiyat/stok iddiası oluşturmayan açıklama ve alt metin",
+      ],
+    }),
     status: "draft",
     demo: demoContent(
       "Gerçek müşteri aracı değildir; ses sistemi proje akışı için demo içeriktir.",
@@ -809,6 +863,19 @@ export const projects = [
     ],
     privacyReviewed: false,
     publishPermissionConfirmed: false,
+    contentReadiness: draftProjectReadiness({
+      requiredRealMedia: [
+        "Gerçek design/performance proje kapak fotoğrafı",
+        "Far tasarımı açık/kapalı yakın planı",
+        "Body kit veya araç kaplama dış görünüm fotoğrafı",
+        "Egzoz veya reveal için kısa dikey video",
+      ],
+      beforeAfterRequirements: [
+        "Ön görünüm için işlem öncesi ve sonrası aynı açı",
+        "Far/body kit/kaplama değişimini net gösteren karşılaştırma",
+        "Plaka, konum ve tanınabilir kişisel bilgi kontrolü",
+      ],
+    }),
     status: "draft",
     demo: demoContent(
       "Gerçek müşteri aracı değildir; tasarım/performance proje akışı için demo içeriktir.",

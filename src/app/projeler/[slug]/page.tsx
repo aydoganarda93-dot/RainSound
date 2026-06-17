@@ -10,6 +10,8 @@ import {
   siteSettings,
 } from "@/content";
 import type { MediaAsset, Project } from "@/content";
+import { BeforeAfterViewer } from "@/components/before-after-viewer";
+import { ProjectVideoGallery } from "@/components/project-video-gallery";
 
 type ProjectDetailPageProps = {
   params: Promise<{
@@ -39,30 +41,103 @@ const getAssetTypeLabel = (asset: MediaAsset) => {
   return "Görsel";
 };
 
-const MediaInventoryCard = ({ asset }: { asset: MediaAsset }) => (
-  <article className="rain-card project-media-card">
-    <p className="rain-badge">{getAssetTypeLabel(asset)}</p>
-    <h3>{asset.alt}</h3>
+const getAssetSourceLabel = (asset: MediaAsset) => {
+  const labels: Record<MediaAsset["source"], string> = {
+    ai: "AI atmosfer",
+    demo: "Demo medya",
+    provided: "Sağlanan medya",
+    real: "Gerçek medya",
+  };
+
+  return labels[asset.source];
+};
+
+const getAssetPermissionLabel = (asset: MediaAsset) => {
+  if (!asset.hasUsagePermission) {
+    return "İzin bekleniyor";
+  }
+
+  if (asset.requiresPrivacyReview) {
+    return "Gizlilik kontrolü gerekli";
+  }
+
+  return "Kullanım uygun";
+};
+
+const getAssetDimensions = (asset: MediaAsset) => {
+  if (!asset.width || !asset.height) {
+    return "Ölçü bekleniyor";
+  }
+
+  return `${asset.width}x${asset.height}`;
+};
+
+const getProductionCandidateLabel = (project: Project) =>
+  project.contentReadiness.productionCandidate
+    ? "Production adayı"
+    : "Taslak demo kayıt";
+
+const MediaInventoryCard = ({
+  asset,
+  featured = false,
+}: {
+  asset: MediaAsset;
+  featured?: boolean;
+}) => (
+  <article
+    className={
+      featured
+        ? "rain-card project-media-card project-media-card--featured"
+        : "rain-card project-media-card"
+    }
+  >
+    <div className="project-media-card__preview" aria-hidden="true">
+      <span>{getAssetTypeLabel(asset)}</span>
+      <strong>{asset.kind === "video" ? "Video" : "Preview"}</strong>
+      <small>{getAssetDimensions(asset)}</small>
+    </div>
+
+    <div className="project-media-card__body">
+      <div className="project-media-card__status-row">
+        <span className="project-media-card__pill">
+          {getAssetSourceLabel(asset)}
+        </span>
+        <span className="project-media-card__pill">
+          {getAssetPermissionLabel(asset)}
+        </span>
+        {asset.demo.replacementRequiredBeforeProduction ? (
+          <span className="project-media-card__pill project-media-card__pill--warning">
+            Production öncesi değişecek
+          </span>
+        ) : null}
+      </div>
+
+      <p className="rain-badge">{getAssetTypeLabel(asset)}</p>
+      <h3>{asset.alt}</h3>
+    </div>
+
     <dl className="project-media-card__meta">
       <div>
         <dt>Kaynak</dt>
-        <dd>{asset.source}</dd>
+        <dd>{getAssetSourceLabel(asset)}</dd>
       </div>
       <div>
         <dt>Dosya</dt>
         <dd>{asset.src}</dd>
       </div>
+      {asset.posterSrc ? (
+        <div>
+          <dt>Poster</dt>
+          <dd>{asset.posterSrc}</dd>
+        </div>
+      ) : null}
       <div>
-        <dt>İzin</dt>
-        <dd>{asset.hasUsagePermission ? "Kullanım izni var" : "Bekleniyor"}</dd>
+        <dt>Ölçü</dt>
+        <dd>{getAssetDimensions(asset)}</dd>
       </div>
       <div>
-        <dt>Gizlilik</dt>
-        <dd>
-          {asset.requiresPrivacyReview
-            ? "Gizlilik kontrolü gerekli"
-            : "Ek gizlilik kontrolü gerekmiyor"}
-        </dd>
+        <dt>Durum</dt>
+        <dd>{getAssetPermissionLabel(asset)}</dd>
       </div>
     </dl>
     {asset.demo.note ? (
@@ -185,8 +260,74 @@ export default async function ProjectDetailPage({
                     : "Production öncesi kontrol edilecek"}
                 </dd>
               </div>
+              <div>
+                <dt>Yayın durumu</dt>
+                <dd>{getProductionCandidateLabel(project)}</dd>
+              </div>
             </dl>
           </aside>
+        </div>
+      </section>
+
+      <section
+        className="rain-section"
+        aria-labelledby="project-readiness-title"
+      >
+        <div className="rain-container home-section-heading">
+          <p className="rain-badge">Production Hazırlığı</p>
+          <h2
+            id="project-readiness-title"
+            className="rain-heading rain-heading--section"
+          >
+            Gerçek proje geldiğinde doldurulacak alanlar.
+          </h2>
+          <p>
+            Bu kayıt şimdilik gerçek müşteri projesi değildir. Yayına aday hale
+            gelmesi için medya, izin, before/after ve mobil kırpım kapılarından
+            geçmelidir.
+          </p>
+        </div>
+
+        <div className="rain-container rain-grid">
+          <article className="rain-card">
+            <p className="rain-badge">Gerçek Medya</p>
+            <h3>Gerekli proje dosyaları</h3>
+            <ul className="project-detail-list">
+              {project.contentReadiness.requiredRealMedia.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="rain-card">
+            <p className="rain-badge">Before / After</p>
+            <h3>Karşılaştırma gereksinimleri</h3>
+            <ul className="project-detail-list">
+              {project.contentReadiness.beforeAfterRequirements.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="rain-card">
+            <p className="rain-badge">Kabul Kapıları</p>
+            <h3>Yayın öncesi kontroller</h3>
+            <ul className="project-detail-list">
+              {project.contentReadiness.mediaAcceptanceGates.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="rain-card">
+            <p className="rain-badge">Mobil Kırpım</p>
+            <h3>Küçük ekran kontrolleri</h3>
+            <ul className="project-detail-list">
+              {project.contentReadiness.mobileCropRequirements.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
         </div>
       </section>
 
@@ -256,8 +397,12 @@ export default async function ProjectDetailPage({
 
         {mediaAssets.length > 0 ? (
           <div className="rain-container rain-grid project-media-grid">
-            {mediaAssets.map((asset) => (
-              <MediaInventoryCard key={asset.id} asset={asset} />
+            {mediaAssets.map((asset, index) => (
+              <MediaInventoryCard
+                key={asset.id}
+                asset={asset}
+                featured={index === 0}
+              />
             ))}
           </div>
         ) : (
@@ -289,16 +434,9 @@ export default async function ProjectDetailPage({
         </div>
 
         {project.beforeAfter.length > 0 ? (
-          <div className="rain-container rain-grid">
+          <div className="rain-container project-before-after-list">
             {project.beforeAfter.map((pair) => (
-              <article key={pair.id} className="rain-card project-before-after">
-                <p className="rain-badge">Karşılaştırma</p>
-                <h3>{pair.label}</h3>
-                <div className="project-before-after__grid">
-                  <MediaInventoryCard asset={pair.before} />
-                  <MediaInventoryCard asset={pair.after} />
-                </div>
-              </article>
+              <BeforeAfterViewer key={pair.id} pair={pair} />
             ))}
           </div>
         ) : (
@@ -314,6 +452,8 @@ export default async function ProjectDetailPage({
           </div>
         )}
       </section>
+
+      <ProjectVideoGallery videos={videoAssets} />
 
       <section className="rain-section project-detail-final-cta">
         <div className="rain-container rain-card project-detail-final-cta__card">

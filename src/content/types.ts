@@ -158,6 +158,22 @@ export type BeforeAfterPair = {
   label: string;
 };
 
+export type ProjectPermissionStatus =
+  | "not-started"
+  | "pending"
+  | "confirmed"
+  | "not-required";
+
+export type ProjectContentReadiness = {
+  productionCandidate: boolean;
+  realProjectRequired: boolean;
+  permissionStatus: ProjectPermissionStatus;
+  requiredRealMedia: string[];
+  beforeAfterRequirements: string[];
+  mediaAcceptanceGates: string[];
+  mobileCropRequirements: string[];
+};
+
 export type Project = {
   id: string;
   slug: Slug;
@@ -171,6 +187,7 @@ export type Project = {
   completedAt?: string;
   privacyReviewed: boolean;
   publishPermissionConfirmed: boolean;
+  contentReadiness: ProjectContentReadiness;
   status: PublishStatus;
   demo: DemoState;
 };

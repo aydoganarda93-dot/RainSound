@@ -33,6 +33,11 @@ const getPermissionLabel = (project: Project) => {
   return "Yayın öncesi izin kontrolü gerekli";
 };
 
+const getProductionCandidateLabel = (project: Project) =>
+  project.contentReadiness.productionCandidate
+    ? "Production adayı"
+    : "Taslak demo kayıt";
+
 export default function ProjectsPage() {
   return (
     <main className="projects-page">
@@ -113,6 +118,10 @@ export default function ProjectsPage() {
                   <div>
                     <dt>İzin</dt>
                     <dd>{getPermissionLabel(project)}</dd>
+                  </div>
+                  <div>
+                    <dt>Yayın</dt>
+                    <dd>{getProductionCandidateLabel(project)}</dd>
                   </div>
                 </dl>
 
