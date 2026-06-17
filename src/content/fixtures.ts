@@ -110,6 +110,31 @@ const draftProjectReadiness = ({
     productionCandidate: false,
     realProjectRequired: true,
     permissionStatus: "not-started",
+    productionBlockers: [
+      "Gerçek proje medyası henüz yok.",
+      "Araç sahibi yayın izni doğrulanmadı.",
+      "Plaka, yüz, konum ve kişisel bilgi kontrolü yapılmadı.",
+      "Demo medya production güven kanıtı olarak değişmeden kullanılamaz.",
+      "Görsel/video performans bütçesi gerçek dosyalarla doğrulanmadı.",
+    ],
+    privacyChecklist: [
+      "Plaka görünüyorsa bulanıklaştırma, kırpma veya açık izin uygulanacak.",
+      "Yüz, kişi silüeti veya müşteri kimliği görünüyorsa yayın izni alınacak.",
+      "Konum, ev/iş yeri, belge, telefon veya kişisel veri içeren detaylar kaldırılacak.",
+      "Araç sahibi onayı olmadan gerçek müşteri aracı portfolyo kanıtı yapılmayacak.",
+    ],
+    permissionChecklist: [
+      "Araç sahibi veya işletme yetkilisi yayın iznini doğrulayacak.",
+      "Kullanılan ürün/marka görsellerinde yanıltıcı stok/fiyat iddiası kurulmayacak.",
+      "Before/after çiftleri aynı araç ve aynı işlem için izinli şekilde kullanılacak.",
+      "Medya kaynağı `real`, `provided`, `ai` veya `demo` olarak envantere işlenecek.",
+    ],
+    performanceChecklist: [
+      "Kapak ve galeri görselleri AVIF/WebP türevleriyle optimize edilecek.",
+      "Video dosyaları WebM/MP4, posterli ve otomatik ses başlatmadan sunulacak.",
+      "Hero dışı proje medyası ilk yüklemede gereksiz yüksek öncelik taşımayacak.",
+      "Mobil kırpım ve dosya ağırlığı P6.5 hedefleriyle kontrol edilecek.",
+    ],
     requiredRealMedia,
     beforeAfterRequirements,
     mediaAcceptanceGates: [

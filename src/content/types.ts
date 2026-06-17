@@ -110,6 +110,40 @@ export type MediaAsset = {
   demo: DemoState;
 };
 
+export type HeroMediaLayerRole =
+  | "vehicle-base"
+  | "headlights-off"
+  | "headlights-on"
+  | "smoke"
+  | "light-sweep"
+  | "poster";
+
+export type HeroMediaLayer = {
+  id: string;
+  label: string;
+  role: HeroMediaLayerRole;
+  plannedSrc: string;
+  source: MediaSource;
+  status: "planned" | "placeholder" | "ready";
+  description: string;
+  alt: string;
+  demo: DemoState;
+};
+
+export type HeroMediaScene = {
+  id: string;
+  title: string;
+  description: string;
+  poster: MediaAsset;
+  layers: HeroMediaLayer[];
+  fallback: {
+    reducedMotionLabel: string;
+    lowConnectionLabel: string;
+    note: string;
+  };
+  demo: DemoState;
+};
+
 export type ServiceCategory = {
   id: string;
   slug: Slug;
@@ -168,6 +202,10 @@ export type ProjectContentReadiness = {
   productionCandidate: boolean;
   realProjectRequired: boolean;
   permissionStatus: ProjectPermissionStatus;
+  productionBlockers: string[];
+  privacyChecklist: string[];
+  permissionChecklist: string[];
+  performanceChecklist: string[];
   requiredRealMedia: string[];
   beforeAfterRequirements: string[];
   mediaAcceptanceGates: string[];
@@ -217,6 +255,7 @@ export type DemoAuditCollection =
   | "service-category"
   | "service"
   | "project"
+  | "project-readiness"
   | "media"
   | "testimonial"
   | "faq";

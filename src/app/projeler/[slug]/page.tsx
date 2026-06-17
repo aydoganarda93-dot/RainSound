@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import {
+  getServiceWhatsAppLink,
   getProjectWhatsAppLink,
   projects,
   serviceCategories,
@@ -24,6 +25,21 @@ const getProjectBySlug = (slug: string) =>
 
 const getProjectServices = (project: Project) =>
   services.filter((service) => project.serviceIds.includes(service.id));
+
+const getSuggestedServices = (project: Project) => {
+  const projectServices = getProjectServices(project);
+  const suggestedServiceIds = new Set(
+    projectServices.flatMap((service) => service.relatedServiceIds),
+  );
+
+  return services
+    .filter(
+      (service) =>
+        suggestedServiceIds.has(service.id) &&
+        !project.serviceIds.includes(service.id),
+    )
+    .slice(0, 4);
+};
 
 const getServiceCategoryTitle = (categoryId: string) =>
   serviceCategories.find((category) => category.id === categoryId)?.title ??
@@ -181,6 +197,7 @@ export default async function ProjectDetailPage({
   }
 
   const projectServices = getProjectServices(project);
+  const suggestedServices = getSuggestedServices(project);
   const whatsappLink = getProjectWhatsAppLink(project);
   const videoAssets = project.gallery.filter((asset) => asset.kind === "video");
   const imageAssets = project.gallery.filter((asset) => asset.kind === "image");
@@ -290,6 +307,16 @@ export default async function ProjectDetailPage({
 
         <div className="rain-container rain-grid">
           <article className="rain-card">
+            <p className="rain-badge">Production Blocker</p>
+            <h3>Yayına engel durumlar</h3>
+            <ul className="project-detail-list">
+              {project.contentReadiness.productionBlockers.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="rain-card">
             <p className="rain-badge">Gerçek Medya</p>
             <h3>Gerekli proje dosyaları</h3>
             <ul className="project-detail-list">
@@ -328,6 +355,36 @@ export default async function ProjectDetailPage({
               ))}
             </ul>
           </article>
+
+          <article className="rain-card">
+            <p className="rain-badge">Gizlilik</p>
+            <h3>Plaka ve kişisel bilgi kontrolü</h3>
+            <ul className="project-detail-list">
+              {project.contentReadiness.privacyChecklist.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="rain-card">
+            <p className="rain-badge">İzin</p>
+            <h3>Medya kullanım izni</h3>
+            <ul className="project-detail-list">
+              {project.contentReadiness.permissionChecklist.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="rain-card">
+            <p className="rain-badge">Performans</p>
+            <h3>Görsel/video bütçesi</h3>
+            <ul className="project-detail-list">
+              {project.contentReadiness.performanceChecklist.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
         </div>
       </section>
 
@@ -347,24 +404,40 @@ export default async function ProjectDetailPage({
 
         {projectServices.length > 0 ? (
           <div className="rain-container rain-grid">
-            {projectServices.map((service) => (
-              <article
-                key={service.id}
-                className="rain-card project-service-card"
-              >
-                <p className="rain-badge">
-                  {getServiceCategoryTitle(service.categoryId)}
-                </p>
-                <h3>{service.title}</h3>
-                <p>{service.summary}</p>
-                <Link
-                  className="rain-button rain-button--secondary"
-                  href={`/hizmetler/${service.slug}`}
+            {projectServices.map((service) => {
+              const serviceWhatsAppLink = getServiceWhatsAppLink(service);
+
+              return (
+                <article
+                  key={service.id}
+                  className="rain-card project-service-card"
                 >
-                  Hizmeti İncele
-                </Link>
-              </article>
-            ))}
+                  <p className="rain-badge">
+                    {getServiceCategoryTitle(service.categoryId)}
+                  </p>
+                  <h3>{service.title}</h3>
+                  <p>{service.summary}</p>
+                  <div className="project-service-card__context">
+                    <strong>{service.ctaContext.label}</strong>
+                    <span>{service.ctaContext.messageHint}</span>
+                  </div>
+                  <div className="project-service-card__actions">
+                    <Link
+                      className="rain-button rain-button--secondary"
+                      href={`/hizmetler/${service.slug}`}
+                    >
+                      Hizmeti İncele
+                    </Link>
+                    <a
+                      className="rain-button rain-button--primary"
+                      href={serviceWhatsAppLink.href}
+                    >
+                      Hizmete Özel Sor
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         ) : (
           <div className="rain-container">
@@ -378,6 +451,57 @@ export default async function ProjectDetailPage({
             </article>
           </div>
         )}
+      </section>
+
+      <section className="rain-section" aria-labelledby="project-context-title">
+        <div className="rain-container project-context-grid">
+          <article className="rain-card project-whatsapp-context">
+            <p className="rain-badge">WhatsApp Bağlamı</p>
+            <h2
+              id="project-context-title"
+              className="rain-heading rain-heading--section"
+            >
+              Mesaj, bu projedeki hizmetlerle birlikte açılır.
+            </h2>
+            <p>
+              Kullanıcı WhatsApp&apos;a geçtiğinde proje adı, bağlı hizmetler ve
+              hizmetlerin talep bağlamı mesaj içinde hazır gelir.
+            </p>
+            <pre>{whatsappLink.message}</pre>
+            <a
+              className="rain-button rain-button--primary"
+              href={whatsappLink.href}
+            >
+              {whatsappLink.label}
+            </a>
+          </article>
+
+          <article className="rain-card project-suggested-services">
+            <p className="rain-badge">Benzer Hizmetler</p>
+            <h2 className="rain-heading rain-heading--section">
+              Bu akışla birlikte düşünülebilecek hizmetler.
+            </h2>
+            {suggestedServices.length > 0 ? (
+              <div className="project-suggested-services__list">
+                {suggestedServices.map((service) => (
+                  <Link
+                    key={service.id}
+                    className="rain-link"
+                    href={`/hizmetler/${service.slug}`}
+                  >
+                    {getServiceCategoryTitle(service.categoryId)} /{" "}
+                    {service.title}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p>
+                Bu demo proje için ek hizmet önerisi yok; gerçek proje
+                geldiğinde hizmet ilişkileri yeniden değerlendirilecek.
+              </p>
+            )}
+          </article>
+        </div>
       </section>
 
       <section className="rain-section" aria-labelledby="project-gallery-title">

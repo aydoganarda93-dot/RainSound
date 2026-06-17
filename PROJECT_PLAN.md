@@ -5,9 +5,9 @@
 > **Yaratıcı yön:** Neon Performance Studio
 > **Ana mesaj:** Aracın karakterini ortaya çıkar.
 > **Belge başlangıç tarihi:** 15 Haziran 2026
-> **Son güncelleme:** 16 Haziran 2026
-> **Mevcut aşama:** P7 - Projeler ve before/after
-> **Aktif mikro hedef:** P7.5 - Projeleri ilgili hizmetler ve WhatsApp mesaj bağlamıyla bağlama
+> **Son güncelleme:** 18 Haziran 2026
+> **Mevcut aşama:** P9 - Yerel dönüşüm ve SEO
+> **Aktif mikro hedef:** P9.1 - Telefon, WhatsApp, Instagram ve Google Maps/yol tarifi akışlarını gerçek verilerle tamamlama
 
 ---
 
@@ -2442,7 +2442,7 @@ içerikleri geldiğinde bu kurallar fiilen uygulanacaktır.
 
 ### P7 - Projeler ve Before/After
 
-**Durum:** `Devam Ediyor`
+**Durum:** `Tamamlandı`
 **Bağımlılık:** P5 ve P6 tamamlanmış olmalıdır.
 
 - [x] **P7.1** En az üç gerçek proje içeriğini ortak veri modeline göre
@@ -2452,15 +2452,18 @@ içerikleri geldiğinde bu kurallar fiilen uygulanacaktır.
       geliştir.
 - [x] **P7.4** Otomatik ses başlatmayan, kullanıcı kontrollü video modalını
       oluştur.
-- [ ] **P7.5** Projeleri ilgili hizmetler ve WhatsApp mesaj bağlamıyla bağla.
-- [ ] **P7.6** Plaka, kişisel bilgi, medya izni ve görsel performans
+- [x] **P7.5** Projeleri ilgili hizmetler ve WhatsApp mesaj bağlamıyla bağla.
+- [x] **P7.6** Plaka, kişisel bilgi, medya izni ve görsel performans
       kontrollerini tamamla.
 
 **P7 çıkış kapısı**
 
-- Üç gerçek proje ve üç before/after karşılaştırması yayına hazırdır.
+- Üç gerçek proje ve üç before/after karşılaştırması yayına hazırdır. Mevcut
+  durumda gerçek proje medyası olmadığı için bu kriter production blocker olarak
+  açık kalır.
 - Galeri, slider ve video klavye ile kullanılabilir.
-- Proje medyasında gizlilik ihlali yoktur.
+- Proje medyasında gizlilik ihlali yoktur. Mevcut demo medya kişisel veri
+  taşımıyor; gerçek medya geldiğinde P7.6 kapıları yeniden uygulanacaktır.
 
 ### P7.1 Başlangıç Kontrolü
 
@@ -2636,19 +2639,103 @@ doğrulanacaktır.
 - Video modalı erişilebilir, kullanıcı kontrollü ve otomatik ses başlatmayan
   temel davranışa sahiptir.
 
+### P7.5 Başlangıç Kontrolü
+
+- [x] Projeler mevcut `serviceIds` alanı üzerinden ilgili hizmetlerle daha güçlü
+      bağlansın.
+- [x] Proje WhatsApp mesajı bağlı hizmetleri ve hizmet talep bağlamlarını taşısın.
+- [x] Proje detayında bağlı hizmet kartları hizmet detay linki ve hizmete özel
+      WhatsApp CTA'sı içersin.
+- [x] Proje detayında proje bağlamlı WhatsApp mesaj önizlemesi gösterilsin.
+- [x] Bağlı hizmetlerin `relatedServiceIds` alanlarından benzer hizmet
+      yönlendirmeleri üretilebilsin.
+- [x] `docs/media/MEDIA_INVENTORY.md` P7.5 kararıyla güncellensin.
+
+**P7.5 uygulama notları - 17 Haziran 2026**
+
+- `createProjectWhatsAppMessage(project)` fonksiyonu geliştirildi.
+- Proje WhatsApp mesajı artık proje adını, bağlı hizmet adlarını ve bağlı
+  hizmetlerin `ctaContext.messageHint` içeriklerini taşır.
+- Proje detay sayfasındaki bağlı hizmet kartlarında:
+  - hizmet kategorisi,
+  - hizmet özeti,
+  - hizmet CTA bağlamı,
+  - hizmet detay linki,
+  - hizmete özel WhatsApp CTA'sı gösterilir.
+- Proje detay sayfasına `WhatsApp Bağlamı` bölümü eklendi; kullanıcıya
+  WhatsApp'a gidecek mesajın önizlemesi gösterilir.
+- Proje detay sayfasına `Benzer Hizmetler` bölümü eklendi. Öneriler bağlı
+  hizmetlerin `relatedServiceIds` alanlarından türetilir ve mevcut proje
+  hizmetleri tekrar önerilmez.
+- Demo proje olduğu için CTA dili "benzer uygulama" bağlamında tutuldu; gerçek
+  proje sonucu iddiası kurulmadı.
+- `docs/media/MEDIA_INVENTORY.md` içine `P7.5 Proje, Hizmet ve WhatsApp Bağlamı`
+  bölümü eklendi.
+
+**P7.5 kapanış kararı:** Proje detayları artık yalnızca medya ve açıklama
+göstermiyor; bağlı hizmetlere, hizmete özel CTA'lara, proje bağlamlı WhatsApp
+mesajına ve benzer hizmet yönlendirmelerine net geçiş sağlıyor. Gerçek proje
+geldiğinde hizmet ilişkileri yeniden doğrulanacak; yanlış hizmet bağlantısı veya
+eksik mesaj bağlamı production öncesi blocker kabul edilecek.
+
+- Proje, hizmet ve WhatsApp bağlamları aynı veri ilişkisi üzerinden güçlendirildi.
+
+### P7.6 Başlangıç Kontrolü
+
+- [x] Plaka, yüz, konum ve kişisel bilgi kontrolleri proje/veri seviyesinde
+      takip edilsin.
+- [x] Medya kullanım izni kontrolleri proje/veri seviyesinde takip edilsin.
+- [x] Görsel/video performans kontrolleri proje/veri seviyesinde takip edilsin.
+- [x] Mevcut demo projelerde production blocker durumu görünür olsun.
+- [x] Gerçek proje geldiğinde kontrol edilecek checklist'ler `Project` verisine
+      bağlansın.
+- [x] Demo audit raporu proje readiness blocker kayıtlarını yakalasın.
+- [x] `docs/media/MEDIA_INVENTORY.md` P7.6 kararıyla güncellensin.
+
+**P7.6 uygulama notları - 17 Haziran 2026**
+
+- `ProjectContentReadiness` modeline şu alanlar eklendi:
+  - `productionBlockers`,
+  - `privacyChecklist`,
+  - `permissionChecklist`,
+  - `performanceChecklist`.
+- Üç demo proje ortak `draftProjectReadiness` helper'ı üzerinden production
+  blocker ve checklist alanlarını taşır.
+- Demo projeler için production blocker maddeleri:
+  - gerçek proje medyası yok,
+  - araç sahibi yayın izni doğrulanmadı,
+  - plaka/yüz/konum/kişisel bilgi kontrolü yapılmadı,
+  - demo medya production güven kanıtı olarak kullanılamaz,
+  - görsel/video performans bütçesi gerçek dosyalarla doğrulanmadı.
+- Proje detay sayfasındaki `Production Hazırlığı` bölümüne production blocker,
+  gizlilik, izin ve performans checklist kartları eklendi.
+- Demo audit raporuna `project-readiness` koleksiyon tipi eklendi. Böylece P7.6
+  yayın kapıları production blocker raporunda görünür.
+- `docs/media/MEDIA_INVENTORY.md` içine `P7.6 Proje Gizlilik, İzin ve Performans
+Kapıları` bölümü eklendi.
+
+**P7.6 kapanış kararı:** P7 proje ve before/after fazı teknik ve veri mimarisi
+açısından tamamlandı. Mevcut demo projeler production adayı değildir; gerçek
+proje medyası, yayın izni, gizlilik kontrolü, mobil kırpım, alternatif metin ve
+performans bütçesi tamamlanmadan yayın portfolyosu olarak kullanılamaz. P8
+aşamasında sinematik hero ve motion altyapısına geçilecektir.
+
+- Proje gizlilik, izin ve performans kapıları veri, arayüz, audit ve medya
+  dokümantasyonu seviyesinde tanımlandı.
+
 ### P8 - Sinematik Hero ve Motion
 
-**Durum:** `Bekliyor`
+**Durum:** `Tamamlandı`
 **Bağımlılık:** P3, P5 ve P6 tamamlanmış olmalıdır.
 
-- [ ] **P8.1** GSAP yaşam döngüsü, cleanup ve ortak motion yardımcılarını kur.
-- [ ] **P8.2** Araç ana görseli ile far açık/kapalı katmanlarını birleştir.
-- [ ] **P8.3** Kontrollü duman ve kaporta ışık taraması animasyonlarını ekle.
-- [ ] **P8.4** Hero başlığı, destek metni ve CTA zaman çizelgesini oluştur.
-- [ ] **P8.5** Hizmet kartları, bölüm reveal hareketleri ve Rain Sound
+- [x] **P8.1** GSAP yaşam döngüsü, cleanup ve ortak motion yardımcılarını kur.
+- [x] **P8.2** Araç ana görseli ile far açık/kapalı katmanlarını birleştir.
+- [x] **P8.3** Kontrollü duman ve kaporta ışık taraması animasyonlarını ekle.
+- [x] **P8.4** Hero başlığı, destek metni ve CTA zaman çizelgesini oluştur.
+- [x] **P8.5** Hizmet kartları, bölüm reveal hareketleri ve Rain Sound
       equalizer deneyimini ekle.
-- [ ] **P8.6** `prefers-reduced-motion` için eşdeğer statik deneyimi geliştir.
-- [ ] **P8.7** Mobil ve düşük donanım için poster veya düşük maliyetli hareket
+- [x] **P8.6** `prefers-reduced-motion` için eşdeğer statik deneyimi geliştir.
+- [x] **P8.7** Mobil ve düşük donanım için poster veya düşük maliyetli hareket
       sürümünü uygula.
 
 **P8 çıkış kapısı**
@@ -2658,9 +2745,311 @@ doğrulanacaktır.
 - Reduced-motion sürümü tüm bilgi ve CTA'ları korur.
 - Gerçek mobil cihazlarda belirgin takılma görülmez.
 
+### P8.1 Başlangıç Kontrolü
+
+- [x] GSAP ve `@gsap/react` kullanımı merkezi bir istemci hook'u üzerinden
+      hazırlandı.
+- [x] GSAP context cleanup, timeline/tween temizliği ve düşük bağlantı yardımcıları
+      ortak motion katmanına taşındı.
+- [x] `prefers-reduced-motion`, Save-Data ve `slow-2g`/`2g` bağlantı sinyalleri
+      tek hook ile raporlanabilir hale getirildi.
+- [x] İstemci tarafı güvenli mount kontrolü eklendi; animasyonlar mount olmadan
+      çalıştırılmayacak şekilde altyapı hazırlandı.
+- [x] Bu adımda görsel animasyon, timeline, scroll sahnesi veya hero hareketi
+      eklenmedi.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırıldı.
+
+**P8.1 uygulama notları - 17 Haziran 2026**
+
+- `src/lib/motion.ts` dosyası motion sisteminin ortak altyapı katmanı olarak
+  eklendi. Bu dosya `prefersReducedMotionQuery`, düşük bağlantı tipleri,
+  `createGsapCleanup`, `killGsapInstances`, `isSlowConnectionType` ve
+  `shouldUseReducedMotion` yardımcılarını taşır.
+- `src/hooks/use-gsap.ts` dosyası `@gsap/react` eklentisini istemci tarafında
+  `gsap.registerPlugin(useGSAP)` ile merkezi olarak kaydeder. P8 içindeki büyük
+  sahneler bu hook üzerinden kurulacaktır.
+- `src/hooks/use-motion-preferences.ts` dosyası kullanıcının hareket azaltma
+  tercihini, veri tasarrufu sinyalini, bağlantı tipini, güvenli mount durumunu ve
+  zengin hareket kullanılıp kullanılamayacağını tek veri yapısında döndürür.
+- `docs/motion/MOTION_SYSTEM.md` dosyası P8 motion kurallarını, cleanup
+  beklentilerini, reduced-motion/düşük bağlantı fallback davranışını ve sonraki
+  P8 adımlarında izlenecek şablonu belgelemek için eklendi.
+- `navigator.connection` desteği olmayan tarayıcılarda altyapı kırılmayacak;
+  bağlantı bilgisi bilinmiyorsa yalnızca kullanıcı hareket tercihi ve mount
+  durumu dikkate alınacaktır.
+- İlk render tarafında güvenli varsayılan reduced-motion yönündedir. İstemci
+  mount edildikten sonra gerçek tarayıcı tercihleri okunur ve zengin hareket
+  ancak uygun koşullarda aktif kabul edilir.
+
+**P8.1 kapanış kararı:** Motion altyapısı hazırdır fakat henüz ekranda yeni bir
+animasyon yoktur. P8.2 aşamasında hero medya kabuğu kurulurken bu yardımcılar
+reduced-motion, düşük bağlantı ve güvenli mount kararları için kullanılacaktır.
+
+### P8.2 Başlangıç Kontrolü
+
+- [x] Araç ana gövdesi, far kapalı, far açık, duman ve ışık taraması katmanları
+      veri seviyesinde tanımlandı.
+- [x] Gerçek asset henüz olmadığı için kırık görsel üretmeyen CSS placeholder
+      kabuğu hazırlandı.
+- [x] Ana sayfa hero alanına animasyonsuz hero media shell eklendi.
+- [x] `useMotionPreferences` çıktısı ile reduced-motion, Save-Data ve düşük
+      bağlantı durumları arayüzde statik/fallback moda bağlandı.
+- [x] AI/demo/placeholder ayrımı gerçek uygulama sonucu gibi sunulmayacak şekilde
+      arayüz ve veri notlarında korundu.
+- [x] Bu adımda GSAP timeline, scroll animasyonu, otomatik video veya otomatik ses
+      eklenmedi.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırıldı.
+
+**P8.2 uygulama notları - 17 Haziran 2026**
+
+- `src/content/hero-media.ts` dosyası eklendi. `heroMediaScene` içinde ana hero
+  poster hedefi, araç gövdesi, far kapalı, far açık, duman zemini ve kaporta
+  ışık taraması katmanları planlı dosya adlarıyla tanımlandı.
+- `src/content/types.ts` içine `HeroMediaScene`, `HeroMediaLayer` ve
+  `HeroMediaLayerRole` tipleri eklendi. Böylece hero medyası servis/proje
+  verilerinden bağımsız ama aynı demo/kaynak disiplinine bağlı hale geldi.
+- `src/components/hero-media-shell.tsx` bileşeni eklendi. Bileşen gerçek görsel
+  dosyası istemez; assetler üretilene kadar CSS ile kırılmayan araç, far, duman ve
+  ışık placeholder sahnesi gösterir.
+- Ana sayfa hero sağ kolonu `HeroMediaShell` ve hızlı özet kartından oluşan
+  `home-hero__media-stack` yapısına taşındı.
+- `useMotionPreferences` ile `prefers-reduced-motion`, Save-Data ve `slow-2g`/`2g`
+  bağlantı sinyalleri okunur. Bu sinyaller şimdilik animasyon başlatmaz; yalnızca
+  sahnenin statik/fallback durum etiketini ve düşük yoğunluklu görsel durumunu
+  belirler.
+- `src/app/globals.css` içinde hero media kabuğu için statik katmanlar eklendi:
+  poster atmosferi, duman zemini, araç gövdesi, far kapalı/açık katmanı ve kaporta
+  ışık çizgisi. Bu katmanlar P8.3'te GSAP timeline'a bağlanabilecek class yapısıyla
+  hazırlandı.
+
+**P8.2 kapanış kararı:** Hero media kabuğu artık ana sayfada animasyonsuz olarak
+yer alıyor. Gerçek veya AI asset dosyaları yokken kırık görsel oluşmaz; P8.3
+aşamasında duman ve kaporta ışık taraması bu kabuk üzerinde kontrollü şekilde
+hareketlendirilecektir.
+
+### P8.3 Başlangıç Kontrolü
+
+- [x] Hero media shell içinde GSAP scope ref ve `useGSAP` yaşam döngüsü kuruldu.
+- [x] Duman katmanı yavaş, düşük yoğunluklu ve sonsuz tekrar eden kontrollü
+      hareketle bağlandı.
+- [x] Kaporta ışık taraması katmanı kısa ama sakin bir timeline hareketine
+      bağlandı.
+- [x] `killGsapInstances` cleanup yardımcısı ile timeline unmount ve tercih
+      değişimlerinde temizlenir hale getirildi.
+- [x] `prefers-reduced-motion`, Save-Data ve `slow-2g`/`2g` durumlarında GSAP
+      timeline kurulmadan statik fallback korunur.
+- [x] Animasyon katmanları `aria-hidden` stage içinde, `pointer-events: none`
+      durumunda kaldı; CTA, metin, klavye ve kaydırma erişimi engellenmedi.
+- [x] Otomatik video veya otomatik ses eklenmedi.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırıldı.
+
+**P8.3 uygulama notları - 17 Haziran 2026**
+
+- `HeroMediaShell` bileşenine `shellRef` scope'u, `timelineRef` referansı ve
+  `useGSAP` bağlandı. Böylece animasyonlar yalnızca hero media shell içinde
+  çalışır; sayfanın diğer alanlarına selector sızıntısı yapmaz.
+- `useMotionPreferences().canUseRichMotion` false ise timeline kurulmaz. Bu durum
+  hareket azaltma tercihi, veri tasarrufu, `slow-2g`/`2g` bağlantı veya güvenli
+  mount tamamlanmadan önceki ilk render için geçerlidir.
+- Zengin motion uygun olduğunda duman katmanı `xPercent`, `yPercent` ve `opacity`
+  değerleriyle çok yavaş hareket eder. Amaç drift/duman hissi vermek; içeriğin
+  önüne geçen yoğun bir efekt üretmemektir.
+- Kaporta ışık taraması katmanı `xPercent` ve `opacity` ile kısa bir ileri/geri
+  parlama hareketi yapar. Bu hareket far açılışı veya hero metin zaman çizelgesi
+  değildir; P8.4 için hazırlık niteliğindedir.
+- Timeline her dependency değişiminde önce eski instance'ı `killGsapInstances`
+  ile temizler. `useGSAP` scope cleanup'ı ve manuel kill birlikte kullanılarak
+  tercih değişimlerinde birden fazla timeline birikmesi engellenir.
+- Reduced-motion/düşük bağlantı fallback'inde inline `transform` ve `willChange`
+  temizlenir; CSS tabanlı statik poster/placeholder görünüm korunur.
+- Hero stage `aria-hidden="true"` ve animasyon katmanları `pointer-events: none`
+  olduğu için ekran okuyucu, klavye sırası, WhatsApp CTA, telefon linki ve sayfa
+  kaydırması animasyondan etkilenmez.
+
+**P8.3 kapanış kararı:** Hero sahnesinde ilk gerçek GSAP hareketi devrededir.
+Hareket yalnızca duman ve kaporta ışık taramasıyla sınırlıdır; far açılışı, hero
+metin/CTA zamanlaması ve scroll tabanlı sahneler P8.4 ve sonraki adımlara
+bırakılmıştır.
+
+### P8.4 Başlangıç Kontrolü
+
+- [x] Hero başlığı, rozet, destek metni, açıklama ve CTA alanı ayrı bir client
+      bileşende toplandı.
+- [x] Hero metinleri ve CTA bağlantıları server-rendered içerik akışında erişilebilir
+      kalacak şekilde korundu.
+- [x] `useGSAP` scope'u ile hero intro elemanları için kısa, tek seferlik ve
+      kontrollü zaman çizelgesi oluşturuldu.
+- [x] `useMotionPreferences` ile reduced-motion, Save-Data ve düşük bağlantıda
+      metin/CTA animasyonu kurulmadan statik deneyim korundu.
+- [x] `killGsapInstances` ile timeline unmount ve tercih değişimlerinde temizlenir
+      hale getirildi.
+- [x] CTA bağlantılarında `pointer-events`, `tabindex`, href veya klavye sırası
+      değiştirilmedi.
+- [x] Otomatik video veya otomatik ses eklenmedi.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırıldı.
+
+**P8.4 uygulama notları - 17 Haziran 2026**
+
+- `src/components/hero-intro.tsx` bileşeni eklendi. Ana sayfadaki hero metin,
+  açıklama ve CTA markup'ı bu bileşene taşındı.
+- `HeroIntro` içinde `useGSAP` ve `introRef` scope'u kullanıldı. Selector'lar
+  yalnızca `[data-hero-intro-motion]` işaretli hero intro çocuklarını hedefler.
+- Zengin motion uygun olduğunda rozet, başlık, tagline, açıklama ve CTA grubu
+  kısa bir `fromTo` timeline ile `autoAlpha` ve `y` üzerinden sırayla görünür.
+  Hareket tek seferliktir; loop veya scroll bağlı davranış eklenmemiştir.
+- Timeline tamamlandığında `transform` ve `willChange` inline değerleri temizlenir.
+  Böylece uzun süreli compositing yükü bırakılmaz.
+- Reduced-motion, Save-Data, `slow-2g`/`2g` veya güvenli mount tamamlanmadan önceki
+  durumda timeline kurulmaz; varsa inline `opacity`, `transform` ve `willChange`
+  temizlenir. Metin ve CTA'lar statik olarak görünür kalır.
+- CTA elemanları normal `<a>` bağlantıları olarak kaldı. `href`, focus ring, klavye
+  sırası, tıklanabilirlik ve minimum dokunma hedefleri değiştirilmedi.
+- Hero başlığı hâlâ `id="hero-title"` ile section label'ını taşır; erişilebilir
+  isimlendirme korunmuştur.
+
+**P8.4 kapanış kararı:** Hero metin ve CTA zaman çizelgesi kontrollü biçimde
+devrededir. Bu hareket yalnızca ilk giriş hissini verir; içerik, CTA ve erişilebilirlik
+statik modda eksiksiz kalır. P8.5 aşamasında hizmet kartları, bölüm reveal
+hareketleri ve Rain Sound equalizer yaklaşımı ele alınacaktır.
+
+### P8.5 Başlangıç Kontrolü
+
+- [x] Ana sayfa motion davranışları için tek scope'lu `HomeMotionShell` bileşeni
+      eklendi.
+- [x] Hizmet, proje, güven ve SSS kartları `data-home-card` ile kontrollü reveal
+      hedefi yapıldı.
+- [x] Ana sayfa bölüm başlıkları ve iletişim kartı `data-home-reveal` ile
+      IntersectionObserver tabanlı reveal akışına bağlandı.
+- [x] Rain Sound ses kimliğini hatırlatan dekoratif equalizer çizgisi eklendi.
+- [x] Equalizer barları GSAP timeline ile düşük maliyetli mikro harekete bağlandı.
+- [x] Reduced-motion, Save-Data ve düşük bağlantıda reveal/equalizer timeline'ları
+      kurulmadan tüm içerik statik ve görünür kalır.
+- [x] Kartlarda ve CTA'larda `href`, focus davranışı, `pointer-events`,
+      `tabindex` veya klavye sırası değiştirilmedi.
+- [x] Otomatik ses veya medya oynatma eklenmedi.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırıldı.
+
+**P8.5 uygulama notları - 17 Haziran 2026**
+
+- `src/components/home-motion-shell.tsx` eklendi. Ana sayfa `<main>` elementi bu
+  client wrapper üzerinden render edilir; motion selector'ları yalnızca ana sayfa
+  scope'u içinde çalışır.
+- `HomeMotionShell`, `useMotionPreferences().canUseRichMotion` false olduğunda
+  tüm inline `opacity`, `visibility`, `transform` ve `willChange` değerlerini
+  temizleyip hiçbir timeline/observer hareketi kurmaz.
+- Zengin motion uygunsa `[data-home-reveal]` ve `[data-home-card]` elemanları
+  `IntersectionObserver` ile görünür alana girdiklerinde kısa bir `autoAlpha`/`y`
+  reveal hareketi alır. Hareket içerik görünürlüğünü kalıcı olarak gizlemez;
+  observer tetiklenince ilgili hedef unobserve edilir.
+- IntersectionObserver desteği olmayan tarayıcılarda hedefler tek seferlik hafif
+  stagger ile görünür hale getirilir.
+- `HeroIntro` içine dekoratif `home-hero__equalizer` alanı eklendi. Bu alan
+  `aria-hidden="true"` olduğu için ekran okuyucuda ekstra içerik üretmez ve
+  otomatik ses/medya davranışı yoktur.
+- Equalizer barları `scaleY` ve `opacity` üzerinden kısa döngülü GSAP timeline ile
+  hareket eder. Reduced-motion/düşük bağlantı modunda CSS statik yüksekliği korunur.
+- Cleanup sırasında observer disconnect edilir, reveal tween'leri ve equalizer
+  timeline'ı `killGsapInstances` ile sonlandırılır.
+
+**P8.5 kapanış kararı:** Ana sayfa artık hero dışındaki bölümlerde kontrollü reveal
+mikro hareketleri ve Rain Sound kimliğini destekleyen dekoratif equalizer hissi
+taşır. Bu hareketler CTA, kart tıklanabilirliği, klavye sırası ve içerik erişimini
+değiştirmez. P8.6 aşamasında reduced-motion statik deneyimi ekran üstünde daha
+detaylı doğrulanacaktır.
+
+### P8.6 Başlangıç Kontrolü
+
+- [x] `prefers-reduced-motion`, Save-Data ve düşük bağlantı sinyalleri için ortak
+      statik mod etiketi merkezi hook'a eklendi.
+- [x] `HeroIntro`, `HeroMediaShell` ve `HomeMotionShell` fallback davranışları
+      yeniden gözden geçirildi.
+- [x] `autoAlpha` kaynaklı inline `visibility` değerlerinin fallback temizliğine
+      dahil edildiği doğrulandı.
+- [x] Hero metinleri, CTA'lar, hizmet kartları, proje kartları, güven kartları,
+      iletişim kartı ve SSS içerikleri statik modda görünür kalır.
+- [x] Hero media kabuğu statik poster/placeholder deneyimi olarak kalır; duman,
+      ışık taraması, reveal ve equalizer timeline'ları kurulmaz.
+- [x] Statik mod bilgisi data attribute ve ekran okuyucuya uygun yardımcı metinle
+      izlenebilir hale getirildi.
+- [x] CTA ve kartlarda `href`, focus, pointer, `tabindex` veya klavye sırası
+      değiştirilmedi.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırıldı.
+
+**P8.6 uygulama notları - 17 Haziran 2026**
+
+- `useMotionPreferences` artık `motionMode` ve `motionModeLabel` döndürür. Modlar:
+  `not-mounted`, `reduced-motion`, `save-data`, `slow-connection` ve
+  `rich-motion`.
+- `HeroIntro`, `HeroMediaShell` ve `HomeMotionShell` köklerinde `data-motion-mode`
+  taşınır. Böylece QA sırasında statik modun hangi sebeple aktif olduğu DOM
+  seviyesinde görülebilir.
+- `HeroIntro` ve `HeroMediaShell` içine `rain-sr-only` yardımcı metinleri eklendi.
+  Görsel arayüz kalabalıklaşmadan ekran okuyucu tarafında statik/motion modu
+  anlaşılır olur.
+- `HeroIntro` fallback temizliği `opacity`, `visibility`, `transform` ve
+  `willChange` değerlerini temizler. Böylece `autoAlpha` sonrası reduced-motion
+  veya Save-Data durumuna geçilirse metin/CTA gizli kalmaz.
+- `HeroMediaShell` fallback temizliği de `opacity`, `visibility`, `transform` ve
+  `willChange` değerlerini temizler. Duman ve ışık katmanları statik CSS durumuna
+  döner.
+- `HomeMotionShell` zaten reveal hedefleri ve equalizer barları için aynı inline
+  değerleri temizliyordu; P8.6 kapsamında bu davranış P8 statik deneyim kabul
+  kriteri olarak belgelendi.
+- Statik modda observer/timeline kurulmadığı için scroll, CTA tıklaması ve kart
+  içeriği animasyon beklemez. Tüm ana sayfa bilgileri normal akışta okunabilir
+  kalır.
+
+**P8.6 kapanış kararı:** Reduced-motion, Save-Data ve düşük bağlantı deneyimi artık
+P8 motion sisteminin birinci sınıf fallback yolu olarak tanımlıdır. Statik deneyim
+bilgi, CTA, klavye sırası ve görsel hiyerarşiyi korur; yalnızca hareketli efektleri
+devre dışı bırakır.
+
+### P8.7 Başlangıç Kontrolü
+
+- [x] Küçük ekran, coarse pointer, düşük bellek ve düşük CPU sinyalleri merkezi motion
+      hook'u üzerinden algılanabilir hale getirildi.
+- [x] Mobil/düşük donanım için `low-power` motion modu tanımlandı.
+- [x] Low-power modunda hero intro, hero medya, bölüm reveal ve equalizer timeline'ları
+      kurulmadan poster/statik deneyim korunur.
+- [x] `HeroMediaShell` düşük maliyetli poster modunu arayüzde açıkça gösterir.
+- [x] Equalizer ve hero medya CSS'i low-power modunda daha sakin, düşük yoğunluklu
+      görsel duruma düşer.
+- [x] CTA, kart, bağlantı, focus ve klavye sırası davranışları değiştirilmedi.
+- [x] Otomatik video veya otomatik ses eklenmedi.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırıldı.
+
+**P8.7 uygulama notları - 18 Haziran 2026**
+
+- `useMotionPreferences` snapshot'ına `isSmallViewport`, `isCoarsePointer`,
+  `isLowMemoryDevice` ve `isLowPowerDevice` sinyalleri eklendi.
+- Küçük ekran için `(max-width: 767px)`, dokunmatik/coarse pointer için
+  `(pointer: coarse)`, düşük bellek için `navigator.deviceMemory <= 4`, düşük CPU
+  için `navigator.hardwareConcurrency <= 4` sinyalleri dikkate alınır.
+- `MotionMode` içine `low-power` modu eklendi. Bu mod reduced-motion değildir; fakat
+  mobil/düşük donanımda ağır veya sürekli GSAP timeline kurmamak için düşük maliyetli
+  poster/statik deneyime yönlendirir.
+- `canUseRichMotion` artık yalnızca güvenli mount tamamlanmış, reduced-motion/Save-Data
+  / yavaş bağlantı kapalı ve low-power sinyali yoksa `true` olur.
+- `canUseLowCostMotion`, reduced-motion veya bağlantı tasarrufu gerektirmeyen ama
+  mobil/düşük donanım sinyali taşıyan cihazlarda `true` olur. Bileşenler bu modu
+  `data-low-cost-motion` ve `data-motion-mode="low-power"` ile taşır.
+- `HeroMediaShell` low-power modunda duman ve ışık timeline'ı kurmaz; sahne sakin
+  poster/placeholder olarak kalır ve durum metni "Düşük maliyetli poster modu" der.
+- `HeroIntro` ve `HomeMotionShell` low-power modunda intro/reveal/equalizer
+  animasyonlarını kurmaz. İçerik ve CTA'lar normal HTML akışında görünür ve
+  erişilebilir kalır.
+- CSS tarafında equalizer barları ve hero medya duman/ışık yoğunluğu low-power
+  modunda düşürüldü; böylece görsel kimlik korunurken compositing ve sürekli animasyon
+  maliyeti azaltıldı.
+
+**P8.7 kapanış kararı:** P8 motion fazı tamamlandı. Desktop için kontrollü motion,
+reduced-motion/Save-Data/yavaş bağlantı için statik fallback, mobil/düşük donanım
+için düşük maliyetli poster/statik deneyim hazırdır. Gerçek cihaz performans testi
+P10/P11 kalite fazlarında ayrıca yapılacaktır.
+
 ### P9 - Yerel Dönüşüm ve SEO
 
-**Durum:** `Bekliyor`
+**Durum:** `Devam Ediyor`
 **Bağımlılık:** P0 işletme bilgileri ve P5 sayfaları tamamlanmış olmalıdır.
 
 - [ ] **P9.1** Telefon, WhatsApp, Instagram ve Google Maps/yol tarifi akışlarını

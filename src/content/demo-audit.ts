@@ -108,6 +108,21 @@ export const demoContentAuditItems = [
       demo: project.demo,
     }),
   ),
+  ...projects.flatMap((project) =>
+    project.contentReadiness.productionBlockers.map((blocker, index) =>
+      createAuditItem({
+        collection: "project-readiness",
+        id: `${project.id}-readiness-${index + 1}`,
+        label: `${project.title}: ${blocker}`,
+        status: project.status,
+        demo: {
+          isDemo: true,
+          replacementRequiredBeforeProduction: true,
+          note: "P7.6 proje yayın kapısı blocker kontrolü.",
+        },
+      }),
+    ),
+  ),
   ...getUniqueMedia().map((asset) =>
     createAuditItem({
       collection: "media",

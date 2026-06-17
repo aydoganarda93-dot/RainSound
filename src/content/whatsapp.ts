@@ -69,15 +69,22 @@ export const createServiceWhatsAppMessage = (service: Service) =>
   `);
 
 export const createProjectWhatsAppMessage = (project: Project) => {
-  const relatedServices = services
-    .filter((service) => project.serviceIds.includes(service.id))
+  const relatedServices = services.filter((service) =>
+    project.serviceIds.includes(service.id),
+  );
+  const relatedServiceTitles = relatedServices
     .map((service) => service.title)
     .join(", ");
+  const serviceMessageHints = relatedServices
+    .map((service) => `- ${service.title}: ${service.ctaContext.messageHint}`)
+    .join("\n");
 
   return normalizeMessage(`
     Merhaba ${siteSettings.siteName},
     ${project.title} benzeri bir uygulama hakkında bilgi almak istiyorum.
-    İlgilendiğim hizmetler: ${relatedServices || "Belirlenecek"}
+    İlgilendiğim hizmetler: ${relatedServiceTitles || "Belirlenecek"}
+    Talep bağlamı:
+    ${serviceMessageHints || "- Araç bilgisi ve beklenti WhatsApp'ta netleştirilecek."}
     Araç bilgimi ve beklentimi paylaşmak istiyorum.
   `);
 };

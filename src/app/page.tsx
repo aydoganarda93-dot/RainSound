@@ -8,6 +8,9 @@ import {
   services,
   siteSettings,
 } from "@/content";
+import { HeroIntro } from "@/components/hero-intro";
+import { HeroMediaShell } from "@/components/hero-media-shell";
+import { HomeMotionShell } from "@/components/home-motion-shell";
 
 const publishedCategories = serviceCategories
   .filter((category) => category.status === "published")
@@ -35,70 +38,63 @@ export default function Home() {
   const phoneContact = getContactByChannel("phone");
 
   return (
-    <main className="home-page">
+    <HomeMotionShell>
       <section className="home-hero rain-section" aria-labelledby="hero-title">
         <div className="development-shell__glow" aria-hidden="true" />
 
         <div className="rain-container home-hero__grid">
-          <div className="home-hero__content">
-            <p className="rain-badge">Neon Performance Studio</p>
-            <h1 id="hero-title" className="rain-heading rain-heading--hero">
-              {siteSettings.siteName}
-            </h1>
-            <p className="home-hero__tagline">{siteSettings.tagline}</p>
-            <p className="home-hero__description">
-              {siteSettings.description} Detailing, koruma, ses sistemi,
-              aksesuar ve modifiye hizmetleri tek karakterli bir garaj
-              deneyiminde birleşiyor.
-            </p>
+          <HeroIntro
+            badge="Neon Performance Studio"
+            title={siteSettings.siteName}
+            tagline={siteSettings.tagline}
+            description={`${siteSettings.description} Detailing, koruma, ses sistemi, aksesuar ve modifiye hizmetleri tek karakterli bir garaj deneyiminde birleşiyor.`}
+            primaryCta={generalWhatsAppLink}
+            secondaryCta={
+              phoneContact
+                ? {
+                    href: phoneContact.href,
+                    label: phoneContact.value,
+                  }
+                : undefined
+            }
+          />
 
-            <div className="home-hero__actions">
-              <a
-                className="rain-button rain-button--primary"
-                href={generalWhatsAppLink.href}
-              >
-                {generalWhatsAppLink.label}
-              </a>
-              {phoneContact ? (
-                <a
-                  className="rain-button rain-button--secondary"
-                  href={phoneContact.href}
-                >
-                  {phoneContact.value}
-                </a>
-              ) : null}
-            </div>
+          <div className="home-hero__media-stack">
+            <HeroMediaShell />
+
+            <aside
+              className="rain-card home-hero__panel"
+              aria-label="Hızlı özet"
+            >
+              <span className="home-hero__panel-kicker">
+                Eskişehir / Odunpazarı
+              </span>
+              <strong>Detailing, Sound & Tech, Design & Performance</strong>
+              <p>
+                Fiyat ve uygun randevu araç durumuna ve işleme göre değişir.
+                Güncel bilgi WhatsApp üzerinden alınır.
+              </p>
+              <dl className="home-hero__stats">
+                <div>
+                  <dt>Hizmet</dt>
+                  <dd>{services.length}+</dd>
+                </div>
+                <div>
+                  <dt>Kategori</dt>
+                  <dd>{publishedCategories.length}</dd>
+                </div>
+                <div>
+                  <dt>Demo veri</dt>
+                  <dd>{demoContentReport.summary.demoItems}</dd>
+                </div>
+              </dl>
+            </aside>
           </div>
-
-          <aside className="rain-card home-hero__panel" aria-label="Hızlı özet">
-            <span className="home-hero__panel-kicker">
-              Eskişehir / Odunpazarı
-            </span>
-            <strong>Detailing, Sound & Tech, Design & Performance</strong>
-            <p>
-              Fiyat ve uygun randevu araç durumuna ve işleme göre değişir.
-              Güncel bilgi WhatsApp üzerinden alınır.
-            </p>
-            <dl className="home-hero__stats">
-              <div>
-                <dt>Hizmet</dt>
-                <dd>{services.length}+</dd>
-              </div>
-              <div>
-                <dt>Kategori</dt>
-                <dd>{publishedCategories.length}</dd>
-              </div>
-              <div>
-                <dt>Demo veri</dt>
-                <dd>{demoContentReport.summary.demoItems}</dd>
-              </div>
-            </dl>
-          </aside>
         </div>
       </section>
 
       <section className="rain-section" aria-labelledby="services-title">
-        <div className="rain-container home-section-heading">
+        <div className="rain-container home-section-heading" data-home-reveal>
           <p className="rain-badge">Hizmetler</p>
           <h2
             id="services-title"
@@ -120,7 +116,11 @@ export default function Home() {
             );
 
             return (
-              <article key={service.id} className="rain-card home-card">
+              <article
+                key={service.id}
+                className="rain-card home-card"
+                data-home-card
+              >
                 <p className="rain-badge">{category?.title ?? "Hizmet"}</p>
                 <h3>{service.title}</h3>
                 <p>{service.summary}</p>
@@ -140,7 +140,7 @@ export default function Home() {
         className="rain-section home-transform"
         aria-labelledby="projects-title"
       >
-        <div className="rain-container home-section-heading">
+        <div className="rain-container home-section-heading" data-home-reveal>
           <p className="rain-badge">Dönüşümler</p>
           <h2
             id="projects-title"
@@ -160,6 +160,7 @@ export default function Home() {
             <article
               key={project.id}
               className="rain-card home-card home-project-card"
+              data-home-card
             >
               <p className="rain-badge">Demo proje</p>
               <h3>{project.title}</h3>
@@ -173,7 +174,7 @@ export default function Home() {
 
       <section className="rain-section" aria-labelledby="trust-title">
         <div className="rain-container home-trust">
-          <div className="home-section-heading">
+          <div className="home-section-heading" data-home-reveal>
             <p className="rain-badge">Güven</p>
             <h2 id="trust-title" className="rain-heading rain-heading--section">
               Net bilgi, doğru beklenti, WhatsApp üzerinden hızlı dönüş.
@@ -181,21 +182,21 @@ export default function Home() {
           </div>
 
           <div className="rain-grid">
-            <article className="rain-card home-card">
+            <article className="rain-card home-card" data-home-card>
               <h3>Fiyat şeffaflığı</h3>
               <p>
                 Sabit fiyat gösterilmez. Araç durumu, işlem kapsamı ve ürün
                 seçimine göre WhatsApp üzerinden bilgi verilir.
               </p>
             </article>
-            <article className="rain-card home-card">
+            <article className="rain-card home-card" data-home-card>
               <h3>Demo ayrımı</h3>
               <p>
                 Demo ve gerçek içerik ayrımı veri seviyesinde takip edilir.
                 Gerçek medya gelmeden proje sonucu gibi sunulmaz.
               </p>
             </article>
-            <article className="rain-card home-card">
+            <article className="rain-card home-card" data-home-card>
               <h3>Hizmet kapsamı</h3>
               <p>
                 Seramik, PPF, ses sistemi, aksesuar ve modifiye işleri araç
@@ -211,7 +212,7 @@ export default function Home() {
         aria-labelledby="contact-title"
       >
         <div className="rain-container home-contact__grid">
-          <div className="home-section-heading">
+          <div className="home-section-heading" data-home-reveal>
             <p className="rain-badge">İletişim</p>
             <h2
               id="contact-title"
@@ -222,7 +223,7 @@ export default function Home() {
             <p>{siteSettings.address.display}</p>
           </div>
 
-          <div className="rain-card home-contact__card">
+          <div className="rain-card home-contact__card" data-home-reveal>
             <a
               className="rain-button rain-button--primary"
               href={generalWhatsAppLink.href}
@@ -269,7 +270,7 @@ export default function Home() {
 
       {faqs.length > 0 ? (
         <section className="rain-section" aria-labelledby="faq-title">
-          <div className="rain-container home-section-heading">
+          <div className="rain-container home-section-heading" data-home-reveal>
             <p className="rain-badge">Sık Sorulan</p>
             <h2 id="faq-title" className="rain-heading rain-heading--section">
               İlk cevaplar.
@@ -279,7 +280,11 @@ export default function Home() {
             {faqs
               .filter((faq) => faq.status === "published")
               .map((faq) => (
-                <article key={faq.id} className="rain-card home-card">
+                <article
+                  key={faq.id}
+                  className="rain-card home-card"
+                  data-home-card
+                >
                   <h3>{faq.question}</h3>
                   <p>{faq.answer}</p>
                 </article>
@@ -287,6 +292,6 @@ export default function Home() {
           </div>
         </section>
       ) : null}
-    </main>
+    </HomeMotionShell>
   );
 }

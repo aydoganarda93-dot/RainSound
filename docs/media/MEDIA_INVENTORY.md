@@ -664,6 +664,71 @@ Gerçek proje videoları geldiğinde aynı modal kullanılabilir; ancak video do
 poster, yayın izni, gizlilik kontrolü, otomatik ses başlamama kuralı ve mobil
 performans bütçesi tamamlanmadan production'a alınmaz.
 
+## P7.5 Proje, Hizmet ve WhatsApp Bağlamı
+
+Proje detay sayfası, `serviceIds` üzerinden bağlı hizmetleri ve proje bağlamlı
+WhatsApp mesajını daha açık gösterecek şekilde güçlendirildi. Amaç, ziyaretçinin
+demo proje akışından ilgili hizmet detayına veya doğru WhatsApp mesajına net
+geçebilmesidir.
+
+### Bağlantı Kuralları
+
+- Projeler bağlı hizmetlerini `project.serviceIds` üzerinden alır.
+- Proje WhatsApp mesajı proje adını, bağlı hizmetleri ve hizmetlerin
+  `ctaContext.messageHint` içeriklerini taşır.
+- Her bağlı hizmet kartında hizmet detay linki ve hizmete özel WhatsApp CTA'sı
+  birlikte gösterilir.
+- Benzer hizmet önerileri, bağlı hizmetlerin `relatedServiceIds` alanlarından
+  türetilir.
+- Demo proje olduğu için CTA dili "benzer uygulama" bağlamında kalır; gerçek
+  proje sonucu iddiası kurulmaz.
+
+### Production Notu
+
+Gerçek proje geldiğinde hizmet ilişkileri yeniden kontrol edilir. Yanlış bağlı
+hizmet veya eksik WhatsApp bağlamı, yayın öncesi içerik kabul kapısında blocker
+sayılır.
+
+## P7.6 Proje Gizlilik, İzin ve Performans Kapıları
+
+P7.6 ile proje kayıtları production öncesi gizlilik, izin ve performans
+kontrollerini veri seviyesinde taşır. Mevcut demo projeler production adayı
+değildir; her biri gerçek proje medyası, yayın izni, plaka/kişisel bilgi kontrolü
+ve performans doğrulaması gelene kadar blocker durumundadır.
+
+### Veri Seviyesi Kontroller
+
+`Project.contentReadiness` içine şu alanlar eklendi:
+
+- `productionBlockers`
+- `privacyChecklist`
+- `permissionChecklist`
+- `performanceChecklist`
+
+Bu alanlar proje detayında görünür; ayrıca demo audit raporunda
+`project-readiness` blocker kayıtları olarak production öncesi yakalanır.
+
+### Production Blocker Kuralları
+
+- Gerçek proje medyası yoksa proje production adayı olamaz.
+- Araç sahibi yayın izni doğrulanmadan gerçek müşteri aracı yayınlanamaz.
+- Plaka, yüz, konum veya kişisel bilgi kontrolü tamamlanmadan medya yayına
+  alınamaz.
+- Demo medya gerçek portfolyo kanıtı olarak kullanılamaz.
+- Görsel/video performans bütçesi gerçek dosyalarla doğrulanmadan proje yayına
+  alınamaz.
+
+### Gerçek Proje Geldiğinde Kontrol
+
+1. Medya kaynağı `real` olarak envantere işlenir.
+2. Yayın izni ve gizlilik kontrolü tamamlanır.
+3. Plaka/yüz/konum varsa bulanıklaştırma, kırpma veya açık izin uygulanır.
+4. Kapak, galeri, video ve before/after dosyaları P6.5 dosya ağırlığı hedefleriyle
+   optimize edilir.
+5. Mobil kırpım ve alternatif metin kontrol edilir.
+6. Demo medya kaldırılır veya gerçek/izinli medya ile değiştirilir.
+7. `productionCandidate` ancak tüm kapılar geçildikten sonra `true` yapılır.
+
 ## Kabul Kuralları
 
 - Gerçek müşteri aracı görselinde plaka, yüz, konum veya kişisel bilgi varsa
