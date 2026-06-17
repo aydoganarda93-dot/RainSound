@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   generalWhatsAppLink,
   getContactByChannel,
+  legalNavigation,
   primaryNavigation,
   siteSettings,
 } from "@/content";
@@ -61,12 +62,23 @@ export function SiteFooter() {
         <span>
           © {new Date().getFullYear()} {siteSettings.legalName}
         </span>
-        <a
-          className="rain-link site-footer__link"
-          href={generalWhatsAppLink.href}
-        >
-          {generalWhatsAppLink.label}
-        </a>
+        <div className="site-footer__legal-links">
+          {legalNavigation.map((item) => (
+            <Link
+              key={item.href}
+              className="rain-link site-footer__link"
+              href={item.href}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <a
+            className="rain-link site-footer__link"
+            href={generalWhatsAppLink.href}
+          >
+            {generalWhatsAppLink.label}
+          </a>
+        </div>
       </div>
     </footer>
   );

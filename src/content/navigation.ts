@@ -18,8 +18,26 @@ export const primaryNavigation = [
     matchPath: "/projeler",
   },
   {
+    label: "Hakkımızda",
+    href: "/hakkimizda",
+    matchPath: "/hakkimizda",
+  },
+  {
     label: "İletişim",
     href: "/iletisim",
     matchPath: "/iletisim",
+  },
+] satisfies NavigationItem[];
+
+export const legalNavigation = [
+  {
+    label: "Gizlilik Politikası",
+    href: "/gizlilik",
+    matchPath: "/gizlilik",
+  },
+  {
+    label: "Çerez Bilgilendirmesi",
+    href: "/cerezler",
+    matchPath: "/cerezler",
   },
 ] satisfies NavigationItem[];

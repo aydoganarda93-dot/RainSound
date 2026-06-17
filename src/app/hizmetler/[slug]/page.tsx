@@ -141,11 +141,17 @@ export default async function ServiceDetailPage({
             >
               Bu hizmet ne kazandırır?
             </h2>
-            <ul className="service-detail-list">
-              {service.benefits.map((benefit) => (
-                <li key={benefit}>{benefit}</li>
-              ))}
-            </ul>
+            {service.benefits.length > 0 ? (
+              <ul className="service-detail-list">
+                {service.benefits.map((benefit) => (
+                  <li key={benefit}>{benefit}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="service-detail-fallback">
+                Bu hizmet için fayda listesi production öncesi netleştirilecek.
+              </p>
+            )}
           </article>
 
           <article className="rain-card service-detail-card">
@@ -153,11 +159,17 @@ export default async function ServiceDetailPage({
             <h2 className="rain-heading rain-heading--section">
               Standart uygulama akışı.
             </h2>
-            <ol className="service-detail-steps">
-              {service.process.map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ol>
+            {service.process.length > 0 ? (
+              <ol className="service-detail-steps">
+                {service.process.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+            ) : (
+              <p className="service-detail-fallback">
+                Süreç adımları araç ve işlem kapsamı netleşince tamamlanacak.
+              </p>
+            )}
           </article>
         </div>
       </section>
@@ -172,11 +184,17 @@ export default async function ServiceDetailPage({
             >
               Yayın öncesi toplanacak görseller.
             </h2>
-            <ul className="service-detail-list">
-              {service.mediaNeeds.map((need) => (
-                <li key={need}>{need}</li>
-              ))}
-            </ul>
+            {service.mediaNeeds.length > 0 ? (
+              <ul className="service-detail-list">
+                {service.mediaNeeds.map((need) => (
+                  <li key={need}>{need}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="service-detail-fallback">
+                Medya ihtiyacı gerçek çekim planı kesinleşince eklenecek.
+              </p>
+            )}
           </article>
 
           <article className="rain-card service-detail-card service-detail-card--cta">
