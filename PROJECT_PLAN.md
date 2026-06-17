@@ -6,8 +6,8 @@
 > **Ana mesaj:** Aracın karakterini ortaya çıkar.
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 16 Haziran 2026
-> **Mevcut aşama:** P4 - Global site kabuğu
-> **Aktif mikro hedef:** P4.4 - Footer ve hızlı iletişim kısa yollarını ekleme
+> **Mevcut aşama:** P5 - Temel sayfalar
+> **Aktif mikro hedef:** P5.4 - Dönüşümler liste ve dinamik proje detay rotalarını oluşturma
 
 ---
 
@@ -1541,7 +1541,7 @@ Araştırma kaynakları:
 
 ### P4 - Global Site Kabuğu
 
-**Durum:** `Devam Ediyor`
+**Durum:** `Tamamlandı`
 **Bağımlılık:** P3 tamamlanmış olmalıdır.
 
 - [x] **P4.1** Root layout, HTML dil ayarı, metadata temeli ve font yüklemesini
@@ -1549,10 +1549,10 @@ Araştırma kaynakları:
 - [x] **P4.2** Masaüstü header, ana navigasyon ve aktif rota durumunu geliştir.
 - [x] **P4.3** Focus trap, Escape ile kapanma ve scroll kilidi içeren
       erişilebilir mobil menüyü geliştir.
-- [ ] **P4.4** Footer, sabit WhatsApp CTA, telefon ve yol tarifi kısa yollarını
+- [x] **P4.4** Footer, sabit WhatsApp CTA, telefon ve yol tarifi kısa yollarını
       ekle.
-- [ ] **P4.5** 404, global hata ve yüklenme görünümlerini hazırla.
-- [ ] **P4.6** Klavye sırası, dokunma hedefleri, safe-area ve responsive kabuk
+- [x] **P4.5** 404, global hata ve yüklenme görünümlerini hazırla.
+- [x] **P4.6** Klavye sırası, dokunma hedefleri, safe-area ve responsive kabuk
       davranışlarını test et.
 
 **P4 çıkış kapısı**
@@ -1662,15 +1662,104 @@ davranışı kurulacaktır.
 P4.4 aşamasında footer, sabit WhatsApp CTA, telefon ve yol tarifi kısa yolları
 global kabuğa eklenecektir.
 
+### P4.4 Başlangıç Kontrolü
+
+- [x] Footer global layout içine eklensin.
+- [x] Footer marka, açıklama, navigasyon, adres, telefon ve yol tarifi
+      bilgilerini merkezi veriden alsın.
+- [x] Sabit hızlı iletişim alanı WhatsApp, telefon ve yol tarifi kısa yollarını
+      sunsun.
+- [x] WhatsApp bağlantısı `generalWhatsAppLink` üzerinden beslensin.
+- [x] Telefon ve harita bağlantıları `siteSettings` verisinden beslensin.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P4.4 uygulama notları - 16 Haziran 2026**
+
+- `SiteFooter` bileşeni eklendi ve root layout içinde tüm sayfalara bağlandı.
+- Footer marka metni, açıklama, adres, telefon, yol tarifi ve navigasyon
+  linkleri merkezi `siteSettings` ve `primaryNavigation` verilerinden beslendi.
+- `QuickContactBar` bileşeni eklendi. Sabit alanda WhatsApp, Ara ve Yol Tarifi
+  kısa yolları sunuluyor.
+- WhatsApp CTA `generalWhatsAppLink` üzerinden beslendi; telefon
+  `getContactByChannel("phone")`, yol tarifi ise `siteSettings.socialLinks`
+  içindeki Google Maps bağlantısından alındı.
+- Mobilde sabit bar alt güvenli alanı hesaba katacak şekilde konumlandırıldı;
+  desktop'ta sağ alt kompakt aksiyon grubuna dönüşür.
+
+**P4.4 kapanış kararı:** Global iletişim kabuğu header, mobil menü, footer ve
+sabit hızlı aksiyonlarla tamamlandı. P4.5 aşamasında hata ve yüklenme
+görünümleri hazırlanacaktır.
+
+### P4.5 Başlangıç Kontrolü
+
+- [x] 404 görünümü hazırlandı.
+- [x] Global hata görünümü hazırlandı.
+- [x] Yüklenme görünümü hazırlandı.
+- [x] Hata durumlarında ana sayfa, WhatsApp ve telefon iletişim yolları
+      erişilebilir kaldı.
+- [x] Görünümler mevcut header/footer/quick contact kabuğuyla uyumlu çalışacak
+      şekilde tasarlandı.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P4.5 uygulama notları - 16 Haziran 2026**
+
+- `StatusView` ortak durum bileşeni eklendi. 404, hata ve yüklenme ekranları
+  aynı görsel dili, CTA düzenini ve iletişim yollarını kullanır.
+- `not-found.tsx` özel 404 ekranı eklendi.
+- `error.tsx` reset aksiyonlu global hata ekranı olarak eklendi.
+- `loading.tsx` yüklenme durumunda marka dili ve iletişim aksiyonlarını koruyan
+  geçici görünüm olarak eklendi.
+- Tüm durum ekranlarında ana sayfa, WhatsApp ve telefon bağlantıları merkezi
+  `generalWhatsAppLink`, `getContactByChannel` ve `siteSettings` verilerinden
+  beslenir.
+
+**P4.5 kapanış kararı:** Kullanıcı 404, hata veya yüklenme durumunda boşa
+düşmeden ana sayfaya dönebilir, WhatsApp'tan bilgi alabilir veya telefonu
+arayabilir. P4.6 aşamasında kabuğun klavye sırası, dokunma hedefleri,
+safe-area ve responsive davranışları kontrol edilecektir.
+
+### P4.6 Başlangıç Kontrolü
+
+- [x] Header, mobil menü, footer, quick contact ve durum ekranlarında klavye
+      sırası gözden geçirilsin.
+- [x] Dokunma hedefleri en az 44 px olacak şekilde kontrol edilsin.
+- [x] Sabit quick contact alanı mobilde içerikleri örtmeyecek şekilde
+      düzenlensin.
+- [x] Safe-area alt boşlukları mobil cihazlar için hesaba katılsın.
+- [x] Desktop görünümde mobil quick contact boşluğu kaldırılıp kompakt davranış
+      korunsun.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P4.6 uygulama notları - 16 Haziran 2026**
+
+- Global body alt boşluğu mobilde sabit quick contact alanını hesaba katacak
+  şekilde güncellendi.
+- `development-shell`, `status-view` ve footer alt padding değerleri mobilde
+  quick contact + safe-area alanını hesaba katacak şekilde genişletildi.
+- Desktop breakpoint'te body alt boşluğu sıfırlanıyor; quick contact sağ alt
+  kompakt aksiyon grubu olarak kalıyor.
+- Mobil menü paneli üst safe-area değerini hesaba katacak şekilde
+  konumlandırıldı.
+- Footer linklerine `site-footer__link` sınıfı eklendi ve minimum 44 px
+  dokunma hedefi sağlandı.
+- Header butonu, CTA'lar, mobil nav linkleri, footer linkleri, durum ekranı
+  aksiyonları ve quick contact linkleri klavye ile erişilebilir sırada kalacak
+  şekilde korundu.
+
+**P4.6 kapanış kararı:** P4 global site kabuğu fazı tamamlandı. Header, mobil
+menü, footer, sabit hızlı iletişim ve hata/yüklenme durumları responsive ve
+erişilebilir temel davranışları taşıyor. P5 aşamasında gerçek sayfa içerik
+akışları bu kabuğun üzerine kurulacaktır.
+
 ### P5 - Temel Sayfalar
 
-**Durum:** `Bekliyor`
+**Durum:** `Devam Ediyor`
 **Bağımlılık:** P4 tamamlanmış olmalıdır.
 
-- [ ] **P5.1** Ana sayfanın hero, hizmetler, dönüşüm, güven ve iletişim
+- [x] **P5.1** Ana sayfanın hero, hizmetler, dönüşüm, güven ve iletişim
       bölümlerinden oluşan animasyonsuz içerik akışını tamamla.
-- [ ] **P5.2** Kategori yapılı hizmetler liste sayfasını geliştir.
-- [ ] **P5.3** Dinamik hizmet detay rotalarını ve standart hizmet içerik
+- [x] **P5.2** Kategori yapılı hizmetler liste sayfasını geliştir.
+- [x] **P5.3** Dinamik hizmet detay rotalarını ve standart hizmet içerik
       şablonunu oluştur.
 - [ ] **P5.4** Dönüşümler liste ve dinamik proje detay rotalarını oluştur.
 - [ ] **P5.5** Hakkımızda ve iletişim sayfalarını tamamla.
@@ -1683,6 +1772,123 @@ global kabuğa eklenecektir.
 - Site animasyon olmadan eksiksiz kullanılabilir.
 - Tüm rotalar mobil ve masaüstünde doğru içerik hiyerarşisine sahiptir.
 - WhatsApp, telefon ve yol tarifi aksiyonları bağlamını korur.
+
+### P5.1 Başlangıç Kontrolü
+
+- [x] Geçici geliştirme ekranı yerine gerçek ana sayfa akışı kurulsun.
+- [x] Hero bölümü marka mesajı, kısa açıklama ve iletişim CTA'larıyla
+      tamamlansın.
+- [x] Hizmetler bölümü mevcut `services` ve `serviceCategories` verilerini
+      kullansın.
+- [x] Dönüşüm/proje bölümü gerçek medya gelene kadar demo içerik ayrımını açık
+      tutsun.
+- [x] Güven bölümü fiyat, demo içerik ve hizmet kapsamı beklentisini net
+      anlatsın.
+- [x] İletişim bölümü WhatsApp, telefon, yol tarifi, Instagram, adres ve çalışma
+      saatlerini merkezi veriden alsın.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P5.1 uygulama notları - 16 Haziran 2026**
+
+- Ana sayfa geçici geliştirme kartından çıkarıldı ve animasyonsuz içerik akışı
+  olarak yeniden kuruldu.
+- Hero alanında `siteSettings.siteName`, `siteSettings.tagline`,
+  `siteSettings.description`, `generalWhatsAppLink` ve telefon bağlantısı
+  kullanıldı.
+- Hizmet kartları `services` ve `serviceCategories` verilerinden beslendi.
+  İlk görünümde öne çıkan altı hizmet gösteriliyor.
+- Dönüşümler bölümü `projects` verisini kullanıyor; gerçek medya henüz olmadığı
+  için demo proje ayrımı görünür tutuldu.
+- Güven bölümü fiyatların araç/işleme göre değiştiğini, demo/gerçek içerik
+  ayrımını ve hizmet kapsamının araç özelinde değerlendirildiğini anlatıyor.
+- İletişim bölümü WhatsApp, telefon, Google Maps, Instagram, adres ve çalışma
+  saatlerini merkezi içerik kaynağından aldı.
+- Görsel/animasyon bağımlılığı eklenmedi; P5.1 yalnızca içerik hiyerarşisi ve
+  kullanılabilir ana sayfa akışını tamamlar.
+
+**P5.1 kapanış kararı:** Ana sayfa artık animasyon veya gerçek medya olmadan da
+marka mesajını, hizmetleri, demo dönüşüm alanını, güven çerçevesini ve iletişim
+aksiyonlarını kullanılabilir bir hiyerarşiyle sunuyor. P5.2 aşamasında kategori
+yapılı hizmetler liste sayfası geliştirilecektir.
+
+### P5.2 Başlangıç Kontrolü
+
+- [x] `/hizmetler` route'u Next.js App Router içinde oluşturulsun.
+- [x] Sayfa `serviceCategories` ve `services` verilerini merkezi içerik
+      kaynağından alsın.
+- [x] Hizmetler kategori başlıkları altında gruplanarak gösterilsin.
+- [x] Her hizmet kartında özet, faydalar, süre notu, fiyat notu, garanti notu ve
+      demo içerik uyarısı yer alsın.
+- [x] Her hizmetin CTA'sı `getServiceWhatsAppLink` üzerinden bağlama özel
+      WhatsApp mesajına gitsin.
+- [x] Kategori içi hızlı gezinme anchor linkleriyle çözülsün.
+- [x] P5.3 henüz tamamlanmadığı için hizmet detay rotalarına kırık link
+      üretilmesin.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P5.2 uygulama notları - 16 Haziran 2026**
+
+- `src/app/hizmetler/page.tsx` oluşturuldu ve hizmetler kategori yapısında
+  listelenmeye başladı.
+- Sayfa başlığı ve açıklaması hizmet odaklı Türkçe metadata ile tamamlandı.
+- Hero alanı hizmet kapsamını, kategori/hizmet sayısını ve genel WhatsApp CTA'sını
+  gösterir.
+- Kategori indeksinde Detailing, Koruma, Sound & Tech ve Design & Performance
+  başlıkları anchor link olarak sunulur.
+- Hizmet kartları `services` içindeki kategori ilişkisini kullanır; kartlarda
+  hizmet özeti, ilk üç fayda, süre/fiyat/garanti notları ve demo içerik uyarısı
+  gösterilir.
+- Hizmete özel WhatsApp bağlantıları `getServiceWhatsAppLink(service)` ile
+  üretilir; fiyat yayınlama yaklaşımı korunur.
+- P5.3 öncesinde `/hizmetler/[slug]` detay rotasına link verilmedi. Detay
+  sayfaları hazır olduğunda kartlara ikincil "Detayları İncele" aksiyonu
+  eklenebilir.
+- `src/app/globals.css` içine hizmet liste sayfası için responsive hero, kategori
+  indeks, hizmet kartı, meta bilgi ve final CTA stilleri eklendi.
+
+**P5.2 kapanış kararı:** Hizmetler sayfası artık kategori yapısıyla çalışıyor ve
+ziyaretçiyi kırık detay sayfalarına göndermeden her hizmet için doğru WhatsApp
+aksiyonuna taşıyor. P5.3 aşamasında bu liste sayfasının arkasına dinamik hizmet
+detay rotaları ve standart detay içerik şablonu eklenecektir.
+
+### P5.3 Başlangıç Kontrolü
+
+- [x] `/hizmetler/[slug]` dinamik route'u Next.js App Router içinde oluşturulsun.
+- [x] `services` verisindeki yayınlanmış hizmetler için statik route
+      parametreleri üretilecek.
+- [x] Her hizmet detay sayfası kendi Türkçe metadata başlığı ve açıklamasını
+      üretecek.
+- [x] Detay şablonu kategori, özet, açıklama, fayda, süreç, süre, fiyat, garanti,
+      medya ihtiyacı ve CTA alanlarını gösterecek.
+- [x] WhatsApp CTA'ları `getServiceWhatsAppLink` ile hizmet bağlamına özel
+      mesaj üretecek.
+- [x] Hizmetler liste sayfasındaki kartlara detay sayfası bağlantısı eklenecek.
+- [x] Bilinmeyen slug değerlerinde `notFound()` davranışı kullanılacak.
+- [x] TypeScript, lint, format ve build kontrolü çalıştırılsın.
+
+**P5.3 uygulama notları - 17 Haziran 2026**
+
+- `src/app/hizmetler/[slug]/page.tsx` oluşturuldu.
+- Dinamik hizmet detay sayfaları `generateStaticParams()` ile yayınlanmış
+  `services` kayıtlarından üretilir.
+- `generateMetadata()` her hizmet için hizmet başlığı ve özet/fiyat notundan
+  oluşan açıklama döndürür.
+- Detay hero alanı kategori bilgisini, hizmet başlığını, özetini, açıklamasını ve
+  hizmete özel WhatsApp CTA'sını gösterir.
+- Süre, fiyat ve garanti notları hero yan panelinde; faydalar, süreç adımları,
+  medya ihtiyacı ve demo içerik notları standart detay bölümlerinde gösterilir.
+- İlgili hizmetler `relatedServiceIds` üzerinden bağlanır ve aynı detay rotasına
+  yönlenir.
+- `/hizmetler` liste sayfasındaki her hizmet kartına `Detayları İncele` bağlantısı
+  eklendi; WhatsApp CTA ayrıca korunur.
+- `src/app/globals.css` içine hizmet detay hero, meta panel, iki kolonlu içerik,
+  süreç listesi, medya ihtiyacı, demo notu ve ilgili hizmet stilleri eklendi.
+
+**P5.3 kapanış kararı:** Hizmet bilgi mimarisi artık liste sayfasından detay
+sayfasına uzanıyor. Her hizmet kendi route'unda standart içerik şablonuyla
+sunuluyor ve kullanıcı hem detay okuyabiliyor hem de hizmet bağlamı korunmuş
+WhatsApp mesajıyla iletişime geçebiliyor. P5.4 aşamasında aynı yaklaşım proje ve
+dönüşüm sayfalarına taşınacaktır.
 
 ### P6 - Görsel Üretim ve Medya
 

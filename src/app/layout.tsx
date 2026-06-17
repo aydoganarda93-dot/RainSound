@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 
+import { QuickContactBar, SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteSettings } from "@/content";
 
@@ -91,6 +92,8 @@ export default function RootLayout({
         <div className="site-shell">
           <SiteHeader />
           {children}
+          <SiteFooter />
+          <QuickContactBar />
         </div>
       </body>
     </html>
