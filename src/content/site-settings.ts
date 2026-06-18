@@ -55,11 +55,13 @@ export const siteSettings = {
   ],
   socialLinks: [
     {
+      channel: "instagram",
       label: "Instagram",
       href: businessContactLinks.instagram,
       target: "_blank",
     },
     {
+      channel: "maps",
       label: "Google Maps",
       href: businessContactLinks.maps,
       target: "_blank",
@@ -73,3 +75,7 @@ export const siteSettings = {
 
 export const getContactByChannel = (channel: ContactChannel) =>
   siteSettings.contacts.find((contact) => contact.channel === channel);
+
+export const getSocialLinkByChannel = (
+  channel: Extract<ContactChannel, "instagram" | "maps">,
+) => siteSettings.socialLinks.find((link) => link.channel === channel);

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -8,12 +7,20 @@ import {
   services,
   siteSettings,
 } from "@/content";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { StructuredData } from "@/components/structured-data";
+import {
+  buildBreadcrumbJsonLd,
+  buildPageMetadata,
+  buildServiceListJsonLd,
+  pageBreadcrumbs,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Hizmetler",
-  description:
-    "RAIN SOUND Eskişehir hizmetleri: detailing, seramik kaplama, PPF, cam filmi, araç kaplama, oto ses sistemleri, aksesuar, far tasarımı, body kit ve varex egzoz.",
-};
+  description: `${siteSettings.siteName} ${siteSettings.address.district}/${siteSettings.address.city} hizmetleri: detailing, seramik kaplama, PPF, cam filmi, araç kaplama, oto ses sistemleri, aksesuar, far tasarımı, body kit ve varex egzoz.`,
+  path: "/hizmetler",
+});
 
 const publishedCategories = serviceCategories
   .filter((category) => category.status === "published")
@@ -29,6 +36,13 @@ const getServicesByCategory = (categoryId: string) =>
 export default function ServicesPage() {
   return (
     <main className="services-page">
+      <StructuredData
+        data={[
+          buildBreadcrumbJsonLd(pageBreadcrumbs.services),
+          buildServiceListJsonLd(publishedServices),
+        ]}
+      />
+      <Breadcrumbs items={pageBreadcrumbs.services} />
       <section
         className="services-hero rain-section"
         aria-labelledby="services-page-title"
@@ -45,9 +59,10 @@ export default function ServicesPage() {
               Aracın karakterini ortaya çıkar.
             </h1>
             <p>
-              RAIN SOUND; detailing, koruma, ses sistemi, aksesuar ve modifiye
-              işlerini tek bir tanıtım akışında toplar. Fiyatlar araç, ürün ve
-              işlem kapsamına göre WhatsApp üzerinden netleştirilir.
+              RAIN SOUND; {siteSettings.address.district} merkezli detailing,
+              koruma, ses sistemi, aksesuar ve modifiye işlerini tek bir tanıtım
+              akışında toplar. Fiyatlar araç, ürün ve işlem kapsamına göre
+              WhatsApp üzerinden netleştirilir.
             </p>
           </div>
 

@@ -12,7 +12,14 @@ import {
 } from "@/content";
 import type { MediaAsset, Project } from "@/content";
 import { BeforeAfterViewer } from "@/components/before-after-viewer";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ProjectVideoGallery } from "@/components/project-video-gallery";
+import { StructuredData } from "@/components/structured-data";
+import {
+  buildBreadcrumbJsonLd,
+  buildPageMetadata,
+  getProjectBreadcrumbs,
+} from "@/lib/seo";
 
 type ProjectDetailPageProps = {
   params: Promise<{
@@ -180,10 +187,18 @@ export async function generateMetadata({
     };
   }
 
-  return {
+  const projectServices = getProjectServices(project)
+    .map((service) => service.title)
+    .join(", ");
+
+  return buildPageMetadata({
     title: project.title,
-    description: project.summary,
-  };
+    description: projectServices
+      ? `${siteSettings.address.district}/${siteSettings.address.city} demo proje akışı. ${project.summary} Bağlı hizmetler: ${projectServices}.`
+      : `${siteSettings.address.district}/${siteSettings.address.city} demo proje akışı. ${project.summary}`,
+    path: `/projeler/${project.slug}`,
+    type: "article",
+  });
 }
 
 export default async function ProjectDetailPage({
@@ -206,9 +221,12 @@ export default async function ProjectDetailPage({
     ...imageAssets,
     ...videoAssets,
   ];
+  const breadcrumbs = getProjectBreadcrumbs(project);
 
   return (
     <main className="project-detail-page">
+      <StructuredData data={buildBreadcrumbJsonLd(breadcrumbs)} />
+      <Breadcrumbs items={breadcrumbs} />
       <section
         className="project-detail-hero rain-section"
         aria-labelledby="project-detail-title"

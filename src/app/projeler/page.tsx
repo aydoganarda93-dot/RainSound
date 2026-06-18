@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -9,12 +8,19 @@ import {
   siteSettings,
 } from "@/content";
 import type { Project } from "@/content";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { StructuredData } from "@/components/structured-data";
+import {
+  buildBreadcrumbJsonLd,
+  buildPageMetadata,
+  pageBreadcrumbs,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Dönüşümler",
-  description:
-    "RAIN SOUND dönüşüm ve proje vitrini: detailing, koruma, ses sistemi, far tasarımı, body kit ve performans odaklı demo proje akışları.",
-};
+  description: `${siteSettings.siteName} ${siteSettings.address.district}/${siteSettings.address.city} dönüşüm ve proje vitrini: detailing, koruma, ses sistemi, far tasarımı, body kit ve performans odaklı demo proje akışları.`,
+  path: "/projeler",
+});
 
 const projectList = projects;
 
@@ -41,6 +47,8 @@ const getProductionCandidateLabel = (project: Project) =>
 export default function ProjectsPage() {
   return (
     <main className="projects-page">
+      <StructuredData data={buildBreadcrumbJsonLd(pageBreadcrumbs.projects)} />
+      <Breadcrumbs items={pageBreadcrumbs.projects} />
       <section
         className="projects-hero rain-section"
         aria-labelledby="projects-page-title"
@@ -57,9 +65,9 @@ export default function ProjectsPage() {
               Proje vitrini için sağlam bir iskelet.
             </h1>
             <p>
-              Gerçek müşteri araçları gelene kadar bu alan demo projelerle veri
-              akışını, hizmet ilişkilerini, galeri yapısını ve WhatsApp dönüşüm
-              yolunu test eder.
+              Gerçek müşteri araçları gelene kadar bu alan{" "}
+              {siteSettings.address.city} içi hizmet ilişkilerini, galeri
+              yapısını ve WhatsApp dönüşüm yolunu demo projelerle test eder.
             </p>
           </div>
 
@@ -128,10 +136,13 @@ export default function ProjectsPage() {
                 {projectServices.length > 0 ? (
                   <div className="project-card__services">
                     {projectServices.map((service) => (
-                      <span key={service.id}>
+                      <Link
+                        key={service.id}
+                        href={`/hizmetler/${service.slug}`}
+                      >
                         {getServiceCategoryTitle(service.categoryId)} /{" "}
                         {service.title}
-                      </span>
+                      </Link>
                     ))}
                   </div>
                 ) : (

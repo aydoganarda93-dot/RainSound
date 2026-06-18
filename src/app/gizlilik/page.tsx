@@ -1,13 +1,20 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { generalWhatsAppLink, siteSettings } from "@/content";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { StructuredData } from "@/components/structured-data";
+import {
+  buildBreadcrumbJsonLd,
+  buildPageMetadata,
+  pageBreadcrumbs,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Gizlilik Politikası",
   description:
     "RAIN SOUND tanıtım sitesi gizlilik politikası: mevcut veri toplama durumu, iletişim kanalları ve üçüncü taraf bağlantılar.",
-};
+  path: "/gizlilik",
+});
 
 const privacySections = [
   {
@@ -39,6 +46,8 @@ const privacySections = [
 export default function PrivacyPage() {
   return (
     <main className="legal-page">
+      <StructuredData data={buildBreadcrumbJsonLd(pageBreadcrumbs.privacy)} />
+      <Breadcrumbs items={pageBreadcrumbs.privacy} />
       <section
         className="legal-hero rain-section"
         aria-labelledby="privacy-title"

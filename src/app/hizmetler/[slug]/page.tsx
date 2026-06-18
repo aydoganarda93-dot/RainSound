@@ -4,10 +4,19 @@ import { notFound } from "next/navigation";
 
 import {
   getServiceWhatsAppLink,
+  projects,
   serviceCategories,
   services,
   siteSettings,
 } from "@/content";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { StructuredData } from "@/components/structured-data";
+import {
+  buildBreadcrumbJsonLd,
+  buildPageMetadata,
+  buildServiceJsonLd,
+  getServiceBreadcrumbs,
+} from "@/lib/seo";
 
 type ServiceDetailPageProps = {
   params: Promise<{
@@ -28,6 +37,9 @@ const getCategoryById = (categoryId: string) =>
 const getRelatedServices = (serviceIdList: string[]) =>
   publishedServices.filter((service) => serviceIdList.includes(service.id));
 
+const getRelatedProjects = (serviceId: string) =>
+  projects.filter((project) => project.serviceIds.includes(serviceId));
+
 export function generateStaticParams() {
   return publishedServices.map((service) => ({
     slug: service.slug,
@@ -46,10 +58,14 @@ export async function generateMetadata({
     };
   }
 
-  return {
+  const category = getCategoryById(service.categoryId);
+
+  return buildPageMetadata({
     title: service.title,
-    description: `${service.summary} ${service.pricingNote}`,
-  };
+    description: `${siteSettings.address.district}/${siteSettings.address.city} için ${service.summary} ${category ? `${category.title} kategorisinde ` : ""}${service.pricingNote}`,
+    path: `/hizmetler/${service.slug}`,
+    type: "article",
+  });
 }
 
 export default async function ServiceDetailPage({
@@ -65,9 +81,15 @@ export default async function ServiceDetailPage({
   const category = getCategoryById(service.categoryId);
   const whatsappLink = getServiceWhatsAppLink(service);
   const relatedServices = getRelatedServices(service.relatedServiceIds);
+  const relatedProjects = getRelatedProjects(service.id);
+  const breadcrumbs = getServiceBreadcrumbs(service);
 
   return (
     <main className="service-detail-page">
+      <StructuredData
+        data={[buildBreadcrumbJsonLd(breadcrumbs), buildServiceJsonLd(service)]}
+      />
+      <Breadcrumbs items={breadcrumbs} />
       <section
         className="service-detail-hero rain-section"
         aria-labelledby="service-detail-title"
@@ -262,6 +284,47 @@ export default async function ServiceDetailPage({
                 </article>
               );
             })}
+          </div>
+        </section>
+      ) : null}
+
+      {relatedProjects.length > 0 ? (
+        <section
+          className="rain-section service-detail-related"
+          aria-labelledby="related-projects-title"
+        >
+          <div className="rain-container home-section-heading">
+            <p className="rain-badge">Bağlı Proje Akışları</p>
+            <h2
+              id="related-projects-title"
+              className="rain-heading rain-heading--section"
+            >
+              Bu hizmetin geçtiği demo proje bağlantıları.
+            </h2>
+            <p>
+              Bu bağlantılar gerçek sonuç iddiası kurmaz; hizmet ilişkisinin
+              proje sayfasında nasıl takip edileceğini gösterir.
+            </p>
+          </div>
+
+          <div className="rain-container rain-grid">
+            {relatedProjects.map((project) => (
+              <article key={project.id} className="rain-card service-card">
+                <div className="service-card__header">
+                  <p className="rain-badge">{project.status}</p>
+                  <h3>{project.title}</h3>
+                  <p>{project.summary}</p>
+                </div>
+                <div className="service-card__footer">
+                  <Link
+                    className="rain-button rain-button--secondary"
+                    href={`/projeler/${project.slug}`}
+                  >
+                    Proje Akışını İncele
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
       ) : null}

@@ -1,5 +1,5 @@
 import { projects, services } from "./fixtures";
-import { businessContactLinks, siteSettings } from "./site-settings";
+import { siteSettings } from "./site-settings";
 import type {
   Project,
   Service,
@@ -51,8 +51,12 @@ export const getWhatsAppTemplateByContext = (context: WhatsAppMessageContext) =>
 export const encodeWhatsAppMessage = (message: string) =>
   encodeURIComponent(normalizeMessage(message));
 
+const whatsappContactHref =
+  siteSettings.contacts.find((contact) => contact.channel === "whatsapp")
+    ?.href ?? siteSettings.primaryCta.href;
+
 export const createWhatsAppLink = (message: string) =>
-  `${businessContactLinks.whatsapp}?text=${encodeWhatsAppMessage(message)}`;
+  `${whatsappContactHref}?text=${encodeWhatsAppMessage(message)}`;
 
 export const createGeneralWhatsAppMessage = () =>
   normalizeMessage(`

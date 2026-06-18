@@ -3,14 +3,13 @@ import Link from "next/link";
 import {
   generalWhatsAppLink,
   getContactByChannel,
+  getSocialLinkByChannel,
   legalNavigation,
   primaryNavigation,
   siteSettings,
 } from "@/content";
 
-const mapsLink = siteSettings.socialLinks.find(
-  (link) => link.label === "Google Maps",
-);
+const mapsLink = getSocialLinkByChannel("maps");
 
 export function SiteFooter() {
   const phoneContact = getContactByChannel("phone");

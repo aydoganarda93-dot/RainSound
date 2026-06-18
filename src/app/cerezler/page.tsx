@@ -1,13 +1,20 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { generalWhatsAppLink, siteSettings } from "@/content";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { StructuredData } from "@/components/structured-data";
+import {
+  buildBreadcrumbJsonLd,
+  buildPageMetadata,
+  pageBreadcrumbs,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Çerez Bilgilendirmesi",
   description:
     "RAIN SOUND tanıtım sitesi çerez bilgilendirmesi: mevcut çerez, analitik ve üçüncü taraf bağlantı durumu.",
-};
+  path: "/cerezler",
+});
 
 const cookieSections = [
   {
@@ -35,6 +42,8 @@ const cookieSections = [
 export default function CookiesPage() {
   return (
     <main className="legal-page">
+      <StructuredData data={buildBreadcrumbJsonLd(pageBreadcrumbs.cookies)} />
+      <Breadcrumbs items={pageBreadcrumbs.cookies} />
       <section
         className="legal-hero rain-section"
         aria-labelledby="cookies-title"

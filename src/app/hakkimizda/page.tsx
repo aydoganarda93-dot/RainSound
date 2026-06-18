@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -8,12 +7,20 @@ import {
   services,
   siteSettings,
 } from "@/content";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { StructuredData } from "@/components/structured-data";
+import {
+  buildBreadcrumbJsonLd,
+  buildLocalBusinessJsonLd,
+  buildPageMetadata,
+  pageBreadcrumbs,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Hakkımızda",
-  description:
-    "RAIN SOUND Eskişehir; oto detailing, araç koruma, ses sistemleri, aksesuar ve modifiye hizmetlerini tek garaj deneyiminde sunar.",
-};
+  description: `${siteSettings.siteName} ${siteSettings.address.district}/${siteSettings.address.city}; oto detailing, araç koruma, ses sistemleri, aksesuar ve modifiye hizmetlerini tek garaj deneyiminde sunar.`,
+  path: "/hakkimizda",
+});
 
 const publishedServices = services.filter(
   (service) => service.status === "published",
@@ -29,6 +36,13 @@ export default function AboutPage() {
 
   return (
     <main className="about-page">
+      <StructuredData
+        data={[
+          buildBreadcrumbJsonLd(pageBreadcrumbs.about),
+          buildLocalBusinessJsonLd(),
+        ]}
+      />
+      <Breadcrumbs items={pageBreadcrumbs.about} />
       <section
         className="about-hero rain-section"
         aria-labelledby="about-page-title"
@@ -45,7 +59,8 @@ export default function AboutPage() {
               {siteSettings.tagline}
             </h1>
             <p>
-              {siteSettings.description} RAIN SOUND, araç görünümünü, koruma
+              {siteSettings.description} {siteSettings.siteName},{" "}
+              {siteSettings.address.district} içinde araç görünümünü, koruma
               ihtiyacını, ses teknolojisini ve modifiye karakterini aynı çatı
               altında ele alan tanıtım odaklı bir garaj deneyimi sunar.
             </p>
@@ -149,6 +164,12 @@ export default function AboutPage() {
                   }{" "}
                   hizmet bu kategori altında takip ediliyor.
                 </p>
+                <Link
+                  className="rain-link"
+                  href={`/hizmetler#${category.slug}`}
+                >
+                  {category.title} hizmetlerini incele
+                </Link>
               </article>
             ))}
           </div>

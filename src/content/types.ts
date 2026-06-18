@@ -18,6 +18,10 @@ export type ExternalLink = {
   target?: LinkTarget;
 };
 
+export type SocialLink = ExternalLink & {
+  channel: Extract<ContactChannel, "instagram" | "maps">;
+};
+
 export type NavigationItem = {
   label: string;
   href: string;
@@ -74,7 +78,7 @@ export type SiteSettings = {
   };
   contacts: ContactLink[];
   businessHours: BusinessHoursEntry[];
-  socialLinks: ExternalLink[];
+  socialLinks: SocialLink[];
   primaryCta: {
     label: string;
     href: string;

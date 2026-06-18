@@ -1,8 +1,11 @@
+import Link from "next/link";
+
 import {
   demoContentReport,
   faqs,
   generalWhatsAppLink,
   getContactByChannel,
+  getSocialLinkByChannel,
   projects,
   serviceCategories,
   services,
@@ -11,6 +14,18 @@ import {
 import { HeroIntro } from "@/components/hero-intro";
 import { HeroMediaShell } from "@/components/hero-media-shell";
 import { HomeMotionShell } from "@/components/home-motion-shell";
+import { StructuredData } from "@/components/structured-data";
+import {
+  buildLocalBusinessJsonLd,
+  buildPageMetadata,
+  buildServiceListJsonLd,
+} from "@/lib/seo";
+
+export const metadata = buildPageMetadata({
+  title: `${siteSettings.siteName} | Oto Detailing ve Ses Sistemleri`,
+  description: `${siteSettings.siteName}, ${siteSettings.address.district}/${siteSettings.address.city} içinde oto detailing, araç koruma, ses sistemleri, aksesuar ve modifiye hizmetleri için WhatsApp odaklı tanıtım ve iletişim sitesi.`,
+  path: "/",
+});
 
 const publishedCategories = serviceCategories
   .filter((category) => category.status === "published")
@@ -20,15 +35,15 @@ const featuredServices = services
   .filter((service) => service.status === "published")
   .slice(0, 6);
 
+const publishedServices = services.filter(
+  (service) => service.status === "published",
+);
+
 const featuredProjects = projects.slice(0, 3);
 
-const mapsLink = siteSettings.socialLinks.find(
-  (link) => link.label === "Google Maps",
-);
+const mapsLink = getSocialLinkByChannel("maps");
 
-const instagramLink = siteSettings.socialLinks.find(
-  (link) => link.label === "Instagram",
-);
+const instagramLink = getSocialLinkByChannel("instagram");
 
 const weekdayHours = siteSettings.businessHours.find(
   (entry) => entry.day === "monday",
@@ -39,6 +54,12 @@ export default function Home() {
 
   return (
     <HomeMotionShell>
+      <StructuredData
+        data={[
+          buildLocalBusinessJsonLd(),
+          buildServiceListJsonLd(publishedServices),
+        ]}
+      />
       <section className="home-hero rain-section" aria-labelledby="hero-title">
         <div className="development-shell__glow" aria-hidden="true" />
 
@@ -67,7 +88,7 @@ export default function Home() {
               aria-label="Hızlı özet"
             >
               <span className="home-hero__panel-kicker">
-                Eskişehir / Odunpazarı
+                {siteSettings.address.city} / {siteSettings.address.district}
               </span>
               <strong>Detailing, Sound & Tech, Design & Performance</strong>
               <p>
@@ -130,6 +151,9 @@ export default function Home() {
                   ))}
                 </ul>
                 <p className="home-card__note">{service.pricingNote}</p>
+                <Link className="rain-link" href={`/hizmetler/${service.slug}`}>
+                  {service.title} detayını incele
+                </Link>
               </article>
             );
           })}
@@ -167,6 +191,9 @@ export default function Home() {
               <p>{project.summary}</p>
               <span>{project.vehicleLabel}</span>
               <strong>{project.serviceIds.length} bağlı hizmet</strong>
+              <Link className="rain-link" href={`/projeler/${project.slug}`}>
+                Proje akışını incele
+              </Link>
             </article>
           ))}
         </div>
@@ -218,7 +245,8 @@ export default function Home() {
               id="contact-title"
               className="rain-heading rain-heading--section"
             >
-              Randevu ve bilgi için en hızlı yol WhatsApp.
+              {siteSettings.address.district} içinde randevu ve bilgi için en
+              hızlı yol WhatsApp.
             </h2>
             <p>{siteSettings.address.display}</p>
           </div>
@@ -255,7 +283,7 @@ export default function Home() {
                 target={instagramLink.target}
                 rel="noreferrer"
               >
-                Instagram: @rainsound2634
+                Instagram: {instagramLink.label}
               </a>
             ) : null}
             {weekdayHours ? (

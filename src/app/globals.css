@@ -536,6 +536,51 @@ a {
   width: 100%;
 }
 
+.breadcrumbs {
+  position: relative;
+  z-index: var(--rain-z-content);
+  padding-block: var(--spacing-rain-4) 0;
+}
+
+.breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-rain-1);
+  align-items: center;
+  margin-block: 0;
+  padding-block: 0;
+  color: var(--rain-color-fg-dim);
+  font-size: var(--text-rain-sm);
+  list-style: none;
+}
+
+.breadcrumbs__item {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  gap: var(--spacing-rain-1);
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+  color: var(--rain-color-fg-dim);
+  content: "/";
+}
+
+.breadcrumbs__item a {
+  color: var(--rain-color-fg-muted);
+  text-decoration: none;
+}
+
+.breadcrumbs__item a:hover,
+.breadcrumbs__item a:focus-visible {
+  color: var(--rain-color-fg);
+}
+
+.breadcrumbs__item span {
+  color: var(--rain-color-fg);
+  font-weight: 700;
+}
+
 .site-footer {
   position: relative;
   z-index: var(--rain-z-content);
@@ -1688,12 +1733,20 @@ a {
   gap: var(--spacing-rain-1);
 }
 
-.project-card__services span {
+.project-card__services span,
+.project-card__services a {
   padding: 0.5rem var(--spacing-rain-2);
   border: 1px solid rgb(176 108 255 / 24%);
   border-radius: var(--radius-rain-pill);
   color: var(--rain-color-accent-soft);
   font-size: var(--text-rain-sm);
+  text-decoration: none;
+}
+
+.project-card__services a:hover,
+.project-card__services a:focus-visible {
+  border-color: var(--rain-border-accent);
+  color: var(--rain-color-fg);
 }
 
 .project-card__footer {
@@ -2335,6 +2388,16 @@ a {
 .contact-service-list strong {
   color: var(--rain-color-fg);
   font-weight: 800;
+}
+
+.contact-service-list a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-service-list a:hover strong,
+.contact-service-list a:focus-visible strong {
+  color: var(--rain-color-accent-soft);
 }
 
 .business-hours-list dd,

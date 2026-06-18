@@ -6,8 +6,8 @@
 > **Ana mesaj:** Aracın karakterini ortaya çıkar.
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 18 Haziran 2026
-> **Mevcut aşama:** P9 - Yerel dönüşüm ve SEO
-> **Aktif mikro hedef:** P9.1 - Telefon, WhatsApp, Instagram ve Google Maps/yol tarifi akışlarını gerçek verilerle tamamlama
+> **Mevcut aşama:** P10 - Analitik ve Performans
+> **Aktif mikro hedef:** P10.1 - `@vercel/analytics` ve `@vercel/speed-insights` paketlerini kur ve root layout'a bağla
 
 ---
 
@@ -3049,20 +3049,102 @@ P10/P11 kalite fazlarında ayrıca yapılacaktır.
 
 ### P9 - Yerel Dönüşüm ve SEO
 
-**Durum:** `Devam Ediyor`
+**Durum:** `Tamamlandı`
 **Bağımlılık:** P0 işletme bilgileri ve P5 sayfaları tamamlanmış olmalıdır.
 
-- [ ] **P9.1** Telefon, WhatsApp, Instagram ve Google Maps/yol tarifi akışlarını
+- [x] **P9.1** Telefon, WhatsApp, Instagram ve Google Maps/yol tarifi akışlarını
       gerçek verilerle tamamla.
-- [ ] **P9.2** Tüm sayfalar için title, description, canonical ve Open Graph
+
+**P9.1 tamamlanma notu - 18 Haziran 2026**
+
+- Telefon, WhatsApp, Instagram ve Google Maps/yol tarifi verileri P0 doğrulama
+  kayıtlarıyla karşılaştırıldı; canlı site kaynağı `siteSettings` olarak
+  tutuldu.
+- `siteSettings.socialLinks` kayıtlarına `channel` kimliği eklendi ve
+  `getSocialLinkByChannel` helper'ı oluşturuldu.
+- Footer, sabit quick contact, ana sayfa ve iletişim sayfasındaki Google
+  Maps/Instagram bağlantıları etiket metnine göre arama yerine merkezi kanal
+  helper'ından beslenir hale getirildi.
+- Header, footer, quick contact, ana sayfa, iletişim ve hata/404 ekranlarındaki
+  WhatsApp/telefon/yol tarifi akışları aynı merkezi iletişim verisi üzerinden
+  kontrol edildi.
+- [x] **P9.2** Tüm sayfalar için title, description, canonical ve Open Graph
       verilerini oluştur.
-- [ ] **P9.3** Sitemap, robots ve breadcrumb yapılarını ekle.
-- [ ] **P9.4** Doğrulanmış bilgilerle LocalBusiness, Service ve BreadcrumbList
+
+**P9.2 tamamlanma notu - 18 Haziran 2026**
+
+- `buildPageMetadata` helper'ı eklendi; sayfa başlığı, açıklama, canonical,
+  Open Graph ve Twitter metadata setleri merkezi `siteSettings` markasıyla aynı
+  şablondan üretilir hale getirildi.
+- Ana sayfa, hakkımızda, hizmetler liste, projeler liste, iletişim, gizlilik ve
+  çerezler sayfalarına benzersiz metadata ve canonical yolları bağlandı.
+- Hizmet detay sayfaları `services` ve `serviceCategories` verisinden; proje
+  detay sayfaları `projects` ve bağlı hizmetlerden benzersiz metadata üretir.
+- Root layout metadata temeli korunurken indekslenebilir sayfaların sayfa bazlı
+  canonical ve Open Graph alanları tamamlandı.
+- [x] **P9.3** Sitemap, robots ve breadcrumb yapılarını ekle.
+
+**P9.3 tamamlanma notu - 18 Haziran 2026**
+
+- `src/app/sitemap.ts` eklendi; statik sayfalar merkezi `staticSitemapRoutes`
+  listesinden, hizmet detayları `services`, proje detayları `projects`
+  verisinden üretilir.
+- `src/app/robots.ts` eklendi; `siteSettings.siteUrl` ile uyumlu host ve mutlak
+  sitemap bağlantısı üretir.
+- `src/lib/seo.ts` içinde sitemap route listesi, mutlak URL helper'ı ve
+  BreadcrumbList JSON-LD üretimine hazır breadcrumb veri helper'ları tanımlandı.
+- Hakkımızda, hizmetler, hizmet detayları, projeler, proje detayları, iletişim,
+  gizlilik ve çerezler sayfalarına erişilebilir breadcrumb nav'ı eklendi.
+- [x] **P9.4** Doğrulanmış bilgilerle LocalBusiness, Service ve BreadcrumbList
       JSON-LD üret.
-- [ ] **P9.5** Hizmet, kategori ve projeler arasında anlamlı dahili bağlantı
+
+**P9.4 tamamlanma notu - 18 Haziran 2026**
+
+- `StructuredData` bileşeni eklendi; JSON-LD verileri sayfalara
+  `application/ld+json` script'i olarak basılır.
+- `src/lib/seo.ts` içinde `LocalBusiness` alt türü olarak `AutoRepair`,
+  `Service`, hizmet `ItemList` ve `BreadcrumbList` JSON-LD üreticileri eklendi.
+- LocalBusiness verisi `siteSettings` içindeki doğrulanmış işletme adı, adres,
+  telefon, çalışma saatleri, site URL'i ve sosyal/harita bağlantılarından
+  beslenir.
+- Ana sayfa, hakkımızda ve iletişim sayfalarında LocalBusiness; hizmet liste ve
+  detay sayfalarında Service/ItemList; tüm breadcrumb kullanılan sayfalarda
+  BreadcrumbList JSON-LD bağlandı.
+- Proje sayfalarında demo kayıtlar gerçek uygulama sonucu gibi
+  yapılandırılmadı; yalnızca sayfa konumunu açıklayan BreadcrumbList üretildi.
+- [x] **P9.5** Hizmet, kategori ve projeler arasında anlamlı dahili bağlantı
       sistemini kur.
-- [ ] **P9.6** Türkçe yerel arama metinlerini işletmenin gerçek konumuna göre
+- [x] **P9.6** Türkçe yerel arama metinlerini işletmenin gerçek konumuna göre
       düzenle.
+
+**P9.5 tamamlanma notu - 18 Haziran 2026**
+
+- Ana sayfa hizmet kartları hizmet detay rotalarına, demo proje kartları proje
+  detay rotalarına bağlandı.
+- Proje liste kartlarındaki bağlı hizmet etiketleri ilgili hizmet detay
+  sayfalarına link verir hale getirildi.
+- Hizmet detay sayfalarında, ilgili hizmetleri tamamlayan bağlantılara ek
+  olarak o hizmetin geçtiği demo proje akışları gösterildi.
+- Hakkımızda ve iletişim sayfalarındaki kategori özetleri hizmetler sayfasının
+  kategori anchor'larına bağlandı.
+- Demo proje bağlantıları gerçek sonuç iddiası kurmadan, proje akışı ve hizmet
+  ilişkisini gösteren dahili linkler olarak sunuldu.
+
+**P9.6 tamamlanma notu - 18 Haziran 2026**
+
+- Ana sayfa, hakkımızda, hizmetler, hizmet detayları, projeler ve proje detay
+  metadata açıklamaları `siteSettings.address` içindeki Odunpazarı/Eskişehir
+  bilgisiyle güçlendirildi.
+- Görünür sayfa metinlerinde Eskişehir, Odunpazarı ve doğrulanmış adres bağlamı
+  merkezi `siteSettings` verisinden beslenecek şekilde netleştirildi.
+- Yerel arama metinleri fiyat, garanti veya gerçek proje sonucu gibi
+  doğrulanmamış iddialar eklemeden tamamlandı.
+
+**P9 kapanış kararı:** P9 tamamlandı. Telefon/WhatsApp/Instagram/Maps
+akışları, sayfa metadata setleri, sitemap/robots, breadcrumb, JSON-LD, dahili
+bağlantılar ve yerel arama metinleri merkezi veri kaynaklarına bağlanmıştır.
+Yapılandırılmış verilerin harici zengin sonuç aracıyla doğrulanması production
+öncesi kalite kabulünde ayrıca yapılacaktır.
 
 **P9 çıkış kapısı**
 
@@ -3072,7 +3154,7 @@ P10/P11 kalite fazlarında ayrıca yapılacaktır.
 
 ### P10 - Analitik ve Performans
 
-**Durum:** `Bekliyor`
+**Durum:** `Devam Ediyor`
 **Bağımlılık:** P8 ve P9 tamamlanmış olmalıdır.
 
 - [ ] **P10.1** `@vercel/analytics` ve `@vercel/speed-insights` paketlerini

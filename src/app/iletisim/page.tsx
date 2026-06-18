@@ -1,20 +1,29 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
   generalWhatsAppLink,
   getContactByChannel,
+  getSocialLinkByChannel,
   serviceCategories,
   services,
   siteSettings,
 } from "@/content";
 import type { BusinessHoursEntry } from "@/content";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { StructuredData } from "@/components/structured-data";
+import {
+  buildBreadcrumbJsonLd,
+  buildLocalBusinessJsonLd,
+  buildPageMetadata,
+  pageBreadcrumbs,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "İletişim",
+export const metadata = buildPageMetadata({
+  title: "İletişim ve Yol Tarifi",
   description:
     "RAIN SOUND Eskişehir iletişim bilgileri: WhatsApp, telefon, Instagram, yol tarifi, adres ve çalışma saatleri.",
-};
+  path: "/iletisim",
+});
 
 const dayLabels: Record<BusinessHoursEntry["day"], string> = {
   monday: "Pazartesi",
@@ -37,15 +46,18 @@ const formatBusinessHours = (entry: BusinessHoursEntry) => {
 export default function ContactPage() {
   const phoneContact = getContactByChannel("phone");
   const whatsappContact = getContactByChannel("whatsapp");
-  const instagramLink = siteSettings.socialLinks.find(
-    (link) => link.label === "Instagram",
-  );
-  const mapsLink = siteSettings.socialLinks.find(
-    (link) => link.label === "Google Maps",
-  );
+  const instagramLink = getSocialLinkByChannel("instagram");
+  const mapsLink = getSocialLinkByChannel("maps");
 
   return (
     <main className="contact-page">
+      <StructuredData
+        data={[
+          buildBreadcrumbJsonLd(pageBreadcrumbs.contact),
+          buildLocalBusinessJsonLd(),
+        ]}
+      />
+      <Breadcrumbs items={pageBreadcrumbs.contact} />
       <section
         className="contact-hero rain-section"
         aria-labelledby="contact-page-title"
@@ -133,7 +145,7 @@ export default function ContactPage() {
                   target={instagramLink.target}
                   rel="noreferrer"
                 >
-                  Instagram
+                  {instagramLink.label}
                 </a>
               ) : null}
               {mapsLink ? (
@@ -143,7 +155,7 @@ export default function ContactPage() {
                   target={mapsLink.target}
                   rel="noreferrer"
                 >
-                  Google Maps
+                  {mapsLink.label}
                 </a>
               ) : null}
             </div>
@@ -210,7 +222,9 @@ export default function ContactPage() {
                 .filter((category) => category.status === "published")
                 .map((category) => (
                   <li key={category.id}>
-                    <strong>{category.title}</strong>
+                    <Link href={`/hizmetler#${category.slug}`}>
+                      <strong>{category.title}</strong>
+                    </Link>
                     <span>
                       {
                         services.filter(
