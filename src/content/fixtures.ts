@@ -82,6 +82,25 @@ const demoHeroMedia = {
   ),
 } satisfies MediaAsset;
 
+const serviceVisuals = {
+  paint: {
+    imageSrc: "/media/ai/services/ai-service-ceramic-paint-01.avif",
+    imageAlt: "Rain Sound icin boya parlakligi ve seramik koruma atmosferi",
+  },
+  protection: {
+    imageSrc: "/media/ai/services/ai-service-ppf-film-01.avif",
+    imageAlt: "Rain Sound icin PPF ve yuzey koruma atmosferi",
+  },
+  sound: {
+    imageSrc: "/media/ai/services/ai-service-sound-install-01.avif",
+    imageAlt: "Rain Sound icin oto ses sistemi montaj atmosferi",
+  },
+  performance: {
+    imageSrc: "/media/ai/services/ai-service-performance-front-01.avif",
+    imageAlt: "Rain Sound icin far ve performans tasarim atmosferi",
+  },
+} as const;
+
 const demoProjectMedia = ({
   note,
   ...asset
@@ -187,6 +206,11 @@ export const services = [
       messageHint: "İç dış yıkama için araç tipi ve uygun saat sorulacak.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "compact",
+      visualRole: "wash",
+      ...serviceVisuals.paint,
+    },
     relatedServiceIds: ["paint-correction", "ceramic-coating"],
     status: "published",
     demo: demoContent(
@@ -224,6 +248,11 @@ export const services = [
         "Seramik kaplama için araç marka/modeli ve yüzey durumu istenecek.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "large",
+      visualRole: "paint",
+      ...serviceVisuals.paint,
+    },
     relatedServiceIds: ["paint-correction", "ppf-coating", "vehicle-wrap"],
     status: "published",
     demo: demoContent(
@@ -266,6 +295,11 @@ export const services = [
         "Pasta cila değerlendirmesi için araç fotoğrafı ve boya durumu istenecek.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "medium",
+      visualRole: "paint",
+      ...serviceVisuals.paint,
+    },
     relatedServiceIds: [
       "interior-exterior-wash",
       "ceramic-coating",
@@ -307,6 +341,11 @@ export const services = [
         "PPF için istenen parça/kapsam ve araç modeli WhatsApp'ta netleştirilecek.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "large",
+      visualRole: "protection",
+      ...serviceVisuals.protection,
+    },
     relatedServiceIds: ["ceramic-coating", "paint-correction", "vehicle-wrap"],
     status: "published",
     demo: demoContent(
@@ -348,6 +387,11 @@ export const services = [
         "Cam filmi için araç modeli, istenen ton ve kapsam WhatsApp'ta konuşulacak.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "compact",
+      visualRole: "protection",
+      ...serviceVisuals.protection,
+    },
     relatedServiceIds: ["vehicle-wrap", "ppf-coating"],
     status: "published",
     demo: demoContent(
@@ -390,6 +434,11 @@ export const services = [
         "Araç kaplama için renk/doku fikri ve araç modeli WhatsApp'ta alınacak.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "large",
+      visualRole: "performance",
+      ...serviceVisuals.performance,
+    },
     relatedServiceIds: ["ppf-coating", "window-film", "body-kit"],
     status: "published",
     demo: demoContent(
@@ -432,6 +481,11 @@ export const services = [
         "Ses sistemi için beklenti, bütçe aralığı ve araç modeli WhatsApp'ta sorulacak.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "large",
+      visualRole: "sound",
+      ...serviceVisuals.sound,
+    },
     relatedServiceIds: ["auto-accessories"],
     status: "published",
     demo: demoContent(
@@ -473,6 +527,11 @@ export const services = [
         "Aksesuar için istenen ürün ve araç modeli WhatsApp'ta netleştirilecek.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "compact",
+      visualRole: "sound",
+      ...serviceVisuals.sound,
+    },
     relatedServiceIds: ["car-audio-visual"],
     status: "published",
     demo: demoContent(
@@ -515,6 +574,11 @@ export const services = [
         "Far tasarımı için araç modeli ve örnek istenen görünüm WhatsApp'ta istenecek.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "medium",
+      visualRole: "performance",
+      ...serviceVisuals.performance,
+    },
     relatedServiceIds: ["body-kit", "vehicle-wrap"],
     status: "published",
     demo: demoContent(
@@ -558,6 +622,11 @@ export const services = [
         "Body kit için araç modeli, istenen parça ve örnek görsel WhatsApp'ta alınacak.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "medium",
+      visualRole: "performance",
+      ...serviceVisuals.performance,
+    },
     relatedServiceIds: ["headlight-design", "vehicle-wrap", "varex-exhaust"],
     status: "published",
     demo: demoContent(
@@ -601,6 +670,11 @@ export const services = [
         "Varex egzoz için araç modeli ve beklenti WhatsApp'ta netleştirilecek.",
     },
     media: [demoHeroMedia],
+    visualTreatment: {
+      priority: "compact",
+      visualRole: "performance",
+      ...serviceVisuals.performance,
+    },
     relatedServiceIds: ["body-kit", "headlight-design"],
     status: "published",
     demo: demoContent(

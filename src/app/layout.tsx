@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { QuickContactBar, SiteFooter } from "@/components/site-footer";
+import { SiteAmbient } from "@/components/site-ambient";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFx } from "@/components/site-fx";
 import { siteSettings } from "@/content";
 
 import "./globals.css";
@@ -21,10 +25,16 @@ const metadataKeywords = [
   "araç kaplama",
 ];
 
-const rainSans = Inter({
+const rainSans = Plus_Jakarta_Sans({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   variable: "--font-rain-sans",
+});
+
+const rainDisplay = Bricolage_Grotesque({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-rain-display",
 });
 
 export const metadata: Metadata = {
@@ -87,14 +97,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={siteSettings.locale}>
-      <body className={`${rainSans.variable} antialiased`}>
+    <html lang={siteSettings.locale} suppressHydrationWarning>
+      <body className={`${rainSans.variable} ${rainDisplay.variable} subpixel-antialiased`}>
+        <SiteAmbient />
         <div className="site-shell">
           <SiteHeader />
           {children}
           <SiteFooter />
           <QuickContactBar />
         </div>
+        <SiteFx />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

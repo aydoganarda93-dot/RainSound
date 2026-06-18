@@ -19,7 +19,7 @@ export const metadata = buildPageMetadata({
 const cookieSections = [
   {
     title: "Mevcut çerez kullanımı",
-    body: "Bu aşamada web sitesi doğrudan pazarlama, reklam hedefleme, üyelik takibi veya gelişmiş analitik için çerez yerleştirecek özel bir kod içermez.",
+    body: "Site pazarlama, reklam hedefleme veya üyelik takibi için çerez kullanmaz. Vercel Analytics ve Speed Insights ile anonim/özet trafik ve performans ölçümü yapılır; kişisel reklam profili oluşturulmaz.",
   },
   {
     title: "Zorunlu teknik işlemler",
@@ -27,7 +27,7 @@ const cookieSections = [
   },
   {
     title: "Analitik durumu",
-    body: "Vercel Analytics, Google Analytics, Meta Pixel veya benzeri bir analitik/reklam takip sistemi bu aşamada aktif değildir. İleride eklenirse çerez bilgilendirmesi, kullanılan servis ve tercih yönetimi yaklaşımıyla güncellenmelidir.",
+    body: "Vercel Analytics sayfa görüntülemelerini ve temel trafik verilerini özet şekilde ölçer. Speed Insights Core Web Vitals (LCP, INP, CLS) gibi performans metriklerini toplar. Google Analytics, Meta Pixel veya benzeri reklam/analitik araçları aktif değildir.",
   },
   {
     title: "Üçüncü taraf bağlantılar",
@@ -35,7 +35,7 @@ const cookieSections = [
   },
   {
     title: "Tercih yönetimi",
-    body: "Site şu anda isteğe bağlı analitik veya reklam çerezi kullanmadığı için özel bir çerez tercih paneli sunmaz. Tarayıcı ayarlarından çerezleri engellemek veya silmek mümkündür.",
+    body: "Reklam veya pazarlama çerezi kullanılmadığı için özel bir çerez tercih paneli sunulmaz. Tarayıcı ayarlarından çerezleri engellemek veya silmek mümkündür. Vercel ölçüm araçları hakkında ayrıntılı bilgi için Vercel gizlilik politikasına bakılabilir.",
   },
 ];
 
@@ -64,10 +64,10 @@ export default function CookiesPage() {
 
           <aside className="rain-card legal-hero__panel">
             <span>{siteSettings.siteName}</span>
-            <strong>Analitik ve reklam çerezi şu anda aktif değildir.</strong>
+            <strong>Vercel Analytics ve Speed Insights kullanılır.</strong>
             <p>
-              İleride analitik, reklam veya form entegrasyonu eklenirse bu metin
-              ve tercih yönetimi yaklaşımı güncellenecektir.
+              Trafik ve performans ölçümü yapılır; reklam veya pazarlama çerezi
+              kullanılmaz. Google Analytics veya Meta Pixel aktif değildir.
             </p>
           </aside>
         </div>

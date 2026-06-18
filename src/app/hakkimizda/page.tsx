@@ -1,4 +1,11 @@
 import Link from "next/link";
+import {
+  ArrowUpRight,
+  MessageCircle,
+  ShieldCheck,
+  Wallet,
+  Wrench,
+} from "lucide-react";
 
 import {
   generalWhatsAppLink,
@@ -30,12 +37,29 @@ const publishedCategories = serviceCategories
   .filter((category) => category.status === "published")
   .sort((current, next) => current.order - next.order);
 
+const principles = [
+  {
+    icon: Wallet,
+    title: "Fiyat WhatsApp'ta netleşir",
+    description: "Araca, ürüne ve kapsama göre değiştiği için sabit fiyat yok.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Abartısız, net anlatım",
+    description: "Kanıtsız iddia değil; araç durumuna göre doğru beklenti.",
+  },
+  {
+    icon: Wrench,
+    title: "Araç özelinde planlama",
+    description: "Her işlem aracın modeline ve beklentine göre kurgulanır.",
+  },
+];
+
 export default function AboutPage() {
   const phoneContact = getContactByChannel("phone");
-  const whatsappContact = getContactByChannel("whatsapp");
 
   return (
-    <main className="about-page">
+    <main className="rsg-page">
       <StructuredData
         data={[
           buildBreadcrumbJsonLd(pageBreadcrumbs.about),
@@ -43,168 +67,131 @@ export default function AboutPage() {
         ]}
       />
       <Breadcrumbs items={pageBreadcrumbs.about} />
-      <section
-        className="about-hero rain-section"
-        aria-labelledby="about-page-title"
-      >
-        <div className="development-shell__glow" aria-hidden="true" />
 
-        <div className="rain-container about-hero__grid">
-          <div className="about-hero__content">
-            <p className="rain-badge">Hakkımızda</p>
+      <section className="rsg-pagehero" aria-labelledby="about-page-title">
+        <div className="rsg-pagehero__glow rsg-pagehero__glow--right" aria-hidden="true" />
+        <div className="rain-container rsg-pagehero__inner">
+          <div className="rsg-pagehero__lead-col">
+            <p className="rsg-eyebrow" data-reveal>
+              <span className="rsg-eyebrow__dot" aria-hidden="true" />
+              Hakkımızda
+            </p>
             <h1
               id="about-page-title"
-              className="rain-heading rain-heading--hero"
+              className="rsg-pagehero__title rsg-title--xl"
+              data-reveal
+              style={{ "--reveal-delay": "0.05s" } as React.CSSProperties}
             >
               {siteSettings.tagline}
             </h1>
-            <p>
-              {siteSettings.description} {siteSettings.siteName},{" "}
-              {siteSettings.address.district} içinde araç görünümünü, koruma
-              ihtiyacını, ses teknolojisini ve modifiye karakterini aynı çatı
-              altında ele alan tanıtım odaklı bir garaj deneyimi sunar.
+            <p
+              className="rsg-lead"
+              data-reveal
+              style={{ "--reveal-delay": "0.1s" } as React.CSSProperties}
+            >
+              {siteSettings.address.district} içinde görünüm, koruma, ses ve
+              karakter aynı atölyede buluşur.
             </p>
           </div>
 
-          <aside className="rain-card about-hero__panel">
-            <span>
+          <aside
+            className="rsg-card rsg-card--accent rsg-pagehero__aside"
+            data-reveal
+            style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
+          >
+            <p className="rsg-eyebrow rsg-eyebrow--muted">
               {siteSettings.address.city} / {siteSettings.address.district}
-            </span>
-            <strong>{publishedServices.length}+ hizmet tek merkezde.</strong>
-            <p>
-              Sabit fiyat yayınlanmaz. Araç durumu, işlem kapsamı ve ürün seçimi
-              WhatsApp üzerinden netleştirilir.
             </p>
+            <h2>{publishedServices.length}+ hizmet, tek merkez.</h2>
             <a
-              className="rain-button rain-button--primary"
+              className="rain-button rain-button--primary rsg-btn-lg"
               href={generalWhatsAppLink.href}
             >
+              <MessageCircle aria-hidden="true" size={18} />
               {generalWhatsAppLink.label}
             </a>
           </aside>
         </div>
       </section>
 
-      <section className="rain-section" aria-labelledby="about-trust-title">
-        <div className="rain-container home-section-heading">
-          <p className="rain-badge">İşletme Güveni</p>
-          <h2
-            id="about-trust-title"
-            className="rain-heading rain-heading--section"
-          >
-            Net beklenti, doğru yönlendirme, araca göre işlem.
+      <section className="rsg-section" aria-labelledby="about-principles-title">
+        <div className="rain-container rsg-section__head" data-reveal>
+          <p className="rsg-eyebrow">İşletme Yaklaşımı</p>
+          <h2 id="about-principles-title" className="rsg-title">
+            Net beklenti, doğru yönlendirme
           </h2>
-          <p>
-            Bu web sitesi fiyat listesi gibi değil, doğru hizmete hızlı ulaşma
-            noktası gibi çalışır. Gerçek işlem kapsamı araç görülmeden veya araç
-            bilgisi alınmadan kesinleştirilmez.
-          </p>
         </div>
 
-        <div className="rain-container rain-grid about-principles">
-          <article className="rain-card about-card">
-            <p className="rain-badge">01</p>
-            <h3>Fiyat WhatsApp üzerinden netleşir</h3>
-            <p>
-              Fiyatlar araca, ürün seçimine, uygulama kapsamına ve mevcut yüzey
-              durumuna göre değişir. Bu yüzden sayfada sabit fiyat gösterilmez.
-            </p>
-          </article>
-          <article className="rain-card about-card">
-            <p className="rain-badge">02</p>
-            <h3>Demo ve gerçek içerik ayrımı korunur</h3>
-            <p>
-              Gerçek müşteri aracı ve izinli medya gelmeden demo içerik gerçek
-              uygulama sonucu gibi sunulmaz.
-            </p>
-          </article>
-          <article className="rain-card about-card">
-            <p className="rain-badge">03</p>
-            <h3>Hizmet kapsamı araç özelinde değerlendirilir</h3>
-            <p>
-              Detailing, PPF, ses sistemi, far tasarımı, body kit ve egzoz gibi
-              işler araç modeli ve beklentiye göre planlanır.
-            </p>
-          </article>
+        <div className="rain-container rsg-grid-3">
+          {principles.map((principle, index) => (
+            <article
+              key={principle.title}
+              className="rsg-feature"
+              data-reveal
+              style={{ "--reveal-delay": `${0.06 * index}s` } as React.CSSProperties}
+            >
+              <span className="rsg-feature__icon" aria-hidden="true">
+                <principle.icon size={20} />
+              </span>
+              <h3>{principle.title}</h3>
+              <p>{principle.description}</p>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="rain-section" aria-labelledby="about-services-title">
-        <div className="rain-container about-services__grid">
-          <div className="home-section-heading">
-            <p className="rain-badge">Hizmet Kapsamı</p>
-            <h2
-              id="about-services-title"
-              className="rain-heading rain-heading--section"
-            >
-              Detailing, koruma, ses teknolojisi ve modifiye aynı akışta.
-            </h2>
-            <p>
-              Hizmetler kategori bazında ayrılır; her kategoride doğru işlem,
-              doğru medya ve doğru WhatsApp mesajı ayrı takip edilir.
-            </p>
+      <section className="rsg-section" aria-labelledby="about-services-title">
+        <div className="rain-container rsg-section__head" data-reveal>
+          <p className="rsg-eyebrow">Hizmet Kapsamı</p>
+          <h2 id="about-services-title" className="rsg-title">
+            Dört alan, tek akış
+          </h2>
+        </div>
+
+        <div className="rain-container rsg-grid-auto">
+          {publishedCategories.map((category, index) => (
             <Link
-              className="rain-button rain-button--secondary"
-              href="/hizmetler"
+              key={category.id}
+              href={`/hizmetler#${category.slug}`}
+              className="rsg-feature"
+              data-reveal
+              style={{ "--reveal-delay": `${0.05 * (index % 4)}s` } as React.CSSProperties}
             >
-              Tüm Hizmetleri İncele
+              <span className="rsg-feature__index">0{category.order}</span>
+              <h3>{category.title}</h3>
+              <p>{category.description}</p>
+              <span className="rsg-service__cta" aria-hidden="true">
+                <ArrowUpRight size={18} />
+              </span>
             </Link>
-          </div>
-
-          <div className="rain-grid about-category-grid">
-            {publishedCategories.map((category) => (
-              <article key={category.id} className="rain-card about-card">
-                <p className="rain-badge">{category.title}</p>
-                <h3>{category.description}</h3>
-                <p>
-                  {
-                    publishedServices.filter(
-                      (service) => service.categoryId === category.id,
-                    ).length
-                  }{" "}
-                  hizmet bu kategori altında takip ediliyor.
-                </p>
-                <Link
-                  className="rain-link"
-                  href={`/hizmetler#${category.slug}`}
-                >
-                  {category.title} hizmetlerini incele
-                </Link>
-              </article>
-            ))}
-          </div>
+          ))}
         </div>
       </section>
 
-      <section className="rain-section about-contact-strip">
-        <div className="rain-container rain-card about-contact-strip__card">
-          <p className="rain-badge">İletişim</p>
-          <h2 className="rain-heading rain-heading--section">
-            Randevu ve bilgi için en hızlı yol WhatsApp.
-          </h2>
-          <p>{siteSettings.address.display}</p>
-          <div className="about-contact-strip__actions">
+      <section className="rsg-section rsg-cta-section" aria-labelledby="about-cta-title">
+        <div className="rain-container rsg-cta" data-reveal>
+          <div className="rsg-cta__copy">
+            <p className="rsg-eyebrow">İletişim</p>
+            <h2 id="about-cta-title" className="rsg-title rsg-title--light">
+              En hızlı yol WhatsApp.
+            </h2>
+            <p className="rsg-lead">{siteSettings.address.display}</p>
+          </div>
+          <div className="rsg-cta__actions">
             <a
-              className="rain-button rain-button--primary"
+              className="rain-button rain-button--primary rsg-btn-lg"
               href={generalWhatsAppLink.href}
             >
+              <MessageCircle aria-hidden="true" size={18} />
               {generalWhatsAppLink.label}
             </a>
             {phoneContact ? (
               <a
-                className="rain-button rain-button--secondary"
+                className="rain-button rain-button--ghost rsg-btn-lg"
                 href={phoneContact.href}
               >
                 {phoneContact.value}
               </a>
-            ) : null}
-            {whatsappContact ? (
-              <Link
-                className="rain-button rain-button--secondary"
-                href="/iletisim"
-              >
-                Tüm İletişim Bilgileri
-              </Link>
             ) : null}
           </div>
         </div>

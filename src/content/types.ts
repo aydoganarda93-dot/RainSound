@@ -160,6 +160,22 @@ export type ServiceCategory = {
   demo: DemoState;
 };
 
+export type ServiceVisualPriority = "large" | "medium" | "compact";
+
+export type ServiceVisualRole =
+  | "paint"
+  | "protection"
+  | "sound"
+  | "performance"
+  | "wash";
+
+export type ServiceVisualTreatment = {
+  priority: ServiceVisualPriority;
+  visualRole: ServiceVisualRole;
+  imageSrc?: string;
+  imageAlt?: string;
+};
+
 export type Service = {
   id: string;
   slug: Slug;
@@ -184,6 +200,7 @@ export type Service = {
     messageHint: string;
   };
   media: MediaAsset[];
+  visualTreatment: ServiceVisualTreatment;
   relatedServiceIds: Service["id"][];
   status: PublishStatus;
   demo: DemoState;

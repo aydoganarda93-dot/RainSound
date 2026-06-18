@@ -1,11 +1,9 @@
-import Link from "next/link";
+import { Camera, Clock, MapPin, MessageCircle, Phone } from "lucide-react";
 
 import {
   generalWhatsAppLink,
   getContactByChannel,
   getSocialLinkByChannel,
-  serviceCategories,
-  services,
   siteSettings,
 } from "@/content";
 import type { BusinessHoursEntry } from "@/content";
@@ -40,7 +38,7 @@ const formatBusinessHours = (entry: BusinessHoursEntry) => {
     return "Kapalı";
   }
 
-  return `${entry.opensAt}-${entry.closesAt}`;
+  return `${entry.opensAt} – ${entry.closesAt}`;
 };
 
 export default function ContactPage() {
@@ -49,8 +47,45 @@ export default function ContactPage() {
   const instagramLink = getSocialLinkByChannel("instagram");
   const mapsLink = getSocialLinkByChannel("maps");
 
+  const channels = [
+    whatsappContact && {
+      icon: MessageCircle,
+      label: "WhatsApp",
+      value: whatsappContact.value,
+      href: generalWhatsAppLink.href,
+      external: false,
+    },
+    phoneContact && {
+      icon: Phone,
+      label: "Telefon",
+      value: phoneContact.value,
+      href: phoneContact.href,
+      external: false,
+    },
+    instagramLink && {
+      icon: Camera,
+      label: "Instagram",
+      value: instagramLink.label,
+      href: instagramLink.href,
+      external: true,
+    },
+    mapsLink && {
+      icon: MapPin,
+      label: "Yol Tarifi",
+      value: "Google Maps",
+      href: mapsLink.href,
+      external: true,
+    },
+  ].filter(Boolean) as Array<{
+    icon: typeof MessageCircle;
+    label: string;
+    value: string;
+    href: string;
+    external: boolean;
+  }>;
+
   return (
-    <main className="contact-page">
+    <main className="rsg-page">
       <StructuredData
         data={[
           buildBreadcrumbJsonLd(pageBreadcrumbs.contact),
@@ -58,115 +93,63 @@ export default function ContactPage() {
         ]}
       />
       <Breadcrumbs items={pageBreadcrumbs.contact} />
-      <section
-        className="contact-hero rain-section"
-        aria-labelledby="contact-page-title"
-      >
-        <div className="development-shell__glow" aria-hidden="true" />
 
-        <div className="rain-container contact-hero__grid">
-          <div className="contact-hero__content">
-            <p className="rain-badge">İletişim</p>
+      <section className="rsg-pagehero" aria-labelledby="contact-page-title">
+        <div className="rsg-pagehero__glow rsg-pagehero__glow--right" aria-hidden="true" />
+        <div className="rain-container rsg-pagehero__inner">
+          <div className="rsg-pagehero__lead-col">
+            <p className="rsg-eyebrow" data-reveal>
+              <span className="rsg-eyebrow__dot" aria-hidden="true" />
+              İletişim
+            </p>
             <h1
               id="contact-page-title"
-              className="rain-heading rain-heading--hero"
+              className="rsg-pagehero__title rsg-title--xl"
+              data-reveal
+              style={{ "--reveal-delay": "0.05s" } as React.CSSProperties}
             >
-              Aracın için doğru işlem burada netleşir.
+              Konuşalım
             </h1>
-            <p>
-              Randevu, fiyat ve hizmet kapsamı araç durumuna göre belirlenir. En
-              hızlı dönüş için WhatsApp üzerinden araç bilgini ve beklentini
-              paylaşabilirsin.
+            <p
+              className="rsg-lead"
+              data-reveal
+              style={{ "--reveal-delay": "0.1s" } as React.CSSProperties}
+            >
+              Araç bilgini ve beklentini gönder; en hızlı dönüş WhatsApp&apos;tan.
             </p>
-            <div className="contact-hero__actions">
+            <div
+              className="rsg-pagehero__actions"
+              data-reveal
+              style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
+            >
               <a
-                className="rain-button rain-button--primary"
+                className="rain-button rain-button--primary rsg-btn-lg"
                 href={generalWhatsAppLink.href}
               >
+                <MessageCircle aria-hidden="true" size={18} />
                 {generalWhatsAppLink.label}
               </a>
               {mapsLink ? (
                 <a
-                  className="rain-button rain-button--secondary"
+                  className="rain-button rain-button--ghost rsg-btn-lg"
                   href={mapsLink.href}
                   target={mapsLink.target}
                   rel="noreferrer"
                 >
-                  Yol Tarifi Al
+                  <MapPin aria-hidden="true" size={18} />
+                  Yol Tarifi
                 </a>
               ) : null}
             </div>
           </div>
 
-          <aside className="rain-card contact-hero__panel">
-            <span>
-              {siteSettings.address.city} / {siteSettings.address.district}
-            </span>
-            <strong>{siteSettings.address.display}</strong>
-            <p>
-              Pazartesi-Cumartesi 09:00-20:00 arası hizmet verilir. Pazar günü
-              kapalıdır.
-            </p>
-          </aside>
-        </div>
-      </section>
-
-      <section className="rain-section" aria-labelledby="contact-links-title">
-        <div className="rain-container contact-grid">
-          <article className="rain-card contact-card">
-            <p className="rain-badge">Kanallar</p>
-            <h2
-              id="contact-links-title"
-              className="rain-heading rain-heading--section"
-            >
-              Hızlı iletişim.
-            </h2>
-            <div className="contact-link-list">
-              {whatsappContact ? (
-                <a
-                  className="rain-button rain-button--primary"
-                  href={generalWhatsAppLink.href}
-                >
-                  WhatsApp: {whatsappContact.value}
-                </a>
-              ) : null}
-              {phoneContact ? (
-                <a
-                  className="rain-button rain-button--secondary"
-                  href={phoneContact.href}
-                >
-                  Telefon: {phoneContact.value}
-                </a>
-              ) : null}
-              {instagramLink ? (
-                <a
-                  className="rain-button rain-button--secondary"
-                  href={instagramLink.href}
-                  target={instagramLink.target}
-                  rel="noreferrer"
-                >
-                  {instagramLink.label}
-                </a>
-              ) : null}
-              {mapsLink ? (
-                <a
-                  className="rain-button rain-button--secondary"
-                  href={mapsLink.href}
-                  target={mapsLink.target}
-                  rel="noreferrer"
-                >
-                  {mapsLink.label}
-                </a>
-              ) : null}
-            </div>
-          </article>
-
-          <article className="rain-card contact-card">
-            <p className="rain-badge">Adres</p>
-            <h2 className="rain-heading rain-heading--section">
-              Uygulama merkezi.
-            </h2>
-            <address className="contact-address">
+          <aside
+            className="rsg-card rsg-card--accent rsg-pagehero__aside"
+            data-reveal
+            style={{ "--reveal-delay": "0.2s" } as React.CSSProperties}
+          >
+            <p className="rsg-eyebrow rsg-eyebrow--muted">Adres</p>
+            <address className="rsg-address">
               <strong>{siteSettings.legalName}</strong>
               <span>{siteSettings.address.street}</span>
               <span>
@@ -174,74 +157,78 @@ export default function ContactPage() {
                 {siteSettings.address.district}/{siteSettings.address.city}
               </span>
             </address>
-            {mapsLink ? (
-              <a
-                className="rain-link contact-card__text-link"
-                href={mapsLink.href}
-                target={mapsLink.target}
-                rel="noreferrer"
-              >
-                Haritada aç ve yol tarifi al
-              </a>
-            ) : null}
-          </article>
+          </aside>
         </div>
       </section>
 
-      <section className="rain-section" aria-labelledby="business-hours-title">
-        <div className="rain-container contact-grid">
-          <article className="rain-card contact-card">
-            <p className="rain-badge">Çalışma Saatleri</p>
-            <h2
-              id="business-hours-title"
-              className="rain-heading rain-heading--section"
+      <section className="rsg-section" aria-labelledby="contact-channels-title">
+        <div className="rain-container rsg-section__head" data-reveal>
+          <p className="rsg-eyebrow">Kanallar</p>
+          <h2 id="contact-channels-title" className="rsg-title">
+            Hızlı iletişim
+          </h2>
+        </div>
+
+        <div className="rain-container rsg-grid-auto">
+          {channels.map((channel, index) => (
+            <a
+              key={channel.label}
+              href={channel.href}
+              className="rsg-feature"
+              target={channel.external ? "_blank" : undefined}
+              rel={channel.external ? "noreferrer" : undefined}
+              data-reveal
+              style={{ "--reveal-delay": `${0.05 * (index % 4)}s` } as React.CSSProperties}
             >
-              Haftalık plan.
+              <span className="rsg-feature__icon" aria-hidden="true">
+                <channel.icon size={20} />
+              </span>
+              <h3>{channel.label}</h3>
+              <p>{channel.value}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="rsg-section rsg-cta-section" aria-labelledby="contact-hours-title">
+        <div className="rain-container rsg-grid-2">
+          <article className="rsg-card" data-reveal>
+            <p className="rsg-eyebrow">
+              <Clock aria-hidden="true" size={15} />
+              Çalışma Saatleri
+            </p>
+            <h2 id="contact-hours-title" className="rsg-title">
+              Haftalık plan
             </h2>
-            <dl className="business-hours-list">
+            <dl className="rsg-meta">
               {siteSettings.businessHours.map((entry) => (
-                <div key={entry.day}>
+                <div key={entry.day} className="rsg-meta__row">
                   <dt>{dayLabels[entry.day]}</dt>
                   <dd>{formatBusinessHours(entry)}</dd>
                 </div>
               ))}
             </dl>
-            <p>
-              Özel gün çalışma saatleri değişken olabileceği için bu aşamada
-              ayrıca yayınlanmaz.
-            </p>
           </article>
 
-          <article className="rain-card contact-card">
-            <p className="rain-badge">Hizmet Kapsamı</p>
-            <h2 className="rain-heading rain-heading--section">
-              Görüşmede ne netleşir?
-            </h2>
-            <ul className="contact-service-list">
-              {serviceCategories
-                .filter((category) => category.status === "published")
-                .map((category) => (
-                  <li key={category.id}>
-                    <Link href={`/hizmetler#${category.slug}`}>
-                      <strong>{category.title}</strong>
-                    </Link>
-                    <span>
-                      {
-                        services.filter(
-                          (service) => service.categoryId === category.id,
-                        ).length
-                      }{" "}
-                      hizmet
-                    </span>
-                  </li>
-                ))}
-            </ul>
-            <Link
-              className="rain-button rain-button--secondary"
-              href="/hizmetler"
-            >
-              Hizmetleri İncele
-            </Link>
+          <article
+            className="rsg-card rsg-card--accent"
+            data-reveal
+            style={{ "--reveal-delay": "0.08s" } as React.CSSProperties}
+          >
+            <p className="rsg-eyebrow">Konum</p>
+            <h2 className="rsg-title">Uygulama merkezi</h2>
+            <p>{siteSettings.address.display}</p>
+            {mapsLink ? (
+              <a
+                className="rain-button rain-button--primary rsg-btn-lg"
+                href={mapsLink.href}
+                target={mapsLink.target}
+                rel="noreferrer"
+              >
+                <MapPin aria-hidden="true" size={18} />
+                Haritada Aç
+              </a>
+            ) : null}
           </article>
         </div>
       </section>

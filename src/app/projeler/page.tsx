@@ -1,13 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
 
 import {
-  getProjectWhatsAppLink,
-  projects,
+  generalWhatsAppLink,
   serviceCategories,
   services,
   siteSettings,
 } from "@/content";
-import type { Project } from "@/content";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StructuredData } from "@/components/structured-data";
 import {
@@ -17,157 +17,123 @@ import {
 } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Dönüşümler",
-  description: `${siteSettings.siteName} ${siteSettings.address.district}/${siteSettings.address.city} dönüşüm ve proje vitrini: detailing, koruma, ses sistemi, far tasarımı, body kit ve performans odaklı demo proje akışları.`,
+  title: "Galeri",
+  description: `${siteSettings.siteName} ${siteSettings.address.district}/${siteSettings.address.city} çalışma alanları: detailing, koruma, ses sistemleri ve performans odaklı uygulama atmosferi.`,
   path: "/projeler",
 });
 
-const projectList = projects;
-
-const getProjectServices = (project: Project) =>
-  services.filter((service) => project.serviceIds.includes(service.id));
-
-const getServiceCategoryTitle = (categoryId: string) =>
-  serviceCategories.find((category) => category.id === categoryId)?.title ??
-  "Hizmet";
-
-const getPermissionLabel = (project: Project) => {
-  if (project.privacyReviewed && project.publishPermissionConfirmed) {
-    return "Yayın izni hazır";
-  }
-
-  return "Yayın öncesi izin kontrolü gerekli";
+const categoryImages: Record<string, string> = {
+  detailing: "/media/ai/showcase/cat-detailing.png",
+  protection: "/media/ai/showcase/cat-protection.png",
+  "sound-tech": "/media/ai/showcase/cat-sound.png",
+  "design-performance": "/media/ai/showcase/cat-performance.png",
 };
 
-const getProductionCandidateLabel = (project: Project) =>
-  project.contentReadiness.productionCandidate
-    ? "Production adayı"
-    : "Taslak demo kayıt";
+const publishedCategories = serviceCategories
+  .filter((category) => category.status === "published")
+  .sort((current, next) => current.order - next.order);
+
+const countServices = (categoryId: string) =>
+  services.filter(
+    (service) => service.categoryId === categoryId && service.status === "published",
+  ).length;
 
 export default function ProjectsPage() {
   return (
-    <main className="projects-page">
+    <main className="rsg-page">
       <StructuredData data={buildBreadcrumbJsonLd(pageBreadcrumbs.projects)} />
       <Breadcrumbs items={pageBreadcrumbs.projects} />
-      <section
-        className="projects-hero rain-section"
-        aria-labelledby="projects-page-title"
-      >
-        <div className="development-shell__glow" aria-hidden="true" />
 
-        <div className="rain-container projects-hero__grid">
-          <div className="projects-hero__content">
-            <p className="rain-badge">Dönüşümler</p>
+      <section className="rsg-pagehero" aria-labelledby="projects-page-title">
+        <div className="rsg-pagehero__glow rsg-pagehero__glow--right" aria-hidden="true" />
+        <div className="rain-container rsg-pagehero__inner">
+          <div className="rsg-pagehero__lead-col">
+            <p className="rsg-eyebrow" data-reveal>
+              <span className="rsg-eyebrow__dot" aria-hidden="true" />
+              Galeri
+            </p>
             <h1
               id="projects-page-title"
-              className="rain-heading rain-heading--hero"
+              className="rsg-pagehero__title rsg-title--xl"
+              data-reveal
+              style={{ "--reveal-delay": "0.05s" } as React.CSSProperties}
             >
-              Proje vitrini için sağlam bir iskelet.
+              Çalışma
+              <br />
+              alanlarımız
             </h1>
-            <p>
-              Gerçek müşteri araçları gelene kadar bu alan{" "}
-              {siteSettings.address.city} içi hizmet ilişkilerini, galeri
-              yapısını ve WhatsApp dönüşüm yolunu demo projelerle test eder.
+            <p
+              className="rsg-lead"
+              data-reveal
+              style={{ "--reveal-delay": "0.1s" } as React.CSSProperties}
+            >
+              Karanlık zemin, doğru ışık, temiz işçilik. Aracın benzer bir
+              dönüşüm için bizi WhatsApp&apos;tan yakala.
             </p>
           </div>
 
-          <aside className="rain-card projects-hero__panel">
-            <span>{siteSettings.address.city} / Rain Sound Garage</span>
-            <strong>{projectList.length} demo dönüşüm akışı hazır.</strong>
+          <aside
+            className="rsg-card rsg-card--accent rsg-pagehero__aside"
+            data-reveal
+            style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
+          >
+            <p className="rsg-eyebrow rsg-eyebrow--muted">Atmosfer görselleri</p>
             <p>
-              Production öncesinde her projenin gerçek medya, gizlilik kontrolü
-              ve yayın izni ayrı ayrı doğrulanacaktır.
+              Gerçek müşteri projeleri izinleriyle birlikte yakında burada
+              yayınlanacak.
             </p>
+            <a
+              className="rain-button rain-button--primary rsg-btn-lg"
+              href={generalWhatsAppLink.href}
+            >
+              <MessageCircle aria-hidden="true" size={18} />
+              Benzer İş İçin Yaz
+            </a>
           </aside>
         </div>
       </section>
 
-      <section className="rain-section" aria-labelledby="projects-list-title">
-        <div className="rain-container home-section-heading">
-          <p className="rain-badge">Proje Kartları</p>
-          <h2
-            id="projects-list-title"
-            className="rain-heading rain-heading--section"
-          >
-            Her kart hem demo durumunu hem de bağlı hizmetleri açık gösterir.
+      <section className="rsg-section rsg-cta-section" aria-labelledby="projects-gallery-title">
+        <div className="rain-container rsg-section__head" data-reveal>
+          <p className="rsg-eyebrow">Vitrin</p>
+          <h2 id="projects-gallery-title" className="rsg-title">
+            Dört uzmanlık alanı
           </h2>
-          <p>
-            Şimdilik gerçek sonuç iddiası kurulmaz. Kartlar tasarım, içerik ve
-            dönüşüm akışı için demo proje verisini görünür kılar.
-          </p>
         </div>
 
-        <div className="rain-container rain-grid projects-grid">
-          {projectList.map((project) => {
-            const projectServices = getProjectServices(project);
-            const whatsappLink = getProjectWhatsAppLink(project);
-
-            return (
-              <article key={project.id} className="rain-card project-card">
-                <div className="project-card__header">
-                  <p className="rain-badge">{project.status}</p>
-                  <h3>{project.title}</h3>
-                  <p>{project.summary}</p>
-                </div>
-
-                <dl className="project-card__meta">
-                  <div>
-                    <dt>Araç</dt>
-                    <dd>{project.vehicleLabel ?? "Belirlenecek"}</dd>
-                  </div>
-                  <div>
-                    <dt>Demo</dt>
-                    <dd>
-                      {project.demo.replacementRequiredBeforeProduction
-                        ? "Demo içerik"
-                        : "Gerçek içerik"}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>İzin</dt>
-                    <dd>{getPermissionLabel(project)}</dd>
-                  </div>
-                  <div>
-                    <dt>Yayın</dt>
-                    <dd>{getProductionCandidateLabel(project)}</dd>
-                  </div>
-                </dl>
-
-                {projectServices.length > 0 ? (
-                  <div className="project-card__services">
-                    {projectServices.map((service) => (
-                      <Link
-                        key={service.id}
-                        href={`/hizmetler/${service.slug}`}
-                      >
-                        {getServiceCategoryTitle(service.categoryId)} /{" "}
-                        {service.title}
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="project-card__fallback">
-                    Bağlı hizmetler production öncesi netleştirilecek.
-                  </p>
-                )}
-
-                <div className="project-card__footer">
-                  <Link
-                    className="rain-button rain-button--primary"
-                    href={`/projeler/${project.slug}`}
-                  >
-                    Detayları İncele
-                  </Link>
-                  <a
-                    className="rain-button rain-button--secondary"
-                    href={whatsappLink.href}
-                  >
-                    {whatsappLink.label}
-                  </a>
-                </div>
-              </article>
-            );
-          })}
+        <div className="rain-container rsg-worlds">
+          {publishedCategories.map((category, index) => (
+            <Link
+              key={category.id}
+              href={`/hizmetler#${category.slug}`}
+              className="rsg-world"
+              data-reveal
+              data-size={index === 0 || index === 3 ? "wide" : "tall"}
+              style={{ "--reveal-delay": `${0.06 * (index % 4)}s` } as React.CSSProperties}
+            >
+              <div className="rsg-world__media" aria-hidden="true">
+                <Image
+                  src={categoryImages[category.id]}
+                  alt=""
+                  fill
+                  sizes="(min-width: 64rem) 50vw, 100vw"
+                  className="rsg-world__img"
+                />
+                <div className="rsg-world__scrim" />
+              </div>
+              <div className="rsg-world__body">
+                <span className="rsg-world__index">
+                  {countServices(category.id)} hizmet
+                </span>
+                <h3>{category.title}</h3>
+                <p>{category.description}</p>
+                <span className="rsg-world__cta">
+                  Alanı keşfet
+                  <ArrowUpRight aria-hidden="true" size={18} />
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
     </main>

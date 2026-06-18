@@ -147,34 +147,11 @@ export function HeroMediaShell({
         </div>
       </div>
 
-      <figcaption className="hero-media-shell__caption">
-        <p className="rain-badge">Hero medya kabuğu</p>
-        <p className="rain-sr-only">{motionPreferences.motionModeLabel}</p>
-        <h2 id={titleId}>{scene.title}</h2>
-        <p>{scene.description}</p>
-        <dl className="hero-media-shell__meta">
-          <div>
-            <dt>Durum</dt>
-            <dd>{motionModeLabel}</dd>
-          </div>
-          <div>
-            <dt>Kaynak</dt>
-            <dd>AI/demo placeholder</dd>
-          </div>
-          <div>
-            <dt>Katman</dt>
-            <dd>{scene.layers.length} planlı</dd>
-          </div>
-        </dl>
-        <ul className="hero-media-shell__layers">
-          {scene.layers.map((layer) => (
-            <li key={layer.id}>
-              <span>{layer.label}</span>
-              <small>{layer.status}</small>
-            </li>
-          ))}
-        </ul>
-        <p className="hero-media-shell__note">{scene.fallback.note}</p>
+      <figcaption className="rain-sr-only">
+        <span id={titleId}>{scene.title}</span>
+        <span>{scene.description}</span>
+        <span>{motionPreferences.motionModeLabel}</span>
+        <span>{motionModeLabel}</span>
       </figcaption>
     </figure>
   );

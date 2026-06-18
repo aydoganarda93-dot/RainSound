@@ -7,7 +7,7 @@
 > **Belge başlangıç tarihi:** 15 Haziran 2026
 > **Son güncelleme:** 18 Haziran 2026
 > **Mevcut aşama:** P10 - Analitik ve Performans
-> **Aktif mikro hedef:** P10.1 - `@vercel/analytics` ve `@vercel/speed-insights` paketlerini kur ve root layout'a bağla
+> **Aktif mikro hedef:** P10.2 - `whatsapp_click`, `phone_click`, `directions_click`, `service_view`, `project_view` ve `before_after_interaction` olaylarını tanımla
 
 ---
 
@@ -3152,12 +3152,77 @@ Yapılandırılmış verilerin harici zengin sonuç aracıyla doğrulanması pro
 - Yapılandırılmış veriler doğrulama aracından hatasız geçer.
 - Her indekslenebilir sayfanın benzersiz metadata seti vardır.
 
+### P9.7 - UI/UX Max Polish Ara Faz
+
+**Durum:** `Tamamlandı`
+**Bağımlılık:** P9 tamamlanmış, P10 başlamadan önce ilk izlenim borcu
+kapatılmalıdır.
+
+- [x] Ana sayfadaki yapay demo araç/hero medya bloğunu ilk viewporttan kaldır.
+- [x] Hero medya bloğunun görünür debug bilgilerini ana sayfa akışından çıkar.
+- [x] Gerçek medya gelene kadar hero sağ alanında kompakt servis özeti paneli
+      kullan.
+- [x] Hero başlık boyutunu ve ilk viewport hizasını daha premium, okunur ve
+      taşmayan bir düzene çek.
+
+**P9.7 tamamlanma notu - 18 Haziran 2026**
+
+- `HeroMediaShell` bileşeni ileride gerçek medya için saklandı, ancak ana sayfa
+  ilk viewportundan kaldırıldı.
+- Sağ hero alanı `siteSettings`, `serviceCategories` ve `services` verilerinden
+  beslenen servis özeti paneline dönüştürüldü.
+- Panel içinde Eskişehir/Odunpazarı bağlamı, ana hizmet grupları, hizmet
+  sayıları, WhatsApp ve telefon CTA'ları gösterilir.
+- H1 ölçeği ve hero başlangıç boşluğu ilk ekranda taşma hissini azaltacak
+  şekilde sıkılaştırıldı.
+
+### P9.8 - Premium UI/UX ve Görsel Atmosfer Revizyonu
+
+**Durum:** `Tamamlandı`
+**Bağımlılık:** P9.7 tamamlanmış, P10 analitik kurulumu başlamadan önce ana
+sayfa ilk izlenim borcu kapatılmalıdır.
+
+- [x] Ana sayfa hero alanı metin paneli hissinden çıkarılıp sinematik otomobil
+      atmosferi taşıyan görsel sahneyle yeniden kuruldu.
+- [x] AI destekli hero ve hizmet atmosfer görselleri üretildi, optimize edildi
+      ve `public/media/ai/` altında saklandı.
+- [x] AI görseller yalnızca atmosfer/vitrin amacıyla kullanıldı; gerçek proje,
+      müşteri işi veya before/after kanıtı gibi sunulmadı.
+- [x] Hizmetler ana sayfada düz eş kart gridinden bento yapısına taşındı.
+- [x] Seramik kaplama, PPF folyo kaplama, oto ses ve görüntü sistemleri ile araç
+      kaplama büyük öncelikli kartlar olarak tanımlandı.
+- [x] Servis veri modeline `visualTreatment` eklendi; kart önceliği, görsel rolü
+      ve AI atmosfer asset yolu veri seviyesinden yönetilir hale geldi.
+- [x] Proje/dönüşüm kartları demo ayrımını koruyarak daha görsel vitrin kartı
+      yapısına dönüştürüldü.
+- [x] Güven, iletişim ve sabit hızlı iletişim alanları daha yoğun, net ve mobil
+      dönüşüm odaklı hale getirildi.
+- [x] Kart radius ve glow dili daha keskin, kontrollü premium yüzey hissine
+      çekildi.
+- [x] `HeroMediaShell` görünür debug/metadata paneli üretmeyecek şekilde
+      sadeleştirildi.
+
+**P9.8 üretilen AI atmosfer assetleri - 18 Haziran 2026**
+
+- `/media/ai/hero/ai-hero-rain-sound-wide-01.avif`
+- `/media/ai/hero/ai-hero-rain-sound-mobile-01.avif`
+- `/media/ai/services/ai-service-ceramic-paint-01.avif`
+- `/media/ai/services/ai-service-ppf-film-01.avif`
+- `/media/ai/services/ai-service-sound-install-01.avif`
+- `/media/ai/services/ai-service-performance-front-01.avif`
+
+**P9.8 kapanış kararı:** Ana sayfa artık P9.7'deki geçici metin paneli
+yaklaşımından çıkarak daha sinematik, görsel ve hizmet odaklı bir ilk izlenim
+taşır. Gerçek proje medyası hâlâ production blocker'dır; P9.8'deki AI görseller
+yalnızca marka atmosferi ve kategori vitrini olarak kabul edilir. P10.1 analitik
+kurulumuna bu revizyonun ardından devam edilecektir.
+
 ### P10 - Analitik ve Performans
 
 **Durum:** `Devam Ediyor`
 **Bağımlılık:** P8 ve P9 tamamlanmış olmalıdır.
 
-- [ ] **P10.1** `@vercel/analytics` ve `@vercel/speed-insights` paketlerini
+- [x] **P10.1** `@vercel/analytics` ve `@vercel/speed-insights` paketlerini
       kur ve root layout'a bağla.
 - [ ] **P10.2** `whatsapp_click`, `phone_click`, `directions_click`,
       `service_view`, `project_view` ve `before_after_interaction` olaylarını
@@ -4410,6 +4475,7 @@ kalmaya devam etmelidir.
 | 15.06.2026 | Gerçek proje görselleri güven kanıtı olacak                  | AI içeriğin temsil sınırını korumak                                                    | `Tamamlandı` |
 | 15.06.2026 | ESLint 9.39.4 kullanılacak                                   | ESLint 10, Next.js'in React/import/accessibility eklentilerinin destek aralığı dışında | `Tamamlandı` |
 | 15.06.2026 | `sharp` ve `unrs-resolver` build scriptlerine izin verilecek | Next.js görsel işleme ve modül çözümleme zincirinin kurulumu için gerekli              | `Tamamlandı` |
+| 18.06.2026 | P10 öncesi P9.8 Premium UI/UX ara fazı eklendi               | Ana sayfa ilk izlenimini dokümandaki Neon Performance Studio yönüne yaklaştırmak       | `Tamamlandı` |
 
 Yeni kararlar tarih, gerekçe ve durum bilgisiyle bu tabloya eklenmelidir.
 

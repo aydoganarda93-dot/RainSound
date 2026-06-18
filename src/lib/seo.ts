@@ -161,7 +161,7 @@ export const pageBreadcrumbs = {
     href: "/hizmetler",
   }),
   projects: createBreadcrumbs({
-    label: "Dönüşümler",
+    label: "Galeri",
     href: "/projeler",
   }),
   contact: createBreadcrumbs({
@@ -200,7 +200,7 @@ export const getProjectBreadcrumbs = (project: Project) =>
     },
     [
       {
-        label: "Dönüşümler",
+        label: "Galeri",
         href: "/projeler",
       },
     ],

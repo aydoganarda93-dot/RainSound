@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowUpRight, MessageCircle } from "lucide-react";
 
 import {
   getServiceWhatsAppLink,
-  projects,
   serviceCategories,
   services,
   siteSettings,
@@ -36,9 +36,6 @@ const getCategoryById = (categoryId: string) =>
 
 const getRelatedServices = (serviceIdList: string[]) =>
   publishedServices.filter((service) => serviceIdList.includes(service.id));
-
-const getRelatedProjects = (serviceId: string) =>
-  projects.filter((project) => project.serviceIds.includes(serviceId));
 
 export function generateStaticParams() {
   return publishedServices.map((service) => ({
@@ -81,58 +78,64 @@ export default async function ServiceDetailPage({
   const category = getCategoryById(service.categoryId);
   const whatsappLink = getServiceWhatsAppLink(service);
   const relatedServices = getRelatedServices(service.relatedServiceIds);
-  const relatedProjects = getRelatedProjects(service.id);
   const breadcrumbs = getServiceBreadcrumbs(service);
 
   return (
-    <main className="service-detail-page">
+    <main className="rsg-page">
       <StructuredData
         data={[buildBreadcrumbJsonLd(breadcrumbs), buildServiceJsonLd(service)]}
       />
       <Breadcrumbs items={breadcrumbs} />
-      <section
-        className="service-detail-hero rain-section"
-        aria-labelledby="service-detail-title"
-      >
-        <div className="development-shell__glow" aria-hidden="true" />
 
-        <div className="rain-container service-detail-hero__grid">
-          <div className="service-detail-hero__content">
-            <Link
-              className="rain-link service-detail__back-link"
-              href="/hizmetler"
-            >
-              Hizmetlere dön
+      <section className="rsg-pagehero" aria-labelledby="service-detail-title">
+        <div className="rsg-pagehero__glow rsg-pagehero__glow--right" aria-hidden="true" />
+        <div className="rain-container rsg-pagehero__inner">
+          <div className="rsg-pagehero__lead-col">
+            <Link className="rsg-backlink" href="/hizmetler" data-reveal>
+              <ArrowLeft aria-hidden="true" size={16} />
+              Hizmetler
             </Link>
-            <p className="rain-badge">{category?.title ?? "Hizmet"}</p>
+            <p className="rsg-eyebrow" data-reveal>
+              <span className="rsg-eyebrow__dot" aria-hidden="true" />
+              {category?.title ?? "Hizmet"}
+            </p>
             <h1
               id="service-detail-title"
-              className="rain-heading rain-heading--hero"
+              className="rsg-pagehero__title rsg-title--xl"
+              data-reveal
+              style={{ "--reveal-delay": "0.05s" } as React.CSSProperties}
             >
               {service.title}
             </h1>
-            <p className="service-detail-hero__summary">{service.summary}</p>
-            <p>{service.description}</p>
-            <div className="service-detail-hero__actions">
+            <p
+              className="rsg-lead"
+              data-reveal
+              style={{ "--reveal-delay": "0.1s" } as React.CSSProperties}
+            >
+              {service.summary}
+            </p>
+            <div
+              className="rsg-pagehero__actions"
+              data-reveal
+              style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
+            >
               <a
-                className="rain-button rain-button--primary"
+                className="rain-button rain-button--primary rsg-btn-lg"
                 href={whatsappLink.href}
               >
+                <MessageCircle aria-hidden="true" size={18} />
                 {whatsappLink.label}
               </a>
-              <Link
-                className="rain-button rain-button--secondary"
-                href="/hizmetler"
-              >
-                Tüm Hizmetler
-              </Link>
             </div>
           </div>
 
-          <aside className="rain-card service-detail-hero__panel">
-            <span>RAIN SOUND / {siteSettings.address.city}</span>
-            <strong>Fiyat ve kapsam araca göre netleşir.</strong>
-            <dl className="service-detail-meta">
+          <aside
+            className="rsg-card rsg-card--accent rsg-pagehero__aside"
+            data-reveal
+            style={{ "--reveal-delay": "0.2s" } as React.CSSProperties}
+          >
+            <p className="rsg-eyebrow rsg-eyebrow--muted">Araca göre netleşir</p>
+            <dl className="rsg-meta">
               <div>
                 <dt>Süre</dt>
                 <dd>{service.estimatedDurationNote}</dd>
@@ -150,181 +153,102 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
-      <section
-        className="rain-section"
-        aria-labelledby="service-benefits-title"
-      >
-        <div className="rain-container service-detail-two-column">
-          <article className="rain-card service-detail-card">
-            <p className="rain-badge">Faydalar</p>
-            <h2
-              id="service-benefits-title"
-              className="rain-heading rain-heading--section"
-            >
-              Bu hizmet ne kazandırır?
-            </h2>
-            {service.benefits.length > 0 ? (
-              <ul className="service-detail-list">
+      <section className="rsg-section" aria-labelledby="service-benefits-title">
+        <div className="rain-container rsg-grid-2">
+          {service.benefits.length > 0 ? (
+            <article className="rsg-card" data-reveal>
+              <p className="rsg-eyebrow">Faydalar</p>
+              <h2 id="service-benefits-title" className="rsg-title">
+                Ne kazandırır?
+              </h2>
+              <ul className="rsg-checklist">
                 {service.benefits.map((benefit) => (
                   <li key={benefit}>{benefit}</li>
                 ))}
               </ul>
-            ) : (
-              <p className="service-detail-fallback">
-                Bu hizmet için fayda listesi production öncesi netleştirilecek.
-              </p>
-            )}
-          </article>
+            </article>
+          ) : null}
 
-          <article className="rain-card service-detail-card">
-            <p className="rain-badge">Süreç</p>
-            <h2 className="rain-heading rain-heading--section">
-              Standart uygulama akışı.
-            </h2>
-            {service.process.length > 0 ? (
-              <ol className="service-detail-steps">
+          {service.process.length > 0 ? (
+            <article
+              className="rsg-card"
+              data-reveal
+              style={{ "--reveal-delay": "0.08s" } as React.CSSProperties}
+            >
+              <p className="rsg-eyebrow">Süreç</p>
+              <h2 className="rsg-title">Uygulama akışı</h2>
+              <ol className="rsg-steps">
                 {service.process.map((step) => (
                   <li key={step}>{step}</li>
                 ))}
               </ol>
-            ) : (
-              <p className="service-detail-fallback">
-                Süreç adımları araç ve işlem kapsamı netleşince tamamlanacak.
-              </p>
-            )}
-          </article>
+            </article>
+          ) : null}
         </div>
       </section>
 
-      <section className="rain-section" aria-labelledby="service-media-title">
-        <div className="rain-container service-detail-two-column">
-          <article className="rain-card service-detail-card">
-            <p className="rain-badge">Medya İhtiyacı</p>
-            <h2
-              id="service-media-title"
-              className="rain-heading rain-heading--section"
-            >
-              Yayın öncesi toplanacak görseller.
+      <section className="rsg-section rsg-section--tight" aria-labelledby="service-cta-title">
+        <div className="rain-container rsg-cta" data-reveal>
+          <div className="rsg-cta__copy">
+            <p className="rsg-eyebrow">İletişim</p>
+            <h2 id="service-cta-title" className="rsg-title rsg-title--light">
+              Araç detayını gönder.
             </h2>
-            {service.mediaNeeds.length > 0 ? (
-              <ul className="service-detail-list">
-                {service.mediaNeeds.map((need) => (
-                  <li key={need}>{need}</li>
-                ))}
-              </ul>
-            ) : (
-              <p className="service-detail-fallback">
-                Medya ihtiyacı gerçek çekim planı kesinleşince eklenecek.
-              </p>
-            )}
-          </article>
-
-          <article className="rain-card service-detail-card service-detail-card--cta">
-            <p className="rain-badge">WhatsApp Mesajı</p>
-            <h2 className="rain-heading rain-heading--section">
-              Doğru bilgi için araç detayını gönder.
-            </h2>
-            <p>{service.ctaContext.messageHint}</p>
-            {service.demo.replacementRequiredBeforeProduction ? (
-              <p className="service-detail-demo-note">
-                Demo içerik notu: {service.demo.note}
-              </p>
-            ) : null}
+            <p className="rsg-lead">{service.ctaContext.messageHint}</p>
+          </div>
+          <div className="rsg-cta__actions">
             <a
-              className="rain-button rain-button--primary"
+              className="rain-button rain-button--primary rsg-btn-lg"
               href={whatsappLink.href}
             >
+              <MessageCircle aria-hidden="true" size={18} />
               {whatsappLink.label}
             </a>
-          </article>
+          </div>
         </div>
       </section>
 
       {relatedServices.length > 0 ? (
         <section
-          className="rain-section service-detail-related"
+          className="rsg-section"
           aria-labelledby="related-services-title"
         >
-          <div className="rain-container home-section-heading">
-            <p className="rain-badge">İlgili Hizmetler</p>
-            <h2
-              id="related-services-title"
-              className="rain-heading rain-heading--section"
-            >
-              Bu hizmetle birlikte değerlendirilebilecek işlemler.
+          <div className="rain-container rsg-section__head" data-reveal>
+            <p className="rsg-eyebrow">İlgili Hizmetler</p>
+            <h2 id="related-services-title" className="rsg-title">
+              Birlikte değerlendir
             </h2>
           </div>
 
-          <div className="rain-container rain-grid">
-            {relatedServices.map((relatedService) => {
+          <div className="rain-container rsg-grid-auto">
+            {relatedServices.map((relatedService, index) => {
               const relatedCategory = getCategoryById(
                 relatedService.categoryId,
               );
 
               return (
-                <article
+                <Link
                   key={relatedService.id}
-                  className="rain-card service-card"
+                  href={`/hizmetler/${relatedService.slug}`}
+                  className="rsg-feature"
+                  data-reveal
+                  style={
+                    {
+                      "--reveal-delay": `${0.05 * (index % 3)}s`,
+                    } as React.CSSProperties
+                  }
                 >
-                  <div className="service-card__header">
-                    <p className="rain-badge">
-                      {relatedCategory?.title ?? "Hizmet"}
-                    </p>
-                    <h3>{relatedService.title}</h3>
-                    <p>{relatedService.summary}</p>
-                  </div>
-                  <div className="service-card__footer">
-                    <Link
-                      className="rain-button rain-button--secondary"
-                      href={`/hizmetler/${relatedService.slug}`}
-                    >
-                      Detayları İncele
-                    </Link>
-                  </div>
-                </article>
+                  <span className="rsg-feature__index">
+                    {relatedCategory?.title ?? "Hizmet"}
+                  </span>
+                  <h3>{relatedService.title}</h3>
+                  <p>{relatedService.summary}</p>
+                  <span className="rsg-service__cta" aria-hidden="true">
+                    <ArrowUpRight size={18} />
+                  </span>
+                </Link>
               );
             })}
-          </div>
-        </section>
-      ) : null}
-
-      {relatedProjects.length > 0 ? (
-        <section
-          className="rain-section service-detail-related"
-          aria-labelledby="related-projects-title"
-        >
-          <div className="rain-container home-section-heading">
-            <p className="rain-badge">Bağlı Proje Akışları</p>
-            <h2
-              id="related-projects-title"
-              className="rain-heading rain-heading--section"
-            >
-              Bu hizmetin geçtiği demo proje bağlantıları.
-            </h2>
-            <p>
-              Bu bağlantılar gerçek sonuç iddiası kurmaz; hizmet ilişkisinin
-              proje sayfasında nasıl takip edileceğini gösterir.
-            </p>
-          </div>
-
-          <div className="rain-container rain-grid">
-            {relatedProjects.map((project) => (
-              <article key={project.id} className="rain-card service-card">
-                <div className="service-card__header">
-                  <p className="rain-badge">{project.status}</p>
-                  <h3>{project.title}</h3>
-                  <p>{project.summary}</p>
-                </div>
-                <div className="service-card__footer">
-                  <Link
-                    className="rain-button rain-button--secondary"
-                    href={`/projeler/${project.slug}`}
-                  >
-                    Proje Akışını İncele
-                  </Link>
-                </div>
-              </article>
-            ))}
           </div>
         </section>
       ) : null}

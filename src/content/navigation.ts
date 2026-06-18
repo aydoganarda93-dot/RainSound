@@ -13,7 +13,7 @@ export const primaryNavigation = [
     matchPath: "/hizmetler",
   },
   {
-    label: "Projeler",
+    label: "Galeri",
     href: "/projeler",
     matchPath: "/projeler",
   },
