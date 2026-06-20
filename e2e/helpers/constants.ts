@@ -10,11 +10,6 @@ export const desktopNavigationCases = [
     heading: /Aracın için\s+tek atölye/i,
   },
   {
-    label: "Galeri",
-    path: "/projeler",
-    heading: /Çalışma\s+alanlarımız/i,
-  },
-  {
     label: "Hakkımızda",
     path: "/hakkimizda",
     heading: "Aracın karakterini ortaya çıkar.",

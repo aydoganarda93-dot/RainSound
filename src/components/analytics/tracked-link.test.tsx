@@ -57,8 +57,14 @@ describe("TrackedLink", () => {
       </div>,
     );
 
-    await user.click(screen.getByRole("link", { name: "Ara" }));
-    await user.click(screen.getByRole("link", { name: "Yol Tarifi" }));
+    const phoneLink = screen.getByRole("link", { name: "Ara" });
+    const directionsLink = screen.getByRole("link", { name: "Yol Tarifi" });
+
+    expect(phoneLink).toHaveAttribute("href", "tel:+905539304575");
+    expect(directionsLink).toHaveAttribute("href", "https://maps.example");
+
+    await user.click(phoneLink);
+    await user.click(directionsLink);
 
     expect(track).toHaveBeenNthCalledWith(1, "phone_click", {
       placement: "home_contact",

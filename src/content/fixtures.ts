@@ -961,7 +961,126 @@ export const projects: Project[] = [
   },
 ] satisfies Project[];
 
-export const testimonials = [
+export const testimonials: Testimonial[] = [
+  {
+    id: "google-atilay-arslancan",
+    authorName: "Atılay ARSLANCAN",
+    source: "google",
+    quote:
+      "Aracıma Multimedia cihazı taktırdım. Çok titiz çalışan bir ekip var. Güleryüzlü ve güvenilir.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-fatih-basturk",
+    authorName: "fatih baştürk",
+    source: "google",
+    quote:
+      "İlk defa gittim, ilgileri, alakaları için çok teşekkür ediyorum. İşlerini layıkıyla titizlikle yapıyorlar. Şiddetle tavsiye ediyorum.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-emre-a",
+    authorName: "emre a",
+    source: "google",
+    quote:
+      "Yeni açılmış hayırlı olsun. İşletme sahibi araçlar ile bizzat kendi ilgileniyor. İşinde tecrübeli ve sorumluluk sahibi, markalı ürünler kullanılıyor. Seramik kaplama yaptırdım, memnun kaldım.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-yigit-cicek",
+    authorName: "Yiğit Çiçek",
+    source: "google",
+    quote:
+      "Arabayı temizleyen arkadaşın ellerine sağlık; iç dış yıkama verdim, çok özenmiş. Hiç düşünmeden gelebilirsiniz. Harika hizmet, teşekkürler.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-yigit-cumali",
+    authorName: "yiğit cumalı",
+    source: "google",
+    quote:
+      "Ne istesem fazlası ile yaptılar. Aracınızı gönül rahatlığıyla bırakabileceğiniz, güler yüzlü ve aile ortamı tadında harika bir işletme olmuş. Fiyatlar da çok makul, elinize sağlık.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-mertcan-cetin",
+    authorName: "Mertcan Cetin",
+    source: "google",
+    quote:
+      "Çok başarılı bir işçilik ve esnaflık konusunda tamamen güvenilir. Kesinlikle tavsiye ederim, ellerinize sağlık.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-yasin-yeni",
+    authorName: "Yasin Yeni",
+    source: "google",
+    quote:
+      "Çok özenli işçilik ve güler yüz gördüm; aşırı memnun kaldım. Herkese tavsiye ediyorum.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-necati-kose",
+    authorName: "Necati Köse",
+    source: "google",
+    quote:
+      "Aracımın body kit ve temizlik işlemlerinden çok memnun kaldım. Arkadaşlar gayet ilgili, güler yüzlü; kesinlikle tavsiye ederim.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-enes-arslan",
+    authorName: "enes arslan",
+    source: "google",
+    quote:
+      "Arabamı götürdüm, sıfır gibi çıkarttılar. Detaylı temizlikleri çok iyiydi. Çok memnun kaldım.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-burak-yenicay",
+    authorName: "Burak Yeniçay",
+    source: "google",
+    quote:
+      "Kullanılan ürünler son derece kaliteli ve yapılan işçilik üst düzey. Çok memnun kaldım.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-dogan-akyurt",
+    authorName: "Doğan Akyurt",
+    source: "google",
+    quote:
+      "İşini iyi yapan ve güven veren işletme. Teşekkürler Can Bey, teşekkürler Samet.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "google-ogz-oz",
+    authorName: "Ogz Oz",
+    source: "google",
+    quote: "Çok efendi gençler ve işini düzgün ve güzel yapıyorlar. Tavsiye.",
+    rating: 5,
+    status: "published",
+    demo: realContent,
+  },
   {
     id: "demo-testimonial",
     authorName: "Demo müşteri",
@@ -973,7 +1092,7 @@ export const testimonials = [
       "Kaldırıldı: doğrulanmış müşteri yorumu kaynağı olmadığı için yayın veri setinden çıkarıldı.",
     ),
   },
-] satisfies Testimonial[];
+];
 
 export const faqs = [
   {

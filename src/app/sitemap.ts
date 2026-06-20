@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { projects, services } from "@/content";
+import { services } from "@/content";
 import { buildAbsoluteUrl, staticSitemapRoutes } from "@/lib/seo";
 
 const lastModified = new Date("2026-06-18");
@@ -22,18 +22,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     }));
 
-  const projectRoutes = projects
-    .filter(
-      (project) =>
-        project.status === "published" &&
-        project.contentReadiness.productionCandidate,
-    )
-    .map((project) => ({
-      url: buildAbsoluteUrl(`/projeler/${project.slug}`),
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }));
-
-  return [...staticRoutes, ...serviceRoutes, ...projectRoutes];
+  return [...staticRoutes, ...serviceRoutes];
 }

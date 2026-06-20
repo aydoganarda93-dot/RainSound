@@ -13,11 +13,6 @@ export const primaryNavigation = [
     matchPath: "/hizmetler",
   },
   {
-    label: "Galeri",
-    href: "/projeler",
-    matchPath: "/projeler",
-  },
-  {
     label: "Hakkımızda",
     href: "/hakkimizda",
     matchPath: "/hakkimizda",

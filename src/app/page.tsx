@@ -8,6 +8,7 @@ import {
   Phone,
   ShieldCheck,
   Sparkles,
+  Star,
   Volume2,
 } from "lucide-react";
 
@@ -23,6 +24,7 @@ import {
   services,
   showcaseVisualMedia,
   siteSettings,
+  testimonials,
 } from "@/content";
 import type { Service } from "@/content";
 import { TrackedLink } from "@/components/analytics";
@@ -47,8 +49,42 @@ const publishedServices = services.filter(
   (service) => service.status === "published",
 );
 
+const publishedTestimonials = testimonials.filter(
+  (testimonial) => testimonial.status === "published",
+);
+
+const homepageTestimonials = publishedTestimonials.slice(0, 6);
+
 const getServicesForCategory = (categoryId: string) =>
   publishedServices.filter((service) => service.categoryId === categoryId);
+
+const getTestimonialSourceLabel = (
+  source: (typeof testimonials)[number]["source"],
+) => {
+  if (source === "google") {
+    return "Google yorumu";
+  }
+
+  if (source === "instagram") {
+    return "Instagram yorumu";
+  }
+
+  if (source === "whatsapp") {
+    return "WhatsApp yorumu";
+  }
+
+  if (source === "direct") {
+    return "Doğrudan yorum";
+  }
+
+  return null;
+};
+
+const getTestimonialDisplayName = (authorName: string) => {
+  const [firstName] = authorName.trim().split(/\s+/);
+
+  return firstName ? `${firstName[0].toLocaleUpperCase("tr-TR")}.` : "Müşteri";
+};
 
 const heroChips = [
   {
@@ -143,7 +179,12 @@ export default function Home() {
           </p>
 
           <h1 id="hero-title" className="rsg-hero__title">
-            {siteSettings.siteName}
+            <span className="rsg-hero__title-brand">
+              {siteSettings.siteName}
+            </span>
+            <span className="rsg-hero__title-seo">
+              Eskişehir Araç Detailing ve Dönüşüm Merkezi
+            </span>
           </h1>
 
           <p className="rsg-hero__tagline">{siteSettings.tagline}</p>
@@ -368,6 +409,115 @@ export default function Home() {
               <p>{card.description}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section
+        className="rsg-section rsg-testimonials-section"
+        aria-labelledby="testimonials-title"
+      >
+        <div className="rain-container rsg-section__head" data-reveal>
+          <p className="rsg-eyebrow">Müşteri Deneyimi</p>
+          <h2 id="testimonials-title" className="rsg-title">
+            Müşterilerimiz Ne Diyor?
+          </h2>
+          <p className="rsg-lead">
+            Google işletme kaydında 5,0 puan ve 28 yorumla görünen müşteri
+            deneyimlerinden seçmeler. Kişisel veri görünürlüğünü azaltmak için
+            isimler kısaltılmıştır.
+          </p>
+        </div>
+
+        <div className="rain-container rsg-testimonials">
+          {homepageTestimonials.length > 0 ? (
+            homepageTestimonials.map((testimonial) => {
+              const sourceLabel = getTestimonialSourceLabel(testimonial.source);
+              const displayName = getTestimonialDisplayName(
+                testimonial.authorName,
+              );
+
+              return (
+                <article
+                  key={testimonial.id}
+                  className="rsg-testimonials__card"
+                  data-reveal
+                >
+                  <div className="rsg-testimonials__topline">
+                    {testimonial.rating ? (
+                      <div
+                        className="rsg-testimonials__rating"
+                        aria-label={`${testimonial.rating} yıldız`}
+                        role="img"
+                      >
+                        {Array.from({ length: testimonial.rating }).map(
+                          (_, index) => (
+                            <Star
+                              key={`${testimonial.id}-star-${index}`}
+                              aria-hidden="true"
+                              size={16}
+                              fill="currentColor"
+                            />
+                          ),
+                        )}
+                      </div>
+                    ) : null}
+                    {sourceLabel ? (
+                      <span className="rsg-testimonials__source">
+                        {sourceLabel}
+                      </span>
+                    ) : null}
+                  </div>
+                  <blockquote>“{testimonial.quote}”</blockquote>
+                  <div className="rsg-testimonials__meta">
+                    <span>{displayName}</span>
+                  </div>
+                </article>
+              );
+            })
+          ) : (
+            <>
+              <article className="rsg-testimonials__card rsg-testimonials__card--pending">
+                <span className="rsg-testimonials__status">Bekleniyor</span>
+                <h3>Yorumlar yakında</h3>
+                <p>
+                  İşletme onaylı gerçek müşteri yorumları geldiğinde burada
+                  isim, kaynak ve puan bilgisiyle yayınlanacak.
+                </p>
+                <TrackedLink
+                  className="rain-button rain-button--ghost rsg-testimonials__cta"
+                  event="whatsapp_click"
+                  href={generalWhatsAppLink.href}
+                  placement="home_testimonials"
+                >
+                  <MessageCircle aria-hidden="true" size={17} />
+                  WhatsApp ile Fiyat Al
+                </TrackedLink>
+              </article>
+
+              {mapsLink ? (
+                <article className="rsg-testimonials__card rsg-testimonials__card--maps">
+                  <span className="rsg-testimonials__status">Google</span>
+                  <h3>Google’da yorumlarımızı görün</h3>
+                  <p>
+                    Sahte yorum göstermemek için bu alanda yalnızca doğrulanmış
+                    yorumlar yayınlanır. Güncel Google işletme kaydını dış
+                    bağlantıdan kontrol edebilirsin.
+                  </p>
+                  <TrackedLink
+                    className="rain-button rain-button--ghost rsg-testimonials__cta"
+                    event="directions_click"
+                    href={mapsLink.href}
+                    placement="home_testimonials"
+                    rel="noreferrer"
+                    target={mapsLink.target}
+                  >
+                    <MapPin aria-hidden="true" size={17} />
+                    Google’da Gör
+                  </TrackedLink>
+                </article>
+              ) : null}
+            </>
+          )}
         </div>
       </section>
 

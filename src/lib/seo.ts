@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { siteSettings } from "@/content";
-import type { Project, Service } from "@/content";
+import type { Service } from "@/content";
 
 export type SitePath = `/${string}`;
 
@@ -51,12 +51,6 @@ export const staticSitemapRoutes = [
     path: "/hizmetler",
     changeFrequency: "weekly",
     priority: 0.9,
-  },
-  {
-    label: "Dönüşümler",
-    path: "/projeler",
-    changeFrequency: "weekly",
-    priority: 0.8,
   },
   {
     label: "İletişim ve Yol Tarifi",
@@ -160,10 +154,6 @@ export const pageBreadcrumbs = {
     label: "Hizmetler",
     href: "/hizmetler",
   }),
-  projects: createBreadcrumbs({
-    label: "Galeri",
-    href: "/projeler",
-  }),
   contact: createBreadcrumbs({
     label: "İletişim",
     href: "/iletisim",
@@ -188,20 +178,6 @@ export const getServiceBreadcrumbs = (service: Service) =>
       {
         label: "Hizmetler",
         href: "/hizmetler",
-      },
-    ],
-  );
-
-export const getProjectBreadcrumbs = (project: Project) =>
-  createBreadcrumbs(
-    {
-      label: project.title,
-      href: `/projeler/${project.slug}`,
-    },
-    [
-      {
-        label: "Galeri",
-        href: "/projeler",
       },
     ],
   );
