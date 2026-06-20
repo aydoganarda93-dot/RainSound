@@ -978,11 +978,59 @@ export const testimonials = [
 export const faqs = [
   {
     id: "duration-note",
-    question: "Uygulama ne kadar sürer?",
+    question: "⏱️ Uygulama ne kadar sürer?",
     answer:
-      "Süre aracın durumu, boyutu ve seçilen uygulama kapsamına göre değişir.",
+      "Aracınızın mevcut durumu, boyutu ve tercih ettiğiniz işlemlerin detayına göre süre değişiklik göstermektedir. Amacımız aceleye getirmeden kusursuz sonuca ulaşmak olduğu için, aracınızı teslim alırken size en net zaman planlamasını paylaşıyoruz.",
     relatedServiceIds: ["ceramic-coating", "ppf-coating"],
     order: 1,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "price-note",
+    question: "💰 Fiyat bilgisi nasıl netleşiyor?",
+    answer:
+      "Her araç ve her ihtiyaç kendine özeldir. Fiyatlandırmayı; aracınızın modeline, uygulanacak işlemlerin kapsamına, kullanılacak ürünlere ve aracın mevcut yüzey durumuna göre kişiselleştiriyoruz. En doğru fiyat teklifi için WhatsApp hattımız üzerinden bizimle iletişime geçebilirsiniz.",
+    relatedServiceIds: ["ceramic-coating", "ppf-coating", "vehicle-wrap"],
+    order: 2,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "appointment-note",
+    question: "📅 Randevu almak için hangi bilgileri paylaşmalıyım?",
+    answer:
+      "Süreci hızlandırmak adına bizimle; aracınızın marka/model bilgisini, almak istediğiniz hizmeti ve eğer varsa aracınızın mevcut durumunu gösteren birkaç fotoğrafı paylaşmanız yeterlidir. Ekibimiz sizin için en uygun günü hızla planlayacaktır.",
+    order: 3,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "service-selection-note",
+    question:
+      "🤔 Hangi hizmetin aracım için doğru olduğunu bilmiyorum, ne yapmalıyım?",
+    answer:
+      "Hiç sorun değil! WhatsApp hattımızdan beklentilerinizi ve hayalinizdeki sonucu bize anlatın; uzman ekibimiz aracınızın ihtiyacına göre sizi Detailing, Koruma, Ses Sistemi veya Tasarım hizmetlerimiz arasından en doğru seçeneğe yönlendirsin.",
+    order: 4,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "warranty-note",
+    question: "🛡️ Garanti ve ürün koşulları süreci nasıl işliyor?",
+    answer:
+      "Ezbere ve genel geçer garanti vaatleri yerine, şeffaflığı önemsiyoruz. Aracınıza uygulanacak ürün, işlem kapsamı ve uygulama koşulları netleştikten sonra, size özel güncel garanti ve kullanım detaylarını WhatsApp üzerinden yazılı olarak paylaşıyoruz.",
+    relatedServiceIds: ["window-film", "car-audio-visual", "vehicle-wrap"],
+    order: 5,
+    status: "published",
+    demo: realContent,
+  },
+  {
+    id: "media-note",
+    question: "📸 Sitedeki görseller gerçek projelerinize mi ait?",
+    answer:
+      'Sitemizde gördüğünüz bazı atmosfer görselleri konsept amaçlıdır ve asla "gerçek müşteri işi" gibi sunulmaz. Rain Sound çatısı altında tamamlanan gerçek projelerimizin fotoğrafları, müşterilerimizden gerekli yayın izinleri ve gizlilik onayları alındıkça portfolyomuza eklenmektedir.',
+    order: 6,
     status: "published",
     demo: realContent,
   },

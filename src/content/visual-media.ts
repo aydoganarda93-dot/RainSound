@@ -48,3 +48,10 @@ export const showcaseVisualMedia = {
   height: 900,
   alt: "",
 } as const;
+
+export const brandLogoMedia = {
+  src: "/media/provided/logo/rain-sound-profile.png",
+  width: 640,
+  height: 640,
+  alt: "RAIN SOUND",
+} as const;

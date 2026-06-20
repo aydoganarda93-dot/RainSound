@@ -56,7 +56,7 @@ const heroChips = [
     label: `${siteSettings.address.district} / ${siteSettings.address.city}`,
   },
   { icon: Clock, label: "Pazartesi–Cumartesi 09:00–20:00" },
-  { icon: ShieldCheck, label: "Fiyat WhatsApp'ta netleşir" },
+  { icon: ShieldCheck, label: "Kaliteli Ürün, Uygun fiyat" },
 ];
 
 const marqueeItems = [
@@ -180,12 +180,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-
-          <div className="rsg-hero__eq" aria-hidden="true" data-home-equalizer>
-            {Array.from({ length: 14 }, (_, index) => (
-              <span key={index} data-home-equalizer-bar />
-            ))}
-          </div>
         </div>
       </section>
 
@@ -446,17 +440,24 @@ export default function Home() {
           <div className="rain-container rsg-section__head" data-reveal>
             <p className="rsg-eyebrow">Sık Sorulan</p>
             <h2 id="faq-title" className="rsg-title">
-              İlk cevaplar
+              Merak edilenler
             </h2>
+            <p className="rsg-lead">
+              Hizmet, süre, fiyat ve randevu hakkında en sık sorulan başlıkları
+              burada topladık.
+            </p>
           </div>
           <div className="rain-container rsg-faq">
             {faqs
               .filter((faq) => faq.status === "published")
               .map((faq) => (
-                <article key={faq.id} className="rsg-faq__card" data-reveal>
-                  <h3>{faq.question}</h3>
+                <details key={faq.id} className="rsg-faq__card" data-reveal>
+                  <summary>
+                    <span>{faq.question}</span>
+                    <span aria-hidden="true" className="rsg-faq__icon" />
+                  </summary>
                   <p>{faq.answer}</p>
-                </article>
+                </details>
               ))}
           </div>
         </section>

@@ -9,11 +9,6 @@ export const expectDecorativeMotionPaused = async (page: Page) => {
     .locator(".rsg-marquee__track")
     .evaluate((element) => getComputedStyle(element).animationName);
 
-  const equalizerAnimation = await page
-    .locator(".rsg-hero__eq span")
-    .first()
-    .evaluate((element) => getComputedStyle(element).animationName);
-
   expect(marqueeAnimation).toBe("none");
-  expect(equalizerAnimation).toBe("none");
+  await expect(page.locator(".rsg-hero__eq")).toHaveCount(0);
 };

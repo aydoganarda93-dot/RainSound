@@ -9,7 +9,7 @@ import { desktopViewport } from "./helpers/viewports";
 test.describe("reduced motion", () => {
   test.use({ viewport: desktopViewport });
 
-  test("pauses decorative marquee and equalizer motion on the home page", async ({
+  test("pauses decorative marquee motion and keeps hero equalizer removed", async ({
     page,
   }) => {
     await emulateReducedMotion(page);

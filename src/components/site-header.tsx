@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
@@ -7,6 +8,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { generalWhatsAppLink } from "@/content/contact-actions";
 import { primaryNavigation } from "@/content/navigation";
 import { siteSettings } from "@/content/site-settings";
+import { brandLogoMedia } from "@/content/visual-media";
 import { trackWhatsAppClick } from "@/lib/analytics";
 
 const focusableElementSelector = [
@@ -108,7 +110,15 @@ export function SiteHeader() {
           aria-label="RAIN SOUND ana sayfa"
         >
           <span className="site-header__brand-mark" aria-hidden="true">
-            RS
+            <Image
+              className="site-header__brand-mark-image"
+              src={brandLogoMedia.src}
+              alt=""
+              width={brandLogoMedia.width}
+              height={brandLogoMedia.height}
+              priority
+              sizes="(max-width: 767px) 3.125rem, 3.5rem"
+            />
           </span>
           <span className="site-header__brand-text">
             {siteSettings.siteName}
