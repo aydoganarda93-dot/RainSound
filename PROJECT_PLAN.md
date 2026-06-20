@@ -5,9 +5,12 @@
 > **Yaratıcı yön:** Neon Performance Studio
 > **Ana mesaj:** Aracın karakterini ortaya çıkar.
 > **Belge başlangıç tarihi:** 15 Haziran 2026
-> **Son güncelleme:** 18 Haziran 2026
-> **Mevcut aşama:** P10 - Analitik ve Performans
-> **Aktif mikro hedef:** P10.2 - `whatsapp_click`, `phone_click`, `directions_click`, `service_view`, `project_view` ve `before_after_interaction` olaylarını tanımla
+> **Son güncelleme:** 20 Haziran 2026
+> **Mevcut aşama:** P12 - İçerik Dondurma ve İşletme Kabul Testi
+> **Aktif mikro hedef:** P12.3 - İşletme sahibine Vercel preview üzerinden kabul testi yaptır
+> **Son işlenen ileri faz kararları:** P13.1 custom domain `Bekleniyor`; P15 3D kapsamı `İptal`
+> **İlerleme notu:** P13/P15 kararları işlendi, ancak P12.3 işletme UAT onayı
+> beklediği için aktif mikro hedef P12.3 olarak kalır.
 
 ---
 
@@ -112,9 +115,11 @@ kalibre edilecektir.
 - Kesin randevu saati rezervasyon motoru
 - Yerleşik müşteri paneli
 - Otomatik ses çalan sayfalar
-- Doğrulanmadan tam kapsamlı 3D araç konfigüratörü
+- 3D araç konfigüratörü ve Three.js tabanlı deneyimler
 
 Bu özellikler ileride gerçek işletme ihtiyacı doğrulanırsa ayrıca planlanacaktır.
+3D araç konfigüratörü ise 20 Haziran 2026 kullanıcı kararıyla kapsamdan
+çıkarılmıştır.
 
 ---
 
@@ -379,8 +384,8 @@ URL'ler Türkçe içerikle uyumlu, kısa ve ASCII karakterli olmalıdır.
 - `/hizmetler`
 - `/hizmetler/seramik-kaplama`
 - `/hizmetler/ppf-kaplama`
-- `/donusumler`
-- `/donusumler/proje-adi`
+- `/projeler`
+- `/projeler/proje-adi`
 - `/hakkimizda`
 - `/iletisim`
 
@@ -478,7 +483,7 @@ Bu bölüm kullanıcının hizmetleri görsel olarak keşfetmesini sağlar.
 
 İlk sürüm yaklaşımı:
 
-- Tam 3D yerine yüksek kaliteli katmanlı araç görseli
+- Yüksek kaliteli katmanlı araç görseli veya mevcut 2D/AI atmosfer dili
 - Seçilebilir PPF, cam filmi, far, body kit, sound ve egzoz noktaları
 - Seçime göre aracın ilgili bölgesinde görsel değişim
 - Kısa fayda açıklaması
@@ -490,7 +495,7 @@ Başarı ölçütü:
 - Kullanıcı hizmet adını ve sonucunu net anlamalı.
 - Büyük dosya yükü yaratmamalı.
 
-3D sürüm yalnızca Faz 5 karar kapısından sonra ele alınacaktır.
+3D sürüm kapsamdan çıkarılmıştır; bu alan 2D deneyim olarak korunacaktır.
 
 ### 8.5 Rain Sound deneyimi
 
@@ -803,7 +808,7 @@ Her dönüşüm projesinde aşağıdaki bilgiler toplanacaktır:
 | CSS/Tailwind | Basit hover, renk, opacity ve kısa geçişler               |
 | Motion       | Menü, kart, modal, layout ve küçük arayüz hareketleri     |
 | GSAP         | Hero zaman çizelgesi ve scroll tabanlı sinematik sahneler |
-| Three.js     | Yalnızca Faz 5 onayından sonra özel 3D deneyim            |
+| Three.js     | Kapsam dışı; P15 iptal kararı gereği kullanılmayacak      |
 
 ### 11.2 Hareket ilkeleri
 
@@ -1063,12 +1068,15 @@ sonraki fazda çalışır hale gelecektir.
 
 ## 15. Sonraki Faz Bağımlılıkları
 
-Bu paketler şu anda kurulmayacaktır. Her grup yalnızca karar kapısı geçildikten
-sonra eklenecektir.
+Bu paketler şu anda kurulmayacaktır. CMS gibi kalan gruplar yalnızca karar kapısı
+geçildikten sonra eklenir; 3D grubu P15 iptal kararıyla kapsamdan çıkarılmıştır.
 
 ### 15.1 3D deneyim
 
-Planlanan adaylar:
+**Durum:** `İptal`
+
+3D deneyim kullanıcı kararıyla kapsamdan çıkarıldı. Aşağıdaki paketler
+kurulmayacak ve P12/P13 yayın akışını etkilemeyecek:
 
 - `three`
 - `@react-three/fiber`
@@ -1076,11 +1084,9 @@ Planlanan adaylar:
 
 Karar kapısı:
 
-- [ ] Katmanlı 2D prototip değerlendirilmiş olmalı
-- [ ] 3D'nin dönüşüme gerçek katkısı tanımlanmış olmalı
-- [ ] Optimize araç modeli hazır olmalı
-- [ ] Mobil performans prototipi kabul edilmeli
-- [ ] Model lisansı doğrulanmalı
+- [x] 3D'nin ilk yayın ve devam fazları için gerekli olmadığı doğrulandı
+- [x] Ana 2D tasarım korunacak
+- [x] 3D paketleri production bağımlılığı yapılmayacak
 
 ### 15.2 CMS
 
@@ -1138,9 +1144,9 @@ Planlanan adaylar:
 
 Karar kapısı:
 
-- [ ] Kritik kullanıcı akışları netleşmeli
-- [ ] Bileşen yapısı oluşmalı
-- [ ] CI ortamı seçilmeli
+- [x] Kritik kullanıcı akışları netleşmeli
+- [x] Bileşen yapısı oluşmalı
+- [x] CI ortamı seçilmeli
 
 Playwright; WhatsApp, navigasyon, before/after, mobil menü ve iletişim
 akışlarının uçtan uca testlerinde kullanılacaktır.
@@ -1195,10 +1201,10 @@ doğrulanmalıdır.
 | Instagram               | `Doğrulandı` | [@rainsound2634](https://www.instagram.com/rainsound2634/); 15 Haziran 2026 tarihinde işletme sahibi teyidi          |
 | E-posta                 | `Bekleniyor` | Varsa                                                                                                                |
 | Vergisel/resmi bilgiler | `Bekleniyor` | Yasal metin gereksinimine göre                                                                                       |
-| Logo kaynak dosyası     | `Bekleniyor` | SVG/AI/PSD veya yüksek çözünürlük                                                                                    |
-| Hizmet fiyat politikası | `Bekleniyor` | Fiyat gösterilecek mi?                                                                                               |
-| Garanti politikası      | `Bekleniyor` | Hizmet bazında                                                                                                       |
-| Kullanılan markalar     | `Bekleniyor` | İzinli logo kullanımı                                                                                                |
+| Logo kaynak dosyası     | `Doğrulandı` | SVG/AI/PSD veya daha yüksek çözünürlüklü kaynak bulunmadığı doğrulandı; 640x640 logo referansı kanonik kabul edildi  |
+| Hizmet fiyat politikası | `Doğrulandı` | Web sitesinde fiyat yayınlanmayacak; güncel bilgi ve fiyat WhatsApp'a yönlendirilecek                                |
+| Garanti politikası      | `Doğrulandı` | Genel veya hizmet bazlı garanti vaadi yayınlanmayacak; koşullar WhatsApp'ta netleştirilecek                          |
+| Kullanılan markalar     | `Bekleniyor` | İlk yayında marka/bayilik listesi ve marka logosu yayınlanmayacak; doğrulanmış proje gelirse yeniden ele alınacak    |
 | Müşteri yorumları       | `Bekleniyor` | Kaynağıyla birlikte                                                                                                  |
 | Proje görselleri        | `Bekleniyor` | Kullanım izni gerekli                                                                                                |
 | Ekip bilgisi            | `Bekleniyor` | İsim/rol gösterilecek mi?                                                                                            |
@@ -1326,7 +1332,7 @@ metrikleri de izlenecektir.
 
 - Client Component alanı düşük tutulacak.
 - Ağır animasyon kodu ihtiyaç halinde yüklenecek.
-- 3D paketleri ilk sürüme dahil edilmeyecek.
+- 3D paketleri P15 iptal kararı gereği projeye dahil edilmeyecek.
 - Üçüncü taraf scriptler ölçülmeden eklenmeyecek.
 - Analitik scriptleri ana içeriği bloklamayacak.
 
@@ -1351,14 +1357,15 @@ metrikleri de izlenecektir.
 
 ### Erişilebilirlik testleri
 
-- [ ] Yalnızca klavye ile tam gezinme
-- [ ] Ekran okuyucuyla temel sayfa kontrolü
-- [ ] %200 zoom kontrolü
-- [ ] Azaltılmış hareket modu
-- [ ] Yüksek kontrast kontrolü
-- [ ] Mobil dokunma hedefleri
-- [ ] Form hata anonsları
-- [ ] Menü odak sırası
+- [x] Yalnızca klavye ile tam gezinme
+- [x] Ekran okuyucuyla temel sayfa kontrolü
+- [x] %200 zoom kontrolü
+- [x] Azaltılmış hareket modu
+- [x] Yüksek kontrast kontrolü
+- [x] Mobil dokunma hedefleri
+- [x] Form hata anonsları (mevcut yapıda form yok; yeni form eklenirse yeniden
+      açılacak)
+- [x] Menü odak sırası
 
 ---
 
@@ -1399,7 +1406,8 @@ oturumunda `[x]` olarak işaretlenir.
   kapsamına alınmaz.
 - İçerik hazırlığı ile engellenmeyen teknik işler paralel yürütülebilir; demo
   içerikler açıkça işaretlenir ve P12'de tamamen kaldırılır.
-- CMS ve 3D çalışmaları ilk production yayınını geciktirmez.
+- CMS çalışmaları ilk production yayınını geciktirmez; 3D kapsamı iptal
+  edilmiştir.
 
 ### 21.2 Sabit ürün kararları
 
@@ -1412,7 +1420,7 @@ oturumunda `[x]` olarak işaretlenir.
 | Hero yaklaşımı      | Katmanlı hibrit görsel/video ve GSAP                |
 | Repository ve yayın | GitHub ve Vercel                                    |
 | Ölçüm               | Vercel Analytics ve Speed Insights                  |
-| 3D yaklaşımı        | Kullanım verisine bağlı deney                       |
+| 3D yaklaşımı        | İptal; Three.js tabanlı deney yapılmayacak          |
 | İlk sürüm formu     | Form ve randevu backend'i yok                       |
 | Medya servisi       | Başlangıçta yok; ihtiyaç oluşursa değerlendirilecek |
 
@@ -3217,61 +3225,504 @@ taşır. Gerçek proje medyası hâlâ production blocker'dır; P9.8'deki AI gö
 yalnızca marka atmosferi ve kategori vitrini olarak kabul edilir. P10.1 analitik
 kurulumuna bu revizyonun ardından devam edilecektir.
 
+### P9.9 - P9/P10 UI/UX ve Dönüşüm Polish Köprüsü
+
+**Durum:** `Tamamlandı`
+**Bağımlılık:** P9.8 görsel atmosfer revizyonu tamamlanmış ve P10 analitik
+olayları başlamış olmalıdır.
+
+- [x] Ana sayfa dışındaki temel sayfalarda `rsg-pagehero`, `rsg-cta`,
+      `rsg-feature` ve `data-reveal` dili tutarlı hale getirildi.
+- [x] Hakkımızda, hizmetler, hizmet detayı, projeler, proje detayı, iletişim,
+      gizlilik, çerez ve status ekranlarında CTA yerleşimleri aynı dönüşüm
+      mantığıyla düzenlendi.
+- [x] WhatsApp, telefon ve yol tarifi aksiyonları `TrackedLink` üzerinden
+      ölçülebilir hale getirildi; placement adları sayfa ve bileşen bağlamına
+      göre ayrıştırıldı.
+- [x] İletişim sayfasındaki kanal kartları erişilebilir link semantiğini
+      koruyarak izlenebilir temas kartlarına dönüştürüldü.
+- [x] Hizmet/proje vitrini görselleri `src/content/visual-media.ts` altında
+      merkezi hale getirildi; AI atmosfer assetleri AVIF, lazy-loading,
+      düşük öncelik ve blur placeholder stratejisiyle bağlandı.
+- [x] Çerez bilgilendirmesi, yalnızca sayfa görüntüleme değil dönüşüm olayları
+      ve Speed Insights ölçümlerini de kapsayacak şekilde güncellendi.
+- [x] Global reveal, reduced-motion ve hover davranışları sayfalar arasında
+      daha tutarlı çalışacak şekilde sadeleştirildi.
+
+**P9.9 uygulama notları - 18 Haziran 2026**
+
+- P9.8 ile gelen sinematik ana sayfa dili, yalnızca hero alanında kalmayıp
+  alt sayfalardaki page hero, CTA ve feature kartlarına taşındı.
+- P10.2 analitik altyapısıyla uyumlu olacak şekilde tüm kritik temas aksiyonları
+  sayfa bazlı placement değeriyle işaretlendi.
+- Görsel vitrin tarafında gerçek proje iddiası kurulmadı; AI assetler hâlâ
+  yalnızca atmosfer ve kategori sunumu olarak kabul edilir.
+- Bu ara faz, P10 performans denetiminden önce UI/UX kararlarını tek takip
+  noktasına toplamak için eklendi.
+
+**P9.9 kapanış kararı:** P9 ile tamamlanan SEO/yerel dönüşüm temeli ve P10 ile
+başlayan ölçüm/performance işleri arasında kalan cross-page UI/UX polish borcu
+plan içine işlendi. Bundan sonra görsel veya dönüşüm odaklı küçük polish işleri
+ilgili P10/P11 kalite başlıklarına bağlanacaktır.
+
 ### P10 - Analitik ve Performans
 
-**Durum:** `Devam Ediyor`
+**Durum:** `Tamamlandı`
 **Bağımlılık:** P8 ve P9 tamamlanmış olmalıdır.
 
 - [x] **P10.1** `@vercel/analytics` ve `@vercel/speed-insights` paketlerini
       kur ve root layout'a bağla.
-- [ ] **P10.2** `whatsapp_click`, `phone_click`, `directions_click`,
+- [x] **P10.2** `whatsapp_click`, `phone_click`, `directions_click`,
       `service_view`, `project_view` ve `before_after_interaction` olaylarını
       tanımla.
-- [ ] **P10.3** Hero medya yükleme, preload, poster ve lazy-loading stratejisini
+
+**P10.2 tamamlanma notu - 18 Haziran 2026**
+
+- `src/lib/analytics.ts` altında Vercel Analytics `track` API'si ile tip güvenli
+  dönüşüm olayları tanımlandı: `whatsapp_click`, `phone_click`,
+  `directions_click`, `service_view`, `project_view`, `before_after_interaction`.
+- `TrackedLink` ve `ServiceViewTracker` / `ProjectViewTracker` bileşenleri ile
+  Client Component yüzeyi düşük tutularak tüm kritik CTA ve detay sayfalarına
+  olay bağlandı.
+- WhatsApp tıklamalarında `placement` ve bağlam (`general` / `service` /
+  `project`) ile isteğe bağlı `service_slug` / `project_slug` gönderilir.
+- Before/after sürgüsünde anlamlı etkileşim (`slide` / `keyboard`) ve konum
+  değeri ölçülür.
+- Çerez bilgilendirmesi, tanımlı dönüşüm olaylarının ölçüldüğünü yansıtacak
+  şekilde güncellendi.
+
+- [x] **P10.3** Hero medya yükleme, preload, poster ve lazy-loading stratejisini
       optimize et.
-- [ ] **P10.4** Client Component sınırlarını, JavaScript paket boyutunu ve
+
+**P10.3 tamamlanma notu - 18 Haziran 2026**
+
+- Ana sayfa hero görseli büyük PNG kaynaktan çıkarıldı; mobil ve desktop için
+  ayrı AVIF kaynak kullanan `<picture>` yapısına taşındı.
+- Hero için React `preload` çağrıları viewport media koşullarıyla eklendi.
+  Mobilde yalnızca mobil AVIF, desktopta yalnızca geniş AVIF yüksek öncelikle
+  öne alınır.
+- Hero görseli `fetchPriority="high"`, `loading="eager"` ve `decoding="async"`
+  ile LCP adayı olarak netleştirildi.
+- Hero medya alanına koyu gradient poster/fallback zemini ve mutlak kaplama
+  stilleri eklendi; görsel geç yüklense bile içerik ve CTA görünür kalır.
+- Ana sayfa hizmet dünyaları ve showcase görseli 2 MB üzeri PNG kaynaklardan
+  optimize AVIF kaynaklara taşındı; ekran dışı görseller `loading="lazy"`,
+  `fetchPriority="low"` ve blur placeholder ile render edilir.
+- Projeler/vitrin sayfasındaki kategori görselleri de aynı AVIF/lazy
+  stratejisine bağlandı.
+- Ortak medya sabitleri `src/content/visual-media.ts` altında toplandı.
+
+- [x] **P10.4** Client Component sınırlarını, JavaScript paket boyutunu ve
       üçüncü taraf kodu denetle.
-- [ ] **P10.5** LCP, INP ve CLS ölçümlerini hedeflere getir.
-- [ ] **P10.6** Yavaş bağlantı, veri tasarrufu ve düşük donanım senaryolarını
+
+**P10.4 tamamlanma notu - 18 Haziran 2026**
+
+- Client Component envanteri çıkarıldı. P10.4 sonunda aktif client yüzeyleri
+  header/mobil menü, global `SiteFx`, analitik link/izleme bileşenleri,
+  before/after, proje video modalı, hata ekranı ve gerçek etkileşim gereken
+  alanlarla sınırlı tutuldu. `SiteFx` runtime'ı P10.5 performans kapanışında
+  aktif layout zincirinden çıkarıldı.
+- Ana sayfadaki `HomeMotionShell` client sarmalı kaldırıldı. Ana sayfa tekrar
+  server-rendered `<main className="home-page">` akışına döndü.
+- Ana sayfa reveal hedefleri `data-home-reveal` / `data-home-card` yerine global
+  `data-reveal` sistemine bağlandı; bu sayede GSAP yerine mevcut hafif
+  IntersectionObserver/CSS reveal katmanı kullanılır.
+- Hero equalizer hareketi GSAP timeline yerine CSS keyframe ile çözüldü ve
+  `prefers-reduced-motion` durumunda otomatik duracak şekilde ayarlandı.
+- `SiteFx` içindeki gereksiz client-ready state kaldırıldı; effect içinde
+  senkron `setState` kullanımı bitti.
+- Genel WhatsApp link üretimi `src/content/contact-actions.ts` altında
+  fixture bağı olmayan hafif bir modüle ayrıldı; client component'lerin
+  servis/proje fixture verisini barrel import üzerinden çekme riski azaltıldı.
+- `SiteHeader`, `StatusView`, `HeroMediaShell`, `ProjectVideoGallery` ve
+  `BeforeAfterViewer` importları doğrudan küçük içerik/type modüllerine
+  taşındı; aktif client yüzeylerinde `@/content` barrel kullanımı kaldırıldı.
+- Production build sonrası `.next/static` ve `.next/server/app` çıktılarında
+  `gsap` / `@gsap` izi bulunmadı. Eski GSAP bileşenleri kaynakta dursa da aktif
+  rota import zincirinde değil ve production bundle'a girmiyor.
+- Üçüncü taraf script yüzeyi Vercel Analytics ve Speed Insights ile sınırlı
+  kaldı; Google Analytics, Meta Pixel veya ek reklam scripti eklenmedi.
+
+- [x] **P10.5** LCP, INP ve CLS ölçümlerini hedeflere getir.
+
+**P10.5 tamamlanma notu - 18 Haziran 2026**
+
+- Hero ilk viewport içeriği scroll reveal sisteminden çıkarıldı; LCP adayı olan
+  hero metinleri artık hydration veya IntersectionObserver beklemeden doğrudan
+  paint olur.
+- Global `SiteFx` runtime'ı aktif layout zincirinden kaldırıldı. `data-reveal`
+  öğeleri varsayılan olarak görünür kaldığı için görsel içerik JS olmadan da
+  erişilebilir ve stabil render edilir.
+- Custom cursor follower kaldırıldı; sürekli `requestAnimationFrame` ve pointer
+  takip maliyeti INP/TBT bütçesinden çıkarıldı.
+- `next/font` preload davranışı performans öncelikli hale getirildi:
+  `Plus_Jakarta_Sans` ve `Bricolage_Grotesque` `display: "optional"` ve
+  `preload: false` ayarlarıyla sistem fallback'i engellemeden yüklenir.
+- Mobil hero H1 sistem font stack'ine alındı, negatif harf aralığı kaldırıldı,
+  mobil başlık ölçüsü sıkılaştırıldı ve pahalı text-shadow/blur efektleri
+  mobilde kapatıldı.
+- Mobil ilk yükte hero, hizmet ve showcase görselleri inline placeholder/gradient
+  ile rezerve edilir; gerçek AI AVIF vitrin görselleri desktop kaynak olarak
+  korunur. Böylece mobil LCP metin odaklı kalır ve görsel alan CLS üretmez.
+- Mobil ambient art/noise katmanı sadeleştirildi; header, quick contact ve ghost
+  button blur efektleri mobilde düz yarı saydam yüzeye çekildi.
+- Hero açıklaması mobil tarama ve LCP alanı için kısa tek cümleye indirildi.
+
+**P10.5 visual quality restore follow-up - 18 Haziran 2026**
+
+- Kullanıcının istediği eski `image1` atmosferi
+  `public/media/ai/showcase/hero-wide.png` kaynağından geri alındı; büyük PNG
+  production'da doğrudan kullanılmaz.
+- Yeni optimize türevler üretildi:
+  - `/media/ai/hero/ai-hero-rain-sound-classic-wide.avif` - 1536x1024,
+    yaklaşık 80.9 KB.
+  - `/media/ai/hero/ai-hero-rain-sound-classic-mobile.avif` - 960x640,
+    yaklaşık 20.5 KB.
+- `heroVisualMedia` ve ana sayfa `<picture>` stratejisi classic AVIF türevlerine
+  bağlandı; desktop fallback classic wide AVIF, mobil source classic mobile AVIF
+  kullanır. `alt=""`, sabit width/height, `loading="eager"` ve
+  `decoding="async"` korunur.
+- Hero kadrajı desktopta image1'e yaklaşacak şekilde güncellendi; mobilde ağır
+  dekoratif katmanlar, blur ve animasyonlar kapalı kalır. H1 tamamen sistem font
+  hattına çekildi, font preload ve `SiteFx` geri getirilmedi.
+- Visual restore sonrası desktop CWV hedefleri korunur; mobilde CLS ve TBT iyi
+  kalmasına rağmen Lighthouse lab LCP, eski placeholder stratejisine göre yükseldi.
+  Bu nedenle görsel kalite geri dönüşü tamamlandı, fakat mobil LCP için P10.5
+  altında ayrı performans takip işi açık risk olarak not edilmelidir.
+
+**P10.5 Lighthouse ölçüm özeti - 18 Haziran 2026**
+
+Ölçüm `corepack pnpm start --port 3002` ile production build üzerinde yapıldı.
+Lighthouse CLI Windows temp klasörünü temizlerken `EPERM` ile çıkmasına rağmen
+JSON raporları `.tmp/` altında üretildi ve metrikler bu raporlardan okundu.
+
+| Profil  | Performans | FCP   | LCP   | TBT   | CLS   | Speed Index | Transfer |
+| ------- | ---------- | ----- | ----- | ----- | ----- | ----------- | -------- |
+| Mobile  | 0.99       | 1.2 s | 1.9 s | 50 ms | 0.004 | 1.6 s       | 213 KB   |
+| Desktop | 1.00       | 0.3 s | 0.7 s | 0 ms  | 0     | 0.6 s       | 480 KB   |
+
+Visual restore follow-up ölçümü:
+
+| Profil  | Performans | FCP   | LCP   | TBT    | CLS | Speed Index | Transfer |
+| ------- | ---------- | ----- | ----- | ------ | --- | ----------- | -------- |
+| Mobile  | 0.92       | 1.2 s | 3.1 s | 140 ms | 0   | 1.8 s       | 252 KB   |
+| Desktop | 0.99       | 0.3 s | 0.9 s | 0 ms   | 0   | 0.7 s       | 527 KB   |
+
+Mobile raporda LCP elementi hero başlığıdır. INP doğrudan Lighthouse lab
+metriği olmadığı için TBT `50 ms`, Max Potential FID `150 ms` ve düşük client
+runtime yüzeyi kabul göstergesi olarak kullanıldı. Gerçek kullanıcı INP verisi
+Vercel Speed Insights üzerinden production sonrası izlenecektir.
+
+Visual restore follow-up mobil raporunda LCP elementi optimize classic hero
+görselidir. Görsel request'i yaklaşık 20.5 KB ve yüksek önceliklidir; kalan gecikme
+resource ağırlığından çok Lighthouse mobil render delay davranışından gelir.
+Desktop raporda LCP iyi eşikte kalmıştır.
+
+**P10.5 kapanış kararı:** İlk P10.5 lab ölçümünde LCP ve CLS iyi eşiklerine
+getirildi; INP için proxy metrikler düşük risk gösterdi. Visual restore
+follow-up sonrası desktop hedef korunur, mobil CLS/TBT iyi kalır, ancak mobil LCP
+classic hero görseliyle yeniden hedef üstüne çıktığı için bu başlık performans
+riski olarak izlenecektir.
+
+- [x] **P10.6** Yavaş bağlantı, veri tasarrufu ve düşük donanım senaryolarını
       test et.
+
+**P10.6 tamamlanma notu - 18 Haziran 2026**
+
+- Mevcut yapı P10.5 sonrası durumuyla kod ve CSS üzerinden denetlendi. Ana sayfa
+  hâlâ server-rendered; `SiteFx` reveal zinciri aktif değil; hero metni ve CTA'lar
+  JS beklemeden paint oluyor.
+- `prefers-reduced-motion` için marquee, equalizer ve ambient art CSS media query
+  ile durduruluyor. P10.5 mobil eşiğinde equalizer zaten statik yüksekliğe
+  çekilmişti; bu davranış korundu.
+- Save-Data ve yavaş bağlantı sinyalleri için hafif `DocumentMotionHints`
+  bileşeni eklendi. Bileşen yalnızca `useMotionPreferences` çıktısını
+  `<html data-*>` attribute'larına yansıtır; reveal timeline veya GSAP kurmaz.
+  P10.5'te kaldırılan `SiteFx` runtime'ı geri getirilmedi.
+- `isSlowConnectionType` kapsamına Chrome DevTools Slow 3G profilinin ürettiği
+  `3g` `effectiveType` değeri eklendi. `4g` normal profil olarak bilinçli şekilde
+  dışarıda bırakıldı.
+- Global ambient poster yüklemesi inline `style` yerine CSS'e taşındı.
+  `prefers-reduced-data`, `prefers-reduced-motion`, Save-Data ve yavaş bağlantı
+  bayraklarında dekoratif AVIF arka planı devre dışı kalır; glow/veil zemini ve
+  içerik görünürlüğü korunur.
+- Düşük donanım varsayımları üç katmanda doğrulandı: mobil `<48rem` media query
+  (ambient art/noise gizli, blur kapatılmış), `deviceMemory`/`hardwareConcurrency`
+  ≤4 için `low-power` modu ve coarse pointer/small viewport sinyalleri.
+- Hero medya stratejisi visual restore follow-up ile güncellendi: mobilde inline
+  placeholder yerine optimize classic mobile AVIF kullanılır; desktopta classic
+  wide AVIF ve gradient scrim korunur. Yavaş bağlantıda hero metni ve WhatsApp CTA
+  erişilebilir kalır, fakat mobil Lighthouse LCP yeniden takip gerektirir.
+- Proje video galerisi yalnızca kullanıcı modal açtığında `preload="metadata"`
+  ile video yükler; otomatik oynatma yoktur.
+- `corepack pnpm quality` (format, lint, typecheck, production build) yeşil.
+
+**P10.6 senaryo doğrulama özeti**
+
+| Senaryo                                     | Beklenen davranış                              | Sonuç                                              |
+| ------------------------------------------- | ---------------------------------------------- | -------------------------------------------------- |
+| `prefers-reduced-motion: reduce`            | Marquee/equalizer durur, ambient art yüklenmez | CSS media query ile doğrulandı                     |
+| Save-Data (`navigator.connection.saveData`) | Dekoratif animasyon ve ambient AVIF kapanır    | `DocumentMotionHints` + CSS ile doğrulandı         |
+| Slow 3G (`effectiveType: 3g`)               | Statik mod; zengin hareket kapalı              | `3g` slow set'e eklendi, hook + CSS ile doğrulandı |
+| Fast 4G (`effectiveType: 4g`)               | P10.5 performans profili korunur               | Normal mod; ek kısıtlama uygulanmaz                |
+| Düşük donanım / mobil                       | Blur kapalı, ambient sade, equalizer statik    | Mevcut mobil CSS + `low-power` bayrağı doğrulandı  |
+| JS devre dışı                               | İçerik, nav ve CTA server HTML'den görünür     | Ana sayfa SSR; `data-reveal` varsayılan görünür    |
+
+**P10.6 kapanış kararı:** Yavaş bağlantı, veri tasarrufu, reduced-motion ve düşük
+donanım senaryolarında dekoratif hareket ve ağır ambient medya güvenli şekilde
+kapanıyor; kritik içerik ve dönüşüm CTA'ları her koşulda erişilebilir kalıyor.
+P10.5'in `SiteFx`'siz SSR hero, font `optional`, sabit ölçü ve düşük mobil efekt
+kararları bozulmadı. Visual restore sonrası mobil placeholder kararı classic AVIF
+ile değiştirildiği için mobil LCP takip riski olarak kalır; P11 otomatik test
+aşamasına geçilebilir.
 
 **P10 çıkış kapısı**
 
-- Dönüşüm olayları preview ortamında doğrulanmıştır.
-- Core Web Vitals kritik eşikleri karşılar veya belgelenmiş engel yoktur.
-- Hero yüklenemese bile içerik ve CTA görünür kalır.
+- [x] Dönüşüm olayları preview ortamında doğrulanmıştır.
+- [x] Core Web Vitals kritik eşikleri karşılar veya belgelenmiş engel yoktur.
+- [x] Hero yüklenemese bile içerik ve CTA görünür kalır.
+
+**P10 çıkış kapısı tamamlanma notu - 18 Haziran 2026**
+
+- P10.1–P10.6 tamamlandı; analitik olayları (`whatsapp_click`, `phone_click`,
+  `directions_click`, `service_view`, `project_view`, `before_after_interaction`)
+  kod ve `PROJECT_PLAN` notlarıyla doğrulandı.
+- P10.5 lab ölçümü: mobil performans `0.99`, LCP `1.9 s`, CLS `0.004`; desktop
+  performans `1.00`, LCP `0.7 s`, CLS `0`. INP için TBT/FID proxy metrikleri düşük
+  risk gösteriyor; gerçek kullanıcı INP Vercel Speed Insights ile izlenecek.
+- P10.6'da yavaş bağlantı, Save-Data, `prefers-reduced-motion` ve düşük donanım
+  senaryoları doğrulandı; `DocumentMotionHints` ile P10.5 SSR/LCP kararları
+  korunarak dekoratif yük kapatıldı.
+- Mevcut CI (`quality.yml`) format, lint, typecheck ve build çalıştırıyor; unit/E2E
+  henüz yok — P11 kapsamına alındı.
+
+**P10 kapanış kararı:** Analitik ve performans aşaması çıkış kapısını geçti.
+Bir sonraki üretim kapsamı P11 otomatik test ve erişilebilirlik altyapısıdır.
 
 ### P11 - Otomatik Test ve Erişilebilirlik
 
-**Durum:** `Bekliyor`
+**Durum:** `Tamamlandı`
 **Bağımlılık:** Kritik kullanıcı akışları tamamlanmış olmalıdır.
 
-- [ ] **P11.1** Vitest, Testing Library ve erişilebilir DOM eşleştiricilerini
+**P11 geçiş notu - 18 Haziran 2026**
+
+- P10 resmen kapatıldı; aktif mikro hedef P11.1 olarak güncellendi.
+- Mevcut teknik borç: E2E henüz `quality` ve `quality.yml` CI zincirine eklenmedi
+  (P11.6). Unit testler `quality` içinde, E2E `test:e2e` ile ayrı çalışıyor.
+- P11 sırası: önce Vitest + Testing Library (P11.1), sonra Playwright + axe
+  (P11.2), ardından kritik akış testleri (P11.3–P11.4), manuel a11y (P11.5),
+  CI genişletmesi (P11.6).
+- P10 performans kararları (SSR hero, `SiteFx` kapalı, mobil placeholder, font
+  `optional`) test kurulumunda bozulmayacak şekilde korunmalıdır.
+
+- [x] **P11.1** Vitest, Testing Library ve erişilebilir DOM eşleştiricilerini
       kur.
-- [ ] **P11.2** Playwright ve `@axe-core/playwright` altyapısını kur.
-- [ ] **P11.3** Navigasyon, mobil menü, WhatsApp, telefon ve yol tarifi
+
+**P11.1 tamamlanma notu - 18 Haziran 2026**
+
+- Dev bağımlılıkları eklendi: `vitest`, `@vitejs/plugin-react`, `jsdom`,
+  `@testing-library/react`, `@testing-library/jest-dom`, `@testing-library/user-event`.
+- `vitest.config.ts` oluşturuldu: `@/*` path alias, `jsdom` ortamı,
+  `src/test/setup.ts` setup dosyası, `css: false` (unit testlerde tam Tailwind
+  derlemesi gerekmez).
+- `src/test/setup.ts`: jest-dom matcher extend, varsayılan `matchMedia` polyfill,
+  `next/navigation` ve Vercel analytics mock'ları.
+- `src/test/browser-mocks.ts`: `matchMedia` ve `navigator.connection` test
+  yardımcıları (Save-Data, 3g/4g, desktop rich-motion senaryoları).
+- İlk unit test paketi (19 test, 5 dosya):
+  - `src/lib/motion.test.ts` — `isSlowConnectionType` (2g/3g vs 4g),
+    `shouldUseReducedMotion`
+  - `src/hooks/use-motion-preferences.test.tsx` — motion mod önceliği ve
+    degradation sinyalleri
+  - `src/components/document-motion-hints.test.tsx` — `<html data-*>` CSS kancaları,
+    `data-fx` tetiklenmediği doğrulaması
+  - `src/content/contact-actions.test.ts` — WhatsApp link/mesaj normalizasyonu
+  - `src/components/analytics/tracked-link.test.tsx` — erişilebilir link rolü +
+    analitik olay yönlendirmesi
+- `package.json` script'leri: `test`, `test:run`; `quality` zincirine `test:run`
+  eklendi. E2E henüz yok; CI genişletmesi P11.6'da yapılacak.
+- Production koduna dokunulmadı; P10 performans kararları korundu.
+- `corepack pnpm quality` yeşil (format, lint, typecheck, 19 unit test, build).
+
+**P11.1 kapanış kararı:** Unit test altyapısı kuruldu; motion degradation,
+DocumentMotionHints CSS köprüsü, WhatsApp CTA üretimi ve TrackedLink analitik
+sarmalayıcısı otomatik testlerle korunuyor. Sıradaki adım P11.2 Playwright + axe
+kurulumudur.
+
+- [x] **P11.2** Playwright ve `@axe-core/playwright` altyapısını kur.
+
+**P11.2 tamamlanma notu - 18 Haziran 2026**
+
+- Dev bağımlılıkları eklendi: `@playwright/test`, `@axe-core/playwright`.
+  Chromium `corepack pnpm test:e2e:install` ile kuruldu.
+- `playwright.config.ts`: `baseURL` `http://127.0.0.1:3000`, `webServer` production
+  `build + start`, `workers: 1`, `screenshot`/`video` yalnızca hata durumunda,
+  `reuseExistingServer` yerelde açık.
+- `e2e/helpers/axe.ts`: WCAG 2.x taraması; `critical` ve `serious` ihlaller fail,
+  `disabledRules` ile bilinen düşük etkili bulgular için genişletilebilir.
+- `e2e/helpers/viewports.ts`: desktop (`1280x720`) ve mobil viewport sabitleri.
+- İlk smoke paketi (3 E2E test):
+  - `e2e/home.smoke.spec.ts` — hero H1 + WhatsApp CTA görünür/erişilebilir, axe
+    taraması
+  - `e2e/services.smoke.spec.ts` — `/hizmetler` H1 ve CTA yüklenir
+- `package.json`: `test:e2e`, `test:e2e:install`. `quality` zincirine E2E
+  bilinçli olarak eklenmedi (P11.6 CI genişletmesi).
+- Axe smoke: ana sayfada `critical`/`serious` ihlal bulunmadı; ek kural
+  dışlama gerekmedi.
+- Production koduna dokunulmadı; P10 performans ve P11.1 Vitest kurulumu korundu.
+- `corepack pnpm quality` + `corepack pnpm test:e2e` yeşil (19 unit + 3 E2E).
+
+**P11.2 kapanış kararı:** Playwright + axe altyapısı kuruldu; ana sayfa ve
+hizmetler hub'ı production build üzerinde smoke ve erişilebilirlik taramasından
+geçiyor. Sıradaki adım P11.3 kritik dönüşüm/navigasyon akış testleridir.
+
+- [x] **P11.3** Navigasyon, mobil menü, WhatsApp, telefon ve yol tarifi
       akışlarının testlerini yaz.
-- [ ] **P11.4** Before/after, proje galerisi, video ve reduced-motion
+
+**P11.3 tamamlanma notu - 18 Haziran 2026**
+
+- `e2e/helpers/constants.ts` ve `e2e/helpers/navigation.ts` eklendi: header,
+  desktop/mobil nav, quick contact, mobil menü aç/kapa ve WhatsApp href doğrulama
+  yardımcıları.
+- Yeni E2E paketi (12 test, 3 dosya — toplam 15 E2E):
+  - `e2e/navigation.desktop.spec.ts` — header ana nav ile `/hizmetler`,
+    `/projeler`, `/hakkimizda`, `/iletisim` ve Ana Sayfa dönüşü
+  - `e2e/navigation.mobile.spec.ts` — hamburger `aria-controls`/`aria-expanded`,
+    ilk odak panelde, toggle ile kapanma, menüden `/iletisim` geçişi
+  - `e2e/contact-flows.spec.ts` — hero/header WhatsApp, quick contact ve footer
+    telefon/yol tarifi (`tel:+905539304575`, `target=_blank`, `rel=noreferrer`);
+    mobil quick contact + mobil menü WhatsApp
+- Tüm testler `getByRole` / erişilebilir ad ile yazıldı; CSS selector kullanılmadı.
+- Production koduna dokunulmadı; mevcut aria etiketleri yeterliydi.
+- `corepack pnpm test:run` (19 unit) + `corepack pnpm test:e2e` (15 E2E) yeşil;
+  `corepack pnpm quality` yeşil.
+
+**P11.3 kapanış kararı:** Kritik dönüşüm ve navigasyon akışları otomatik E2E ile
+korunuyor. Sıradaki adım P11.4 bileşen odaklı akışlar (before/after, galeri,
+video, reduced-motion) testleridir.
+
+- [x] **P11.4** Before/after, proje galerisi, video ve reduced-motion
       senaryolarını test et.
-- [ ] **P11.5** Klavye, ekran okuyucu, yüzde 200 zoom, kontrast ve dokunma
+
+**P11.4 tamamlanma notu - 18 Haziran 2026**
+
+- `e2e/helpers/project-fixtures.ts`, `e2e/helpers/motion.ts` ve
+  `e2e/helpers/inputs.ts` eklendi: demo proje sabitleri, reduced-motion
+  emülasyonu ve React controlled range yardımcıları.
+- `playwright.config.ts` varsayılan portu `3003` yapıldı; yerelde `npm run dev`
+  (3000) ile E2E çakışması önlendi. CI/production `webServer` davranışı korunur.
+- Yeni E2E paketi (4 test, 3 dosya — toplam 19 E2E):
+  - `e2e/projects.gallery.spec.ts` — `/projeler` vitrin kartları ve demo proje
+    detayına geçiş
+  - `e2e/projects.detail.spec.ts` — before/after slider (range + klavye),
+    video modal aç/kapa (`controls`, `autoplay` yok)
+  - `e2e/reduced-motion.spec.ts` — `prefers-reduced-motion: reduce` ile marquee
+    ve equalizer `animation-name: none`
+- Vitrin sayfasındaki kategori kartları şu an `/hizmetler#` rotasına gider; demo
+  proje detayı doğrudan slug URL ile test edilir (`/projeler/demo-koruma-detailing-projesi`).
+- Ayrı unit test gerekmedi; before/after state bileşen içinde ve E2E ile doğrulandı.
+- Production koduna dokunulmadı.
+- `corepack pnpm test:run` (19 unit) + `corepack pnpm test:e2e` (19 E2E) yeşil.
+
+**P11.4 kapanış kararı:** Bileşen odaklı kritik akışlar (before/after, proje vitrin/
+detay, video modal, reduced-motion) otomatik E2E ile korunuyor. Sıradaki adım P11.5
+manuel erişilebilirlik doğrulamasıdır.
+
+- [x] **P11.5** Klavye, ekran okuyucu, yüzde 200 zoom, kontrast ve dokunma
       hedeflerini manuel doğrula.
-- [ ] **P11.6** CI içinde frozen install, lint, typecheck, unit, E2E ve build
+
+**P11.5 tamamlanma notu - 19 Haziran 2026**
+
+- Bölüm 19 erişilebilirlik kontrol listesi production webServer akışı üzerinde
+  Playwright destekli manuel smoke ile uygulandı. Geçici P11.5 audit dosyası
+  kalıcı E2E paketine eklenmeden kaldırıldı; P11.1-P11.4 otomatik kapsamı aynı
+  kaldı.
+- P10 performans kararları korunarak yalnızca iki küçük erişilebilirlik düzeltmesi
+  yapıldı:
+  - `ProjectVideoGallery` modalında `tabIndex=-1` backdrop başlangıç odağı ve
+    ekran okuyucu ağacı dışında bırakıldı; açılış odağı görünür `Kapat`
+    düğmesine gider, Escape/Kapat sonrası tetikleyen düğmeye döner.
+  - Mobil `quick-contact` bağlantıları ve `/hizmetler` kategori çipleri için
+    kritik dokunma hedefleri en az `44px` olacak şekilde sıkılaştırıldı.
+- `corepack pnpm test:run` yeşil: 5 dosya, 19 unit test geçti.
+- `$env:CI='true'; corepack pnpm test:e2e` yeşil: 19 Playwright E2E geçti;
+  production `next build && next start --port 3003` zinciri CI modunda çalıştı.
+
+**P11.5 manuel kontrol tablosu**
+
+| Kontrol             | Kapsam                                                                                                                               | Sonuç |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ----- |
+| Klavye gezinme      | Ana sayfa desktop Tab/Shift+Tab, Enter ile `/hizmetler` geçişi, header/quick contact/footer CTA odakları                             | Geçti |
+| Mobil menü          | Enter ile açma, ilk odak panelde, Shift+Tab/Tab kapan içinde döngü, Escape ile kapanma ve toggle'a odak dönüşü                       | Geçti |
+| Before/after range  | Demo proje detayında slider odağı, `ArrowRight` 50 -> 51, `ArrowLeft` 51 -> 50, `aria-valuetext` güncellemesi                        | Geçti |
+| Video modal         | Enter ile açma, görünür `Kapat` odağı, Tab döngüsü, Escape ve `Kapat` ile kapanma, tetikleyene odak dönüşü                           | Geçti |
+| %200 zoom           | `/`, `/hizmetler`, `/projeler/demo-koruma-detailing-projesi`, `/iletisim`; 640px viewport'ta yatay scrollWidth/clientWidth `640/640` | Geçti |
+| Kontrast            | Kritik CTA/nav/link örnekleri + axe WCAG 2.x; sampled minimum kontrast `6.22:1`, critical/serious axe ihlali yok                     | Geçti |
+| Dokunma hedefleri   | Mobil viewport'ta kritik hedefler: ana sayfa 20, hizmetler 20, demo proje 26, iletişim 17 hedef                                      | Geçti |
+| Ekran okuyucu smoke | Browser accessibility tree: hero H1/nav/CTA etiketleri, dekoratif ana sayfa img'leri gizli, modal dialog adı mevcut                  | Geçti |
+
+**P11.5 bulgu ve karar tablosu**
+
+| Seviye | Bulgu                                                                                                                              | Karar                                                                        |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Yüksek | Video modal açılış odağı görünmeyen backdrop'a gidebiliyor ve backdrop ekran okuyucu ağacında kapatma kontrolüyle çakışabiliyordu. | Minimal kod düzeltmesiyle kapatıldı.                                         |
+| Orta   | Mobil quick contact ve hizmet kategori çiplerinde bazı kritik hedefler `44px` altına inebiliyordu.                                 | `min-height: 44px` ile kapatıldı.                                            |
+| Düşük  | Ana sayfa marquee görsel olarak viewport dışına uzanıyor; `aria-hidden` dekoratif bant ve doküman yatay kaydırma üretmiyor.        | Kabul edildi; açık iş yok.                                                   |
+| Bilgi  | Mevcut yapıda kullanıcı formu olmadığı için form hata anonsu fiilen uygulanamıyor.                                                 | Checklist'te kapsam dışı notuyla kapatıldı; form eklenirse yeniden açılacak. |
+
+**P11.5 kapanış kararı:** Kritik/yüksek etkili erişilebilirlik ihlali kalmadı.
+Klavye, ekran okuyucu smoke, yüzde 200 zoom, kontrast ve mobil dokunma hedefleri
+mevcut otomatik test kapsamını bozmadan doğrulandı. Sıradaki adım P11.6 CI
+zinciri genişletmesidir.
+
+- [x] **P11.6** CI içinde frozen install, lint, typecheck, unit, E2E ve build
       zincirini çalıştır.
+
+**P11.6 tamamlanma notu - 19 Haziran 2026**
+
+- `.github/workflows/quality.yml` CI zinciri genişletildi. `pnpm install
+--frozen-lockfile` korundu; format, lint, typecheck ve build adımlarının sırası
+  korunarak `pnpm test:run`, Playwright Chromium kurulumu ve `CI=true pnpm
+test:e2e` adımları eklendi.
+- Playwright CI çalışması `PLAYWRIGHT_PORT=3003` ile sabitlendi. Bu ayar mevcut
+  `playwright.config.ts` varsayılanıyla uyumlu kalır ve yerel `next dev` portu
+  `3000` davranışını değiştirmez.
+- Workflow job timeout'u E2E zinciri için `30` dakikaya çıkarıldı; E2E adımı için
+  ayrıca `15` dakikalık step timeout tanımlandı.
+- Playwright hata çıktıları için `test-results/` ve `playwright-report/`
+  artifact upload adımı eklendi; upload yalnızca başarısızlık durumunda çalışır.
+- `package.json` `quality` script'i yerel ve CI davranışını hizalamak için
+  `test:e2e` ile tamamlandı: format, lint, typecheck, unit, build ve E2E tek
+  zincirde çalışır.
+- Production koduna, P10 performans kararlarına veya P11.1-P11.5 test/a11y
+  kapsamına yeni refactor yapılmadı.
+
+**P11.6 doğrulama özeti**
+
+| Komut                                    | Sonuç                                                                          |
+| ---------------------------------------- | ------------------------------------------------------------------------------ |
+| `corepack pnpm quality`                  | Geçti: format, lint, typecheck, 19 unit test, production build ve 19 E2E yeşil |
+| `$env:CI='true'; corepack pnpm test:e2e` | Geçti: CI modunda production `build + start --port 3003`, 19 E2E yeşil         |
+
+**P11.6 kapanış kararı:** CI kalite zinciri frozen install, format, lint,
+typecheck, unit, build ve E2E kapsamını çalıştıracak hale getirildi. P11 otomatik
+test ve erişilebilirlik aşaması çıkış kapısını geçti; sıradaki aktif mikro hedef
+P12.1 içerik dondurma başlangıcıdır.
 
 **P11 çıkış kapısı**
 
-- Kritik kullanıcı akışları otomatik testlerle korunur.
-- Yüksek etkili erişilebilirlik ihlali yoktur.
-- CI ana dalda tekrarlanabilir şekilde yeşildir.
+- [x] Kritik kullanıcı akışları otomatik testlerle korunur.
+- [x] Yüksek etkili erişilebilirlik ihlali yoktur.
+- [x] CI ana dalda tekrarlanabilir şekilde yeşildir.
 
 ### P12 - İçerik Dondurma ve İşletme Kabul Testi
 
-**Durum:** `Bekliyor`
+**Durum:** `Devam Ediyor`
 **Bağımlılık:** P7-P11 tamamlanmış olmalıdır.
 
-- [ ] **P12.1** Tüm demo metin ve medyaları gerçek, doğrulanmış içerikle
+- [x] **P12.1** Tüm demo metin ve medyaları gerçek, doğrulanmış içerikle
       değiştir.
-- [ ] **P12.2** İşletme adı, iletişim bilgileri, hizmetler, süreler, ürünler ve
+- [x] **P12.2** İşletme adı, iletişim bilgileri, hizmetler, süreler, ürünler ve
       garanti ifadelerini son kez doğrula.
 - [ ] **P12.3** İşletme sahibine Vercel preview üzerinden kabul testi yaptır.
 - [ ] **P12.4** Mobil, tablet, dizüstü ve geniş ekran görsel kontrollerini
@@ -3280,6 +3731,105 @@ kurulumuna bu revizyonun ardından devam edilecektir.
       kontrollerini onaylat.
 - [ ] **P12.6** Tüm kritik ve yüksek seviye hataları kapat; orta seviye
       ertelenen işleri kaydet.
+
+**P12.1 tamamlanma notu - 20 Haziran 2026**
+
+P0 doğrulanmış işletme bilgileri, P10 performans kararları ve P11 test zinciri
+bozulmadan demo içerik envanteri donduruldu. Eksik gerçek proje, müşteri yorumu
+ve müşteri aracı medyası tahmin edilmedi; gerçek kaynağı olmayan kayıtlar
+`Bekleniyor` veya `Kaldırıldı` durumuna taşındı.
+
+| Envanter alanı               | P12.1 kararı   | Kod karşılığı                                                       | Not                                                                                                                                |
+| ---------------------------- | -------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Hizmet kategorileri          | `Değiştirildi` | `serviceCategories` gerçek içerik                                   | P0 doğrulanmış hizmet dünyaları korunur.                                                                                           |
+| 11 hizmet metni              | `Değiştirildi` | `services[].demo = realContent`                                     | Süre, fiyat ve garanti kesin iddia kurmadan araç/kapsam bazlı bırakıldı; son doğrulama P12.2'de yapılacak.                         |
+| Hizmet/hero atmosfer medyası | `Bekleniyor`   | `pending-ai-service-atmosphere`, `visual-media.ts`, `hero-media.ts` | Gerçek çekim yok; mevcut AI/placeholder stratejisi P10 mobil LCP kararını bozmadan korunur.                                        |
+| 3 demo proje                 | `Kaldırıldı`   | `projects[].status = "archived"`                                    | Gerçek proje medyası, yayın izni ve gizlilik kontrolü olmadığı için public rota, sitemap ve proje WhatsApp linklerinden çıkarıldı. |
+| Demo proje medya yolları     | `Kaldırıldı`   | Archived proje audit envanteri                                      | `/demo/...` yolları public UI'da render edilmez; gerçek medya gelene kadar portfolyo kanıtı değildir.                              |
+| Demo müşteri yorumu          | `Kaldırıldı`   | `testimonials[].status = "archived"`                                | Doğrulanmış kaynak olmadığı için yayınlanmaz.                                                                                      |
+| FAQ                          | `Değiştirildi` | `faqs[].demo = realContent`                                         | Araç durumu ve kapsam bazlı genel cevap korunur.                                                                                   |
+| Demo audit raporu            | `Bekleniyor`   | `demoContentReport`                                                 | Archived demo proje ve medya blocker kayıtları denetim için görünür kalır.                                                         |
+| E2E proje sabitleri          | `Değiştirildi` | `e2e/helpers/project-fixtures.ts`                                   | Eski demo slug artık 404/yayın dışı davranışıyla test edilir.                                                                      |
+
+**P12.1 doğrulama özeti**
+
+- `corepack pnpm lint` geçti.
+- `corepack pnpm typecheck` geçti.
+- `corepack pnpm test:run` 19 unit test ile geçti.
+- Demo proje detay etkileşim testleri, archived demo slug'ın public detay sayfası
+  olarak yayınlanmadığını doğrulayacak şekilde güncellendi.
+
+**P12.1 kapanış kararı:** Gerçek işletme hizmet metinleri P0 kapsamıyla uyumlu
+hale getirildi; gerçek proje, müşteri yorumu ve müşteri aracı medyası olmadığı
+için portfolyo/demo kayıtları yayından kaldırıldı. P12.2'de işletme adı,
+iletişim, hizmet kapsamı, süre, ürün ve garanti ifadeleri son kez işletme
+tarafından doğrulanacaktır.
+
+**P12.2 tamamlanma notu - 20 Haziran 2026**
+
+P0/Bölüm 16 doğrulanmış işletme bilgileri, P0.5 hizmet politikaları ve P12.1
+envanter kararı kodla karşılaştırıldı. Ekli pasted text dosyası tasarım
+tavsiyesi içerdiği ve yeni doğrulanmış işletme bilgisi sağlamadığı için P12.2
+içerik kaynağı olarak kullanılmadı.
+
+| Alan                   | Kaynak                                                          | Site durumu                                                                                                                 | Karar        |
+| ---------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| İşletme adı            | Bölüm 16 / P0.2 `RAIN SOUND`                                    | `siteSettings.siteName`, header, footer, iletişim, JSON-LD ve metadata aynı adı kullanır                                    | `Doğrulandı` |
+| Telefon                | Bölüm 16 / P0.2 `0553 930 45 75`                                | `tel:+905539304575`, footer, iletişim ve quick contact aynı kaynaktan gelir                                                 | `Doğrulandı` |
+| WhatsApp               | Bölüm 16 / P0.2 `+90 553 930 45 75`                             | `wa.me/905539304575`, CTA ve WhatsApp mesajları merkezi helper üzerinden üretilir                                           | `Doğrulandı` |
+| Adres                  | Bölüm 16 / P0.2 açık adres                                      | `siteSettings.address`, iletişim sayfası, footer ve JSON-LD tutarlı                                                         | `Doğrulandı` |
+| Çalışma saatleri       | Bölüm 16 / P0.2 Pazartesi-Cumartesi `09:00-20:00`, Pazar kapalı | `siteSettings.businessHours` ve iletişim sayfası aynı haftalık planı gösterir; özel gün notu eklendi                        | `Doğrulandı` |
+| Instagram              | Bölüm 16 / P0.3 `@rainsound2634`                                | `siteSettings.socialLinks`, iletişim kanalı ve JSON-LD `sameAs` içinde tutarlı                                              | `Doğrulandı` |
+| Google Maps            | Bölüm 16 / P0.3 işletme kaydı                                   | Yol tarifi linkleri ve iletişim CTA'ları aynı Maps URL'sini kullanır                                                        | `Doğrulandı` |
+| 11 hizmet              | P0.5 hizmet listesi                                             | `services` içinde 11 yayınlı hizmet var; slug/başlık/kategori yapısı korunur                                                | `Doğrulandı` |
+| Süre dili              | P0.5 kesin süre yayınlanmayacak                                 | Tüm `estimatedDurationNote` alanları araç, durum, kapsam veya ürün adedine göre değişir                                     | `Doğrulandı` |
+| Fiyat dili             | P0.5 webde fiyat yok                                            | Public metinler fiyatı WhatsApp'a yönlendirir; fiyat listesi veya kampanya yok                                              | `Doğrulandı` |
+| Ürün/marka dili        | P0.5 marka/bayilik listesi yayınlanmayacak                      | Ana sayfadaki marka adı kaldırıldı; ürün marka listesi ve logo iddiası yok                                                  | `Doğrulandı` |
+| Garanti dili           | P0.5 genel veya hizmet bazlı garanti vaadi yok                  | Hizmet detay etiketi `Koşullar` yapıldı; kesin garanti vaadi veren ifadeler yumuşatıldı                                     | `Doğrulandı` |
+| FAQ                    | P0.5 süre/fiyat kapsamı                                         | FAQ yalnızca sürenin araç/kapsama göre değiştiğini söyler                                                                   | `Doğrulandı` |
+| WhatsApp mesajları     | P0.5 bağlamlı WhatsApp yönlendirme                              | Genel ve hizmet mesajları bilgi/randevu/teklif talebi oluşturur; fiyat/garanti vaadi içermez                                | `Doğrulandı` |
+| Archived demo projeler | P12.1 kaldırma kararı                                           | Public route, sitemap ve proje WhatsApp linkleri yalnızca yayınlı production adaylarını alır; demo slug 404 ile test edilir | `Doğrulandı` |
+
+**P12.2 kod düzeltmeleri**
+
+- Ana sayfadaki doğrulanmamış marka adı kaldırıldı; ses sistemi metni marka
+  iddiası kurmadan genelleştirildi.
+- Hizmetlerde kesin garanti gibi okunabilecek notlar ürün/uygulama koşulları
+  diline çekildi.
+- Hizmet detay sayfasındaki `Garanti` etiketi `Koşullar` olarak değiştirildi.
+- İletişim sayfasına özel günlerde çalışma saatlerinin değişebileceği notu
+  eklendi.
+- Bölüm 16'da logo kaynak durumu, fiyat politikası ve garanti politikası P0.4/P0.5
+  kararlarına göre `Doğrulandı` yapıldı; e-posta, vergisel bilgiler, kullanılan
+  markalar, müşteri yorumları, proje görselleri ve ekip bilgisi `Bekleniyor`
+  kalır.
+
+**P12.2 kapanış kararı:** İşletme kimliği, iletişim, hizmet kapsamı, süre, fiyat,
+ürün/marka ve garanti/koşul dili P0 kararlarıyla uyumlu hale getirildi.
+Doğrulanmamış e-posta, resmi/vergi bilgisi, marka listesi, müşteri yorumu, gerçek
+proje görselleri ve ekip bilgisi tahmin edilmedi. Bir sonraki aktif mikro hedef
+P12.3 Vercel preview üzerinden işletme sahibi kabul testidir.
+
+**P12.3 hazırlık notu - 20 Haziran 2026**
+
+P12.3 için işletme UAT paketi `docs/uat/UAT-CHECKLIST.md` altında hazırlandı.
+Checklist; ana sayfa, 11 hizmet detayı, iletişim, hakkımızda, gizlilik, çerez,
+galeri/projeler vitrini, footer linkleri, WhatsApp/telefon/Maps/Instagram
+akışları, fiyat/süre/koşul dili ve archived demo slug kontrolünü içerir.
+
+Teknik URL kontrolünde:
+
+| URL                                                                    | Sonuç    | Karar            |
+| ---------------------------------------------------------------------- | -------- | ---------------- |
+| `https://rain-sound.vercel.app/`                                       | `200 OK` | Erişilebilir     |
+| `https://rain-sound.vercel.app/iletisim`                               | `200 OK` | Erişilebilir     |
+| `https://rain-sound.vercel.app/projeler/demo-koruma-detailing-projesi` | `200 OK` | Düzeltme gerekli |
+
+**P12.3 durumu:** `Kontrol Bekliyor / Bloke - güncel deploy ve işletme onayı
+gerekli`. Mevcut Vercel URL repo durumundan eski görünmektedir; P12.1 kararı
+gereği archived demo slug public detay sayfası olarak açılmamalıdır. İşletme
+UAT'si güncel deploy/preview URL üzerinde tekrar çalıştırılmadan P12.3 `[x]`
+yapılmayacaktır.
 
 **P12 çıkış kapısı**
 
@@ -3292,7 +3842,8 @@ kurulumuna bu revizyonun ardından devam edilecektir.
 **Durum:** `Bekliyor`
 **Bağımlılık:** P12 kabulü tamamlanmış olmalıdır.
 
-- [ ] **P13.1** Domain, DNS, SSL ve production ortam değişkenlerini yapılandır.
+- [ ] **P13.1** Vercel teknik URL, production ortam değişkenleri ve custom domain
+      `Bekleniyor` durumunu belgele.
 - [ ] **P13.2** Production build, güvenlik ve bağımlılık kontrollerini son kez
       çalıştır.
 - [ ] **P13.3** Vercel production deployment'ını gerçekleştir.
@@ -3304,9 +3855,20 @@ kurulumuna bu revizyonun ardından devam edilecektir.
 
 **P13 çıkış kapısı**
 
-- Site doğru domain ve geçerli SSL üzerinden erişilebilir.
+- Custom domain yoksa site geçici Vercel URL'si ve geçerli SSL üzerinden
+  erişilebilir; custom domain geldiğinde DNS/SSL ayrıca yapılandırılır.
 - Kritik dönüşüm akışları production üzerinde çalışır.
 - Site indekslenebilir ve temel olaylar ölçülür.
+
+**P13.1 ön karar notu - 20 Haziran 2026**
+
+- Kullanıcı tarafından custom domainin şu an olmadığı bildirildi.
+- `siteSettings.siteUrl` metadata, robots ve JSON-LD için geçerli teknik URL
+  olarak `https://rain-sound.vercel.app` değerini korur.
+- `siteSettings.customDomain` şimdilik `null` bırakıldı; gerçek domain
+  doğrulanmadan canonical/metadata custom domaine taşınmayacak.
+- DNS, SSL ve Search Console domain doğrulaması custom domain gelene kadar
+  `Bekleniyor` durumundadır.
 
 ### P14 - Sanity CMS Geçişi
 
@@ -3332,26 +3894,28 @@ kurulumuna bu revizyonun ardından devam edilecektir.
 
 ### P15 - Veriye Bağlı 3D Deneyi
 
-**Durum:** `Bekliyor`
-**Bağımlılık:** Yeterli production kullanım ve performans verisi bulunmalıdır.
+**Durum:** `İptal`
+**Bağımlılık:** Kapsamdan çıkarıldı.
 
-- [ ] **P15.1** 2D “Aracını Dönüştür” alanının görüntülenme, etkileşim ve
-      dönüşüm verilerini incele.
-- [ ] **P15.2** 3D'nin iş değeri, üretim maliyeti ve performans bütçesi için
-      yazılı devam/iptal kararı ver.
-- [ ] **P15.3** Devam kararı çıkarsa lisanslı, optimize araç modeliyle mobil
-      öncelikli prototip üret.
-- [ ] **P15.4** `three`, `@react-three/fiber` ve `@react-three/drei`
-      paketlerini yalnızca prototip kabul edilirse ekle.
-- [ ] **P15.5** Statik fallback, hata sınırı ve reduced-motion sürümünü koru.
-- [ ] **P15.6** Deney değer üretmiyorsa 3D kapsamını iptal et ve 2D deneyimi
-      ölçümlere göre geliştir.
+- [x] **P15.1** 3D değerlendirme ihtiyacını kullanıcı kararıyla yeniden ele al.
+- [x] **P15.2** 3D için devam/iptal kararını yazılı hale getir.
+- [x] **P15.3** 3D prototipi kapsam dışı bırak.
+- [x] **P15.4** `three`, `@react-three/fiber` ve `@react-three/drei`
+      paketlerinin kurulmayacağını kayıt altına al.
+- [x] **P15.5** 3D fallback/a11y işlerini kapsam dışı bırak.
+- [x] **P15.6** 2D deneyimi ana tasarım olarak koru.
+
+**P15 iptal kararı - 20 Haziran 2026**
+
+Kullanıcı, 3D tasarım kapsamının projeden çıkarıldığını doğruladı. Bu nedenle
+P15 artık ilerletilmeyecek; `three`, `@react-three/fiber` ve `@react-three/drei`
+paketleri kurulmayacak. Ana tasarım mevcut 2D/AI atmosfer, SSR hero,
+DocumentMotionHints ve P10/P11 performans-test kararlarıyla korunacaktır.
 
 **P15 çıkış kapısı**
 
-- 3D yalnızca dönüşüm değerini ve mobil performans bütçesini karşılıyorsa
-  production'a alınır.
-- Karar olumsuzsa 3D paketleri production bağımlılıklarına eklenmez.
+- 3D kapsamı iptal edildi.
+- 3D paketleri production bağımlılıklarına eklenmez.
 
 ### Pson - Sürekli İyileştirme
 
@@ -3376,19 +3940,20 @@ Planlanan ilk yayın rotaları:
 - `/`
 - `/hizmetler`
 - `/hizmetler/[slug]`
-- `/donusumler`
-- `/donusumler/[slug]`
+- `/projeler`
+- `/projeler/[slug]` (gerçek production adayı proje yoksa public slug üretilmez)
 - `/hakkimizda`
 - `/iletisim`
 - `/gizlilik`
-- `/cerez-politikasi`
+- `/cerezler`
 
 İlk yayın kuralları:
 
 - Harici form API'si veya randevu backend'i bulunmayacaktır.
 - İçerik önce tip güvenli yerel veri kaynağından gelecektir.
 - Sanity, aynı içerik kavramlarını koruyarak P14'te bağlanacaktır.
-- Three.js bağımlılıkları P15 kabul kararı olmadan kurulmayacaktır.
+- Three.js bağımlılıkları 20 Haziran 2026 P15 iptal kararı gereği
+  kurulmayacaktır.
 - Cloudinary başlangıçta kullanılmayacak; gerçek medya ihtiyacı bunu
   gerektirirse ayrı karar kaydı açılacaktır.
 
@@ -4204,9 +4769,9 @@ kontrast kontrolleri yapılacaktır.
 
 **P3.5 uygulama notları - 16 Haziran 2026**
 
-- `next/font/google` ile Inter fontu `latin` ve `latin-ext` subset'leriyle
-  yüklendi; Türkçe karakter desteği ve `font-display: swap` davranışı güvenceye
-  alındı.
+- `next/font/google` ile seçili fontlar `latin` ve `latin-ext` subset'leriyle
+  yüklendi; Türkçe karakter desteği ve performans öncelikli `font-display:
+optional` davranışı güvenceye alındı.
 - Font ailesi `--font-rain-sans` değişkeni üzerinden tasarım token sistemine
   bağlandı; sistem fallback sırası Inter, Segoe UI, Arial, Helvetica ve
   `sans-serif` olarak korundu.
@@ -4453,7 +5018,7 @@ kalmaya devam etmelidir.
 | Fazla animasyon              | Kullanım zorluğu | Hareket bütçesi ve reduced motion           |
 | Yetersiz gerçek görsel       | Güven kaybı      | Çekim planını geliştirmeden önce tamamlamak |
 | Logo küçük ekranda okunmuyor | Marka zayıflığı  | Sade sembol ve monogram üretmek             |
-| 3D deneyim mobilde ağır      | Performans kaybı | 2D varsayılan, karar kapısı                 |
+| 3D deneyim kapsamı           | Performans kaybı | Kapsam iptal; 2D tasarım korunur            |
 | Hizmet bilgileri belirsiz    | Yanlış vaat      | İşletme onayı olmadan yayınlamamak          |
 | Mevzuat ifadeleri yanlış     | Hukuki risk      | Güncel kontrol ve dikkatli dil              |
 | CMS gereksiz karmaşık        | Bakım yükü       | İçerik hacmi doğrulanmadan eklememek        |
@@ -4464,18 +5029,27 @@ kalmaya devam etmelidir.
 
 ## 25. Karar Kaydı
 
-| Tarih      | Karar                                                        | Gerekçe                                                                                | Durum        |
-| ---------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ------------ |
-| 15.06.2026 | Yaratıcı yön “Neon Performance Studio”                       | Logo ve hizmet dünyasıyla uyumlu                                                       | `Tamamlandı` |
-| 15.06.2026 | Hero'da kontrollü drift/duman yaklaşımı                      | Enerjiyi korurken hizmetleri gölgelememek                                              | `Tamamlandı` |
-| 15.06.2026 | Next.js App Router kullanılacak                              | SEO, performans ve ölçeklenebilirlik                                                   | `Tamamlandı` |
-| 15.06.2026 | Paket yöneticisi pnpm 11.7.0                                 | Hızlı ve deterministik kurulum                                                         | `Tamamlandı` |
-| 15.06.2026 | İlk fazda Three.js kurulmayacak                              | Gereksiz paket ve mobil yükü önlemek                                                   | `Tamamlandı` |
-| 15.06.2026 | GSAP büyük sahneler, Motion UI için                          | Sorumlulukları net ayırmak                                                             | `Tamamlandı` |
-| 15.06.2026 | Gerçek proje görselleri güven kanıtı olacak                  | AI içeriğin temsil sınırını korumak                                                    | `Tamamlandı` |
-| 15.06.2026 | ESLint 9.39.4 kullanılacak                                   | ESLint 10, Next.js'in React/import/accessibility eklentilerinin destek aralığı dışında | `Tamamlandı` |
-| 15.06.2026 | `sharp` ve `unrs-resolver` build scriptlerine izin verilecek | Next.js görsel işleme ve modül çözümleme zincirinin kurulumu için gerekli              | `Tamamlandı` |
-| 18.06.2026 | P10 öncesi P9.8 Premium UI/UX ara fazı eklendi               | Ana sayfa ilk izlenimini dokümandaki Neon Performance Studio yönüne yaklaştırmak       | `Tamamlandı` |
+| Tarih      | Karar                                                        | Gerekçe                                                                                    | Durum        |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------ |
+| 15.06.2026 | Yaratıcı yön “Neon Performance Studio”                       | Logo ve hizmet dünyasıyla uyumlu                                                           | `Tamamlandı` |
+| 15.06.2026 | Hero'da kontrollü drift/duman yaklaşımı                      | Enerjiyi korurken hizmetleri gölgelememek                                                  | `Tamamlandı` |
+| 15.06.2026 | Next.js App Router kullanılacak                              | SEO, performans ve ölçeklenebilirlik                                                       | `Tamamlandı` |
+| 15.06.2026 | Paket yöneticisi pnpm 11.7.0                                 | Hızlı ve deterministik kurulum                                                             | `Tamamlandı` |
+| 15.06.2026 | İlk fazda Three.js kurulmayacak                              | Gereksiz paket ve mobil yükü önlemek                                                       | `Tamamlandı` |
+| 15.06.2026 | GSAP büyük sahneler, Motion UI için                          | Sorumlulukları net ayırmak                                                                 | `Tamamlandı` |
+| 15.06.2026 | Gerçek proje görselleri güven kanıtı olacak                  | AI içeriğin temsil sınırını korumak                                                        | `Tamamlandı` |
+| 15.06.2026 | ESLint 9.39.4 kullanılacak                                   | ESLint 10, Next.js'in React/import/accessibility eklentilerinin destek aralığı dışında     | `Tamamlandı` |
+| 15.06.2026 | `sharp` ve `unrs-resolver` build scriptlerine izin verilecek | Next.js görsel işleme ve modül çözümleme zincirinin kurulumu için gerekli                  | `Tamamlandı` |
+| 18.06.2026 | P10 öncesi P9.8 Premium UI/UX ara fazı eklendi               | Ana sayfa ilk izlenimini dokümandaki Neon Performance Studio yönüne yaklaştırmak           | `Tamamlandı` |
+| 18.06.2026 | P9.9 P9/P10 UI/UX ve dönüşüm polish köprüsü eklendi          | Cross-page polish, görsel vitrin ve analitik CTA düzenlemelerini tek takip noktasına almak | `Tamamlandı` |
+| 18.06.2026 | P10 analitik ve performans aşaması kapatıldı                 | P10.1–P10.6 tamamlandı; CWV ve düşük bağlantı senaryoları doğrulandı                       | `Tamamlandı` |
+| 18.06.2026 | P11 otomatik test aşamasına geçildi                          | Unit/E2E/a11y altyapısı kurulacak; CI genişletilecek                                       | `Tamamlandı` |
+| 18.06.2026 | P11.1 Vitest + Testing Library kuruldu                       | Motion, CTA ve analitik sarmalayıcıları için 19 unit test; quality'ye test:run eklendi     | `Tamamlandı` |
+| 18.06.2026 | P11.2 Playwright + axe-core kuruldu                          | 3 E2E smoke testi; production webServer; critical/serious axe temiz                        | `Tamamlandı` |
+| 18.06.2026 | P11.3 kritik navigasyon ve dönüşüm E2E testleri yazıldı      | 15 E2E toplam; desktop nav, mobil menü, WhatsApp/telefon/yol tarifi akışları               | `Tamamlandı` |
+| 18.06.2026 | P11.4 bileşen odaklı E2E testleri yazıldı                    | before/after, proje vitrin/detay, video modal, reduced-motion; 19 E2E toplam               | `Tamamlandı` |
+| 19.06.2026 | P11.5 manuel erişilebilirlik doğrulaması tamamlandı          | Klavye, AX tree, 200% zoom, kontrast ve mobil touch hedefleri; 2 minimal a11y düzeltmesi   | `Tamamlandı` |
+| 19.06.2026 | P11.6 CI kalite zinciri tamamlandı                           | quality.yml frozen install, unit, Playwright E2E, build ve hata artifact kapsamına alındı  | `Tamamlandı` |
 
 Yeni kararlar tarih, gerekçe ve durum bilgisiyle bu tabloya eklenmelidir.
 

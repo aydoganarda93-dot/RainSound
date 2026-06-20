@@ -66,6 +66,7 @@ export type SiteSettings = {
   siteName: string;
   legalName: string;
   siteUrl: string;
+  customDomain: string | null;
   tagline: string;
   description: string;
   address: {

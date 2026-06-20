@@ -2,11 +2,11 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 
-import type { MediaAsset } from "@/content";
+import type { MediaAsset } from "@/content/types";
 
 const focusableElementSelector = [
   "a[href]",
-  "button:not([disabled])",
+  "button:not([disabled]):not([tabindex='-1'])",
   "video[controls]",
   "textarea:not([disabled])",
   "input:not([disabled])",
@@ -221,11 +221,9 @@ export function ProjectVideoGallery({ videos }: { videos: MediaAsset[] }) {
           aria-labelledby={modalTitleId}
           ref={modalRef}
         >
-          <button
+          <div
             className="project-video-modal__backdrop"
-            type="button"
-            aria-label="Video penceresini kapat"
-            tabIndex={-1}
+            aria-hidden="true"
             onClick={closeModal}
           />
 

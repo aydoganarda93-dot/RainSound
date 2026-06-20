@@ -7,6 +7,7 @@ import {
   siteSettings,
 } from "@/content";
 import type { BusinessHoursEntry } from "@/content";
+import { TrackedLink } from "@/components/analytics";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StructuredData } from "@/components/structured-data";
 import {
@@ -54,6 +55,7 @@ export default function ContactPage() {
       value: whatsappContact.value,
       href: generalWhatsAppLink.href,
       external: false,
+      trackAs: "whatsapp_click" as const,
     },
     phoneContact && {
       icon: Phone,
@@ -61,6 +63,7 @@ export default function ContactPage() {
       value: phoneContact.value,
       href: phoneContact.href,
       external: false,
+      trackAs: "phone_click" as const,
     },
     instagramLink && {
       icon: Camera,
@@ -68,6 +71,7 @@ export default function ContactPage() {
       value: instagramLink.label,
       href: instagramLink.href,
       external: true,
+      trackAs: null,
     },
     mapsLink && {
       icon: MapPin,
@@ -75,6 +79,7 @@ export default function ContactPage() {
       value: "Google Maps",
       href: mapsLink.href,
       external: true,
+      trackAs: "directions_click" as const,
     },
   ].filter(Boolean) as Array<{
     icon: typeof MessageCircle;
@@ -82,6 +87,7 @@ export default function ContactPage() {
     value: string;
     href: string;
     external: boolean;
+    trackAs: "whatsapp_click" | "phone_click" | "directions_click" | null;
   }>;
 
   return (
@@ -95,7 +101,10 @@ export default function ContactPage() {
       <Breadcrumbs items={pageBreadcrumbs.contact} />
 
       <section className="rsg-pagehero" aria-labelledby="contact-page-title">
-        <div className="rsg-pagehero__glow rsg-pagehero__glow--right" aria-hidden="true" />
+        <div
+          className="rsg-pagehero__glow rsg-pagehero__glow--right"
+          aria-hidden="true"
+        />
         <div className="rain-container rsg-pagehero__inner">
           <div className="rsg-pagehero__lead-col">
             <p className="rsg-eyebrow" data-reveal>
@@ -115,30 +124,35 @@ export default function ContactPage() {
               data-reveal
               style={{ "--reveal-delay": "0.1s" } as React.CSSProperties}
             >
-              Araç bilgini ve beklentini gönder; en hızlı dönüş WhatsApp&apos;tan.
+              Araç bilgini ve beklentini gönder; en hızlı dönüş
+              WhatsApp&apos;tan.
             </p>
             <div
               className="rsg-pagehero__actions"
               data-reveal
               style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
             >
-              <a
+              <TrackedLink
                 className="rain-button rain-button--primary rsg-btn-lg"
+                event="whatsapp_click"
                 href={generalWhatsAppLink.href}
+                placement="contact_page"
               >
                 <MessageCircle aria-hidden="true" size={18} />
                 {generalWhatsAppLink.label}
-              </a>
+              </TrackedLink>
               {mapsLink ? (
-                <a
+                <TrackedLink
                   className="rain-button rain-button--ghost rsg-btn-lg"
+                  event="directions_click"
                   href={mapsLink.href}
-                  target={mapsLink.target}
+                  placement="contact_page"
                   rel="noreferrer"
+                  target={mapsLink.target}
                 >
                   <MapPin aria-hidden="true" size={18} />
                   Yol Tarifi
-                </a>
+                </TrackedLink>
               ) : null}
             </div>
           </div>
@@ -170,27 +184,81 @@ export default function ContactPage() {
         </div>
 
         <div className="rain-container rsg-grid-auto">
-          {channels.map((channel, index) => (
-            <a
-              key={channel.label}
-              href={channel.href}
-              className="rsg-feature"
-              target={channel.external ? "_blank" : undefined}
-              rel={channel.external ? "noreferrer" : undefined}
-              data-reveal
-              style={{ "--reveal-delay": `${0.05 * (index % 4)}s` } as React.CSSProperties}
-            >
-              <span className="rsg-feature__icon" aria-hidden="true">
-                <channel.icon size={20} />
-              </span>
-              <h3>{channel.label}</h3>
-              <p>{channel.value}</p>
-            </a>
-          ))}
+          {channels.map((channel, index) => {
+            const cardProps = {
+              className: "rsg-feature",
+              "data-reveal": true,
+              style: {
+                "--reveal-delay": `${0.05 * (index % 4)}s`,
+              } as React.CSSProperties,
+              target: channel.external ? "_blank" : undefined,
+              rel: channel.external ? "noreferrer" : undefined,
+            };
+            const cardContent = (
+              <>
+                <span className="rsg-feature__icon" aria-hidden="true">
+                  <channel.icon size={20} />
+                </span>
+                <h3>{channel.label}</h3>
+                <p>{channel.value}</p>
+              </>
+            );
+
+            if (channel.trackAs === "whatsapp_click") {
+              return (
+                <TrackedLink
+                  key={channel.label}
+                  {...cardProps}
+                  event="whatsapp_click"
+                  href={channel.href}
+                  placement="contact_page"
+                >
+                  {cardContent}
+                </TrackedLink>
+              );
+            }
+
+            if (channel.trackAs === "phone_click") {
+              return (
+                <TrackedLink
+                  key={channel.label}
+                  {...cardProps}
+                  event="phone_click"
+                  href={channel.href}
+                  placement="contact_page"
+                >
+                  {cardContent}
+                </TrackedLink>
+              );
+            }
+
+            if (channel.trackAs === "directions_click") {
+              return (
+                <TrackedLink
+                  key={channel.label}
+                  {...cardProps}
+                  event="directions_click"
+                  href={channel.href}
+                  placement="contact_page"
+                >
+                  {cardContent}
+                </TrackedLink>
+              );
+            }
+
+            return (
+              <a key={channel.label} {...cardProps} href={channel.href}>
+                {cardContent}
+              </a>
+            );
+          })}
         </div>
       </section>
 
-      <section className="rsg-section rsg-cta-section" aria-labelledby="contact-hours-title">
+      <section
+        className="rsg-section rsg-cta-section"
+        aria-labelledby="contact-hours-title"
+      >
         <div className="rain-container rsg-grid-2">
           <article className="rsg-card" data-reveal>
             <p className="rsg-eyebrow">
@@ -208,6 +276,7 @@ export default function ContactPage() {
                 </div>
               ))}
             </dl>
+            <p>Özel günlerde çalışma saatleri değişebilir.</p>
           </article>
 
           <article
@@ -219,15 +288,17 @@ export default function ContactPage() {
             <h2 className="rsg-title">Uygulama merkezi</h2>
             <p>{siteSettings.address.display}</p>
             {mapsLink ? (
-              <a
+              <TrackedLink
                 className="rain-button rain-button--primary rsg-btn-lg"
+                event="directions_click"
                 href={mapsLink.href}
-                target={mapsLink.target}
+                placement="contact_page"
                 rel="noreferrer"
+                target={mapsLink.target}
               >
                 <MapPin aria-hidden="true" size={18} />
                 Haritada Aç
-              </a>
+              </TrackedLink>
             ) : null}
           </article>
         </div>

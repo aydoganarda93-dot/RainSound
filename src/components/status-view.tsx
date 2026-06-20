@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 
-import {
-  generalWhatsAppLink,
-  getContactByChannel,
-  siteSettings,
-} from "@/content";
+import { TrackedLink } from "@/components/analytics";
+import { generalWhatsAppLink } from "@/content/contact-actions";
+import { getContactByChannel, siteSettings } from "@/content/site-settings";
 
 type StatusViewProps = {
   eyebrow: string;
@@ -47,19 +45,23 @@ export function StatusView({
           <Link className="rain-button rain-button--secondary" href="/">
             Ana Sayfaya Dön
           </Link>
-          <a
+          <TrackedLink
             className="rain-button rain-button--primary"
+            event="whatsapp_click"
             href={generalWhatsAppLink.href}
+            placement="status_view"
           >
             {generalWhatsAppLink.label}
-          </a>
+          </TrackedLink>
           {phoneContact ? (
-            <a
+            <TrackedLink
               className="rain-button rain-button--secondary"
+              event="phone_click"
               href={phoneContact.href}
+              placement="status_view"
             >
               {phoneContact.value}
-            </a>
+            </TrackedLink>
           ) : null}
           {onRetry ? (
             <button

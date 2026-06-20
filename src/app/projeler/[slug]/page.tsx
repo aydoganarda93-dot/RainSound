@@ -11,6 +11,7 @@ import {
   siteSettings,
 } from "@/content";
 import type { MediaAsset, Project } from "@/content";
+import { ProjectViewTracker, TrackedLink } from "@/components/analytics";
 import { BeforeAfterViewer } from "@/components/before-after-viewer";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ProjectVideoGallery } from "@/components/project-video-gallery";
@@ -27,8 +28,14 @@ type ProjectDetailPageProps = {
   }>;
 };
 
+const publishedProjects = projects.filter(
+  (project) =>
+    project.status === "published" &&
+    project.contentReadiness.productionCandidate,
+);
+
 const getProjectBySlug = (slug: string) =>
-  projects.find((project) => project.slug === slug);
+  publishedProjects.find((project) => project.slug === slug);
 
 const getProjectServices = (project: Project) =>
   services.filter((service) => project.serviceIds.includes(service.id));
@@ -170,7 +177,7 @@ const MediaInventoryCard = ({
 );
 
 export function generateStaticParams() {
-  return projects.map((project) => ({
+  return publishedProjects.map((project) => ({
     slug: project.slug,
   }));
 }
@@ -225,6 +232,11 @@ export default async function ProjectDetailPage({
 
   return (
     <main className="project-detail-page">
+      <ProjectViewTracker
+        projectId={project.id}
+        slug={project.slug}
+        title={project.title}
+      />
       <StructuredData data={buildBreadcrumbJsonLd(breadcrumbs)} />
       <Breadcrumbs items={breadcrumbs} />
       <section
@@ -250,12 +262,16 @@ export default async function ProjectDetailPage({
             </h1>
             <p className="project-detail-hero__summary">{project.summary}</p>
             <div className="project-detail-hero__actions">
-              <a
+              <TrackedLink
                 className="rain-button rain-button--primary"
+                context="project"
+                event="whatsapp_click"
                 href={whatsappLink.href}
+                placement="project_detail"
+                projectSlug={project.slug}
               >
                 {whatsappLink.label}
-              </a>
+              </TrackedLink>
               <Link
                 className="rain-button rain-button--secondary"
                 href="/projeler"
@@ -446,12 +462,16 @@ export default async function ProjectDetailPage({
                     >
                       Hizmeti İncele
                     </Link>
-                    <a
+                    <TrackedLink
                       className="rain-button rain-button--primary"
+                      context="service"
+                      event="whatsapp_click"
                       href={serviceWhatsAppLink.href}
+                      placement="project_detail"
+                      serviceSlug={service.slug}
                     >
                       Hizmete Özel Sor
-                    </a>
+                    </TrackedLink>
                   </div>
                 </article>
               );
@@ -486,12 +506,16 @@ export default async function ProjectDetailPage({
               hizmetlerin talep bağlamı mesaj içinde hazır gelir.
             </p>
             <pre>{whatsappLink.message}</pre>
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary"
+              context="project"
+              event="whatsapp_click"
               href={whatsappLink.href}
+              placement="project_detail"
+              projectSlug={project.slug}
             >
               {whatsappLink.label}
-            </a>
+            </TrackedLink>
           </article>
 
           <article className="rain-card project-suggested-services">
@@ -578,7 +602,11 @@ export default async function ProjectDetailPage({
         {project.beforeAfter.length > 0 ? (
           <div className="rain-container project-before-after-list">
             {project.beforeAfter.map((pair) => (
-              <BeforeAfterViewer key={pair.id} pair={pair} />
+              <BeforeAfterViewer
+                key={pair.id}
+                pair={pair}
+                projectSlug={project.slug}
+              />
             ))}
           </div>
         ) : (

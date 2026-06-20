@@ -12,5 +12,7 @@ export default defineConfig([
     "dist/**",
     "coverage/**",
     "next-env.d.ts",
+    "vitest.config.ts",
+    "playwright.config.ts",
   ]),
 ]);

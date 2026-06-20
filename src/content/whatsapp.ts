@@ -1,5 +1,9 @@
 import { projects, services } from "./fixtures";
 import { siteSettings } from "./site-settings";
+import {
+  createWhatsAppLink,
+  normalizeWhatsAppMessage,
+} from "./contact-actions";
 import type {
   Project,
   Service,
@@ -7,6 +11,13 @@ import type {
   WhatsAppMessageLink,
   WhatsAppMessageTemplate,
 } from "./types";
+
+export {
+  createGeneralWhatsAppMessage,
+  createWhatsAppLink,
+  encodeWhatsAppMessage,
+  generalWhatsAppLink,
+} from "./contact-actions";
 
 export const whatsappMessageTemplates = [
   {
@@ -26,13 +37,6 @@ export const whatsappMessageTemplates = [
   },
 ] satisfies WhatsAppMessageTemplate[];
 
-const normalizeMessage = (message: string) =>
-  message
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .join("\n");
-
 const serviceIntentMessages = {
   appointment: "Araç tipimi ve uygun randevu zamanımı paylaşmak istiyorum.",
   quote:
@@ -48,24 +52,8 @@ const serviceIntentMessages = {
 export const getWhatsAppTemplateByContext = (context: WhatsAppMessageContext) =>
   whatsappMessageTemplates.find((template) => template.context === context);
 
-export const encodeWhatsAppMessage = (message: string) =>
-  encodeURIComponent(normalizeMessage(message));
-
-const whatsappContactHref =
-  siteSettings.contacts.find((contact) => contact.channel === "whatsapp")
-    ?.href ?? siteSettings.primaryCta.href;
-
-export const createWhatsAppLink = (message: string) =>
-  `${whatsappContactHref}?text=${encodeWhatsAppMessage(message)}`;
-
-export const createGeneralWhatsAppMessage = () =>
-  normalizeMessage(`
-    Merhaba ${siteSettings.siteName},
-    Hizmetleriniz hakkında bilgi almak ve uygun randevu zamanlarını öğrenmek istiyorum.
-  `);
-
 export const createServiceWhatsAppMessage = (service: Service) =>
-  normalizeMessage(`
+  normalizeWhatsAppMessage(`
     Merhaba ${siteSettings.siteName},
     ${service.title} hizmeti hakkında bilgi almak istiyorum.
     Talep türü: ${service.ctaContext.label}
@@ -83,7 +71,7 @@ export const createProjectWhatsAppMessage = (project: Project) => {
     .map((service) => `- ${service.title}: ${service.ctaContext.messageHint}`)
     .join("\n");
 
-  return normalizeMessage(`
+  return normalizeWhatsAppMessage(`
     Merhaba ${siteSettings.siteName},
     ${project.title} benzeri bir uygulama hakkında bilgi almak istiyorum.
     İlgilendiğim hizmetler: ${relatedServiceTitles || "Belirlenecek"}
@@ -92,12 +80,6 @@ export const createProjectWhatsAppMessage = (project: Project) => {
     Araç bilgimi ve beklentimi paylaşmak istiyorum.
   `);
 };
-
-export const generalWhatsAppLink = {
-  label: siteSettings.primaryCta.label,
-  href: createWhatsAppLink(createGeneralWhatsAppMessage()),
-  message: createGeneralWhatsAppMessage(),
-} satisfies WhatsAppMessageLink;
 
 export const getServiceWhatsAppLink = (service: Service) =>
   ({
@@ -118,7 +100,13 @@ export const serviceWhatsAppLinks = services.map((service) => ({
   ...getServiceWhatsAppLink(service),
 }));
 
-export const projectWhatsAppLinks = projects.map((project) => ({
-  projectId: project.id,
-  ...getProjectWhatsAppLink(project),
-}));
+export const projectWhatsAppLinks = projects
+  .filter(
+    (project) =>
+      project.status === "published" &&
+      project.contentReadiness.productionCandidate,
+  )
+  .map((project) => ({
+    projectId: project.id,
+    ...getProjectWhatsAppLink(project),
+  }));

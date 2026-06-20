@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -14,15 +13,19 @@ import {
 
 import {
   faqs,
+  aiImagePlaceholder,
+  categoryVisualMedia,
   generalWhatsAppLink,
   getContactByChannel,
   getSocialLinkByChannel,
+  heroVisualMedia,
   serviceCategories,
   services,
+  showcaseVisualMedia,
   siteSettings,
 } from "@/content";
 import type { Service } from "@/content";
-import { HomeMotionShell } from "@/components/home-motion-shell";
+import { TrackedLink } from "@/components/analytics";
 import { StructuredData } from "@/components/structured-data";
 import {
   buildLocalBusinessJsonLd,
@@ -44,18 +47,14 @@ const publishedServices = services.filter(
   (service) => service.status === "published",
 );
 
-const categoryImages: Record<string, string> = {
-  detailing: "/media/ai/showcase/cat-detailing.png",
-  protection: "/media/ai/showcase/cat-protection.png",
-  "sound-tech": "/media/ai/showcase/cat-sound.png",
-  "design-performance": "/media/ai/showcase/cat-performance.png",
-};
-
 const getServicesForCategory = (categoryId: string) =>
   publishedServices.filter((service) => service.categoryId === categoryId);
 
 const heroChips = [
-  { icon: MapPin, label: `${siteSettings.address.district} / ${siteSettings.address.city}` },
+  {
+    icon: MapPin,
+    label: `${siteSettings.address.district} / ${siteSettings.address.city}`,
+  },
   { icon: Clock, label: "Pazartesi–Cumartesi 09:00–20:00" },
   { icon: ShieldCheck, label: "Fiyat WhatsApp'ta netleşir" },
 ];
@@ -90,7 +89,7 @@ const whyCards = [
     icon: Volume2,
     title: "Sesten görünüme detay",
     description:
-      "Pioneer, amfi ve subwoofer kurulumundan far ve egzoz detayına kadar her uygulama aracın bütünlüğü düşünülerek planlanır.",
+      "Ses sistemi, multimedya, far ve egzoz detaylarında uygulama aracın bütünlüğü düşünülerek planlanır.",
   },
 ];
 
@@ -102,7 +101,7 @@ export default function Home() {
   const instagramLink = getSocialLinkByChannel("instagram");
 
   return (
-    <HomeMotionShell>
+    <main className="home-page">
       <StructuredData
         data={[
           buildLocalBusinessJsonLd(),
@@ -111,46 +110,59 @@ export default function Home() {
       />
 
       <section className="rsg-hero" aria-labelledby="hero-title">
-        <div className="rsg-hero__media" aria-hidden="true">
-          <Image
-            src="/media/ai/showcase/hero-wide.png"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="rsg-hero__img"
-          />
+        <div className="rsg-hero__media">
+          <picture>
+            <source
+              media="(max-width: 767px)"
+              srcSet={heroVisualMedia.mobile.src}
+              type="image/avif"
+            />
+            <source
+              media="(min-width: 768px)"
+              srcSet={heroVisualMedia.desktop.src}
+              type="image/avif"
+            />
+            <img
+              src={heroVisualMedia.desktop.src}
+              alt={heroVisualMedia.alt}
+              className="rsg-hero__img"
+              width={heroVisualMedia.desktop.width}
+              height={heroVisualMedia.desktop.height}
+              fetchPriority="high"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
           <div className="rsg-hero__scrim" />
         </div>
 
         <div className="rain-container rsg-hero__inner">
-          <p className="rsg-eyebrow" data-home-reveal>
+          <p className="rsg-eyebrow">
             <span className="rsg-eyebrow__dot" aria-hidden="true" />
             Detailing • Koruma • Ses • Performans
           </p>
 
-          <h1 id="hero-title" className="rsg-hero__title" data-home-reveal>
+          <h1 id="hero-title" className="rsg-hero__title">
             {siteSettings.siteName}
           </h1>
 
-          <p className="rsg-hero__tagline" data-home-reveal>
-            {siteSettings.tagline}
+          <p className="rsg-hero__tagline">{siteSettings.tagline}</p>
+
+          <p className="rsg-hero__desc">
+            {siteSettings.address.city} / {siteSettings.address.district} içinde
+            detailing, kaplama, ses ve modifiye uygulamaları.
           </p>
 
-          <p className="rsg-hero__desc" data-home-reveal>
-            {siteSettings.address.city} / {siteSettings.address.district}{" "}
-            içinde oto detailing, seramik kaplama, PPF, araç kaplama, ses
-            sistemleri ve modifiye uygulamalarını tek atölyede topluyoruz.
-          </p>
-
-          <div className="rsg-hero__actions" data-home-reveal>
-            <a
+          <div className="rsg-hero__actions">
+            <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
+              event="whatsapp_click"
               href={generalWhatsAppLink.href}
+              placement="hero"
             >
               <MessageCircle aria-hidden="true" size={18} />
               {generalWhatsAppLink.label}
-            </a>
+            </TrackedLink>
             <Link
               className="rain-button rain-button--ghost rsg-btn-lg"
               href="/hizmetler"
@@ -160,7 +172,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <ul className="rsg-hero__chips" data-home-reveal>
+          <ul className="rsg-hero__chips">
             {heroChips.map((chip) => (
               <li key={chip.label}>
                 <chip.icon aria-hidden="true" size={15} />
@@ -169,11 +181,7 @@ export default function Home() {
             ))}
           </ul>
 
-          <div
-            className="rsg-hero__eq"
-            aria-hidden="true"
-            data-home-equalizer
-          >
+          <div className="rsg-hero__eq" aria-hidden="true" data-home-equalizer>
             {Array.from({ length: 14 }, (_, index) => (
               <span key={index} data-home-equalizer-bar />
             ))}
@@ -192,49 +200,61 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="rsg-section rsg-worlds-section" aria-labelledby="worlds-title">
-        <div className="rain-container rsg-section__head" data-home-reveal>
+      <section
+        className="rsg-section rsg-worlds-section"
+        aria-labelledby="worlds-title"
+      >
+        <div className="rain-container rsg-section__head" data-reveal>
           <p className="rsg-eyebrow">Hizmet Dünyaları</p>
           <h2 id="worlds-title" className="rsg-title">
             Aracın için dört uzmanlık alanı
           </h2>
           <p className="rsg-lead">
-            Her alan kendi içinde detaylı uygulamalar sunar. Aracının
-            ihtiyacına göre alanı seç, kapsamı WhatsApp&apos;ta birlikte
-            netleştirelim.
+            Her alan kendi içinde detaylı uygulamalar sunar. Aracının ihtiyacına
+            göre alanı seç, kapsamı WhatsApp&apos;ta birlikte netleştirelim.
           </p>
         </div>
 
         <div className="rain-container rsg-worlds">
           {publishedCategories.map((category, index) => {
             const categoryServices = getServicesForCategory(category.id);
-            const image = categoryImages[category.id];
+            const image =
+              categoryVisualMedia[
+                category.id as keyof typeof categoryVisualMedia
+              ];
 
             return (
               <Link
                 key={category.id}
                 href={`/hizmetler#${category.slug}`}
                 className="rsg-world"
-                data-home-card
+                data-reveal
                 data-size={index === 0 || index === 3 ? "wide" : "tall"}
               >
                 <div className="rsg-world__media" aria-hidden="true">
                   {image ? (
-                    <Image
-                      src={image}
-                      alt=""
-                      fill
-                      sizes="(min-width: 64rem) 50vw, 100vw"
-                      className="rsg-world__img"
-                    />
+                    <picture>
+                      <source
+                        media="(min-width: 768px)"
+                        srcSet={image.src}
+                        type="image/avif"
+                      />
+                      <img
+                        src={aiImagePlaceholder}
+                        alt={image.alt}
+                        className="rsg-world__img"
+                        width={image.width}
+                        height={image.height}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
                   ) : null}
                   <div className="rsg-world__scrim" />
                 </div>
 
                 <div className="rsg-world__body">
-                  <span className="rsg-world__index">
-                    0{category.order}
-                  </span>
+                  <span className="rsg-world__index">0{category.order}</span>
                   <h3>{category.title}</h3>
                   <p>{category.description}</p>
                   <span className="rsg-world__tags">
@@ -255,16 +275,25 @@ export default function Home() {
 
       <section className="rsg-showcase" aria-labelledby="showcase-title">
         <div className="rsg-showcase__media" aria-hidden="true">
-          <Image
-            src="/media/ai/showcase/cat-performance.png"
-            alt=""
-            fill
-            sizes="100vw"
-            className="rsg-showcase__img"
-          />
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcSet={showcaseVisualMedia.src}
+              type="image/avif"
+            />
+            <img
+              src={aiImagePlaceholder}
+              alt={showcaseVisualMedia.alt}
+              className="rsg-showcase__img"
+              width={showcaseVisualMedia.width}
+              height={showcaseVisualMedia.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
           <div className="rsg-showcase__scrim" />
         </div>
-        <div className="rain-container rsg-showcase__inner" data-home-reveal>
+        <div className="rain-container rsg-showcase__inner" data-reveal>
           <p className="rsg-eyebrow">Atölye atmosferi</p>
           <h2 id="showcase-title" className="rsg-title rsg-title--light">
             Karanlık zemin, doğru ışık, temiz işçilik.
@@ -273,18 +302,20 @@ export default function Home() {
             Aracını teslim ettiğinde sadece temiz değil; bakımlı, korunmuş ve
             karakteri öne çıkmış olarak geri alırsın.
           </p>
-          <a
+          <TrackedLink
             className="rain-button rain-button--primary rsg-btn-lg"
+            event="whatsapp_click"
             href={generalWhatsAppLink.href}
+            placement="home_cta"
           >
             <MessageCircle aria-hidden="true" size={18} />
             Aracını Konuşalım
-          </a>
+          </TrackedLink>
         </div>
       </section>
 
       <section className="rsg-section" aria-labelledby="services-title">
-        <div className="rain-container rsg-section__head" data-home-reveal>
+        <div className="rain-container rsg-section__head" data-reveal>
           <p className="rsg-eyebrow">Tüm Uygulamalar</p>
           <h2 id="services-title" className="rsg-title">
             Detaydaki her hizmet
@@ -306,7 +337,7 @@ export default function Home() {
                 key={service.id}
                 href={getServiceHref(service)}
                 className="rsg-service"
-                data-home-card
+                data-reveal
               >
                 <span className="rsg-service__cat">
                   {category?.title ?? "Hizmet"}
@@ -322,8 +353,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="rsg-section rsg-why-section" aria-labelledby="why-title">
-        <div className="rain-container rsg-section__head" data-home-reveal>
+      <section
+        className="rsg-section rsg-why-section"
+        aria-labelledby="why-title"
+      >
+        <div className="rain-container rsg-section__head" data-reveal>
           <p className="rsg-eyebrow">Neden RAIN SOUND</p>
           <h2 id="why-title" className="rsg-title">
             Doğru iş, doğru anlatımla
@@ -332,7 +366,7 @@ export default function Home() {
 
         <div className="rain-container rsg-why">
           {whyCards.map((card) => (
-            <article key={card.title} className="rsg-why__card" data-home-card>
+            <article key={card.title} className="rsg-why__card" data-reveal>
               <span className="rsg-why__icon" aria-hidden="true">
                 <card.icon size={22} />
               </span>
@@ -343,8 +377,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="rsg-section rsg-cta-section" aria-labelledby="cta-title">
-        <div className="rain-container rsg-cta" data-home-reveal>
+      <section
+        className="rsg-section rsg-cta-section"
+        aria-labelledby="cta-title"
+      >
+        <div className="rain-container rsg-cta" data-reveal>
           <div className="rsg-cta__copy">
             <p className="rsg-eyebrow">İletişim</p>
             <h2 id="cta-title" className="rsg-title rsg-title--light">
@@ -354,32 +391,38 @@ export default function Home() {
           </div>
 
           <div className="rsg-cta__actions">
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
+              event="whatsapp_click"
               href={generalWhatsAppLink.href}
+              placement="home_contact"
             >
               <MessageCircle aria-hidden="true" size={18} />
               WhatsApp&apos;tan Bilgi Al
-            </a>
+            </TrackedLink>
             {phoneContact ? (
-              <a
+              <TrackedLink
                 className="rain-button rain-button--ghost rsg-btn-lg"
+                event="phone_click"
                 href={phoneContact.href}
+                placement="home_contact"
               >
                 <Phone aria-hidden="true" size={18} />
                 {phoneContact.value}
-              </a>
+              </TrackedLink>
             ) : null}
             {mapsLink ? (
-              <a
+              <TrackedLink
                 className="rain-button rain-button--ghost rsg-btn-lg"
+                event="directions_click"
                 href={mapsLink.href}
-                target={mapsLink.target}
+                placement="home_contact"
                 rel="noreferrer"
+                target={mapsLink.target}
               >
                 <MapPin aria-hidden="true" size={18} />
                 Yol Tarifi
-              </a>
+              </TrackedLink>
             ) : null}
             {instagramLink ? (
               <a
@@ -396,8 +439,11 @@ export default function Home() {
       </section>
 
       {faqs.length > 0 ? (
-        <section className="rsg-section rsg-faq-section" aria-labelledby="faq-title">
-          <div className="rain-container rsg-section__head" data-home-reveal>
+        <section
+          className="rsg-section rsg-faq-section"
+          aria-labelledby="faq-title"
+        >
+          <div className="rain-container rsg-section__head" data-reveal>
             <p className="rsg-eyebrow">Sık Sorulan</p>
             <h2 id="faq-title" className="rsg-title">
               İlk cevaplar
@@ -407,7 +453,7 @@ export default function Home() {
             {faqs
               .filter((faq) => faq.status === "published")
               .map((faq) => (
-                <article key={faq.id} className="rsg-faq__card" data-home-card>
+                <article key={faq.id} className="rsg-faq__card" data-reveal>
                   <h3>{faq.question}</h3>
                   <p>{faq.answer}</p>
                 </article>
@@ -415,6 +461,6 @@ export default function Home() {
           </div>
         </section>
       ) : null}
-    </HomeMotionShell>
+    </main>
   );
 }

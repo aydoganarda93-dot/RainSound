@@ -9,6 +9,7 @@ import {
   services,
   siteSettings,
 } from "@/content";
+import { ServiceViewTracker, TrackedLink } from "@/components/analytics";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StructuredData } from "@/components/structured-data";
 import {
@@ -82,13 +83,21 @@ export default async function ServiceDetailPage({
 
   return (
     <main className="rsg-page">
+      <ServiceViewTracker
+        serviceId={service.id}
+        slug={service.slug}
+        title={service.title}
+      />
       <StructuredData
         data={[buildBreadcrumbJsonLd(breadcrumbs), buildServiceJsonLd(service)]}
       />
       <Breadcrumbs items={breadcrumbs} />
 
       <section className="rsg-pagehero" aria-labelledby="service-detail-title">
-        <div className="rsg-pagehero__glow rsg-pagehero__glow--right" aria-hidden="true" />
+        <div
+          className="rsg-pagehero__glow rsg-pagehero__glow--right"
+          aria-hidden="true"
+        />
         <div className="rain-container rsg-pagehero__inner">
           <div className="rsg-pagehero__lead-col">
             <Link className="rsg-backlink" href="/hizmetler" data-reveal>
@@ -119,13 +128,17 @@ export default async function ServiceDetailPage({
               data-reveal
               style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
             >
-              <a
+              <TrackedLink
                 className="rain-button rain-button--primary rsg-btn-lg"
+                context="service"
+                event="whatsapp_click"
                 href={whatsappLink.href}
+                placement="service_detail"
+                serviceSlug={service.slug}
               >
                 <MessageCircle aria-hidden="true" size={18} />
                 {whatsappLink.label}
-              </a>
+              </TrackedLink>
             </div>
           </div>
 
@@ -134,7 +147,9 @@ export default async function ServiceDetailPage({
             data-reveal
             style={{ "--reveal-delay": "0.2s" } as React.CSSProperties}
           >
-            <p className="rsg-eyebrow rsg-eyebrow--muted">Araca göre netleşir</p>
+            <p className="rsg-eyebrow rsg-eyebrow--muted">
+              Araca göre netleşir
+            </p>
             <dl className="rsg-meta">
               <div>
                 <dt>Süre</dt>
@@ -145,7 +160,7 @@ export default async function ServiceDetailPage({
                 <dd>{service.pricingNote}</dd>
               </div>
               <div>
-                <dt>Garanti</dt>
+                <dt>Koşullar</dt>
                 <dd>{service.warrantyNote}</dd>
               </div>
             </dl>
@@ -187,7 +202,10 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
-      <section className="rsg-section rsg-section--tight" aria-labelledby="service-cta-title">
+      <section
+        className="rsg-section rsg-section--tight"
+        aria-labelledby="service-cta-title"
+      >
         <div className="rain-container rsg-cta" data-reveal>
           <div className="rsg-cta__copy">
             <p className="rsg-eyebrow">İletişim</p>
@@ -197,13 +215,17 @@ export default async function ServiceDetailPage({
             <p className="rsg-lead">{service.ctaContext.messageHint}</p>
           </div>
           <div className="rsg-cta__actions">
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
+              context="service"
+              event="whatsapp_click"
               href={whatsappLink.href}
+              placement="service_detail"
+              serviceSlug={service.slug}
             >
               <MessageCircle aria-hidden="true" size={18} />
               {whatsappLink.label}
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>

@@ -66,19 +66,19 @@ export const serviceCategories = [
   },
 ] satisfies ServiceCategory[];
 
-const demoHeroMedia = {
-  id: "demo-hero-rain-sound",
+const pendingAiServiceMedia = {
+  id: "pending-ai-service-atmosphere",
   kind: "image",
-  source: "demo",
+  source: "ai",
   usage: ["hero", "service-card"],
-  src: "/demo/hero-rain-sound.webp",
-  alt: "RAIN SOUND için temsili koyu otomobil atmosferi",
-  width: 1600,
-  height: 900,
+  src: "/media/ai/hero/ai-hero-rain-sound-classic-wide.avif",
+  alt: "RAIN SOUND icin temsili AI otomobil atmosferi",
+  width: 1536,
+  height: 1024,
   hasUsagePermission: true,
   requiresPrivacyReview: false,
   demo: demoContent(
-    "Production öncesi gerçek veya onaylı AI görselle değişecek.",
+    "Bekleniyor: gerçek hizmet/proje çekimi yok; P10 mobil LCP stratejisini bozmamak için mevcut AI atmosfer placeholder'ı korunur.",
   ),
 } satisfies MediaAsset;
 
@@ -205,7 +205,7 @@ export const services = [
       intent: "appointment",
       messageHint: "İç dış yıkama için araç tipi ve uygun saat sorulacak.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "compact",
       visualRole: "wash",
@@ -213,9 +213,7 @@ export const services = [
     },
     relatedServiceIds: ["paint-correction", "ceramic-coating"],
     status: "published",
-    demo: demoContent(
-      "Tanıtım metni gerçek hizmet fotoğraflarıyla production öncesi doğrulanacak.",
-    ),
+    demo: realContent,
   },
   {
     id: "ceramic-coating",
@@ -247,7 +245,7 @@ export const services = [
       messageHint:
         "Seramik kaplama için araç marka/modeli ve yüzey durumu istenecek.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "large",
       visualRole: "paint",
@@ -255,9 +253,7 @@ export const services = [
     },
     relatedServiceIds: ["paint-correction", "ppf-coating", "vehicle-wrap"],
     status: "published",
-    demo: demoContent(
-      "Hizmet metni P2.3 aşamasında gerçek içerikle genişletilecek.",
-    ),
+    demo: realContent,
   },
   {
     id: "paint-correction",
@@ -294,7 +290,7 @@ export const services = [
       messageHint:
         "Pasta cila değerlendirmesi için araç fotoğrafı ve boya durumu istenecek.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "medium",
       visualRole: "paint",
@@ -306,9 +302,7 @@ export const services = [
       "ppf-coating",
     ],
     status: "published",
-    demo: demoContent(
-      "Demo açıklama üretildi; gerçek uygulama fotoğraflarıyla desteklenecek.",
-    ),
+    demo: realContent,
   },
   {
     id: "ppf-coating",
@@ -340,7 +334,7 @@ export const services = [
       messageHint:
         "PPF için istenen parça/kapsam ve araç modeli WhatsApp'ta netleştirilecek.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "large",
       visualRole: "protection",
@@ -348,9 +342,7 @@ export const services = [
     },
     relatedServiceIds: ["ceramic-coating", "paint-correction", "vehicle-wrap"],
     status: "published",
-    demo: demoContent(
-      "Hizmet metni P2.3 aşamasında gerçek içerikle genişletilecek.",
-    ),
+    demo: realContent,
   },
   {
     id: "window-film",
@@ -374,7 +366,7 @@ export const services = [
     estimatedDurationNote: "Cam sayısı ve araç tipine göre değişir.",
     pricingNote: "Bilgi ve fiyat için WhatsApp üzerinden iletişime geçilir.",
     warrantyNote:
-      "Ürün/uygulama garantisi marka ve film seçimine göre WhatsApp'ta netleştirilir.",
+      "Ürün ve uygulama koşulları film seçimine ve kapsama göre WhatsApp'ta netleştirilir.",
     mediaNeeds: [
       "Öncesi/sonrası yan profil fotoğrafı",
       "Cam tonu yakın planı",
@@ -386,7 +378,7 @@ export const services = [
       messageHint:
         "Cam filmi için araç modeli, istenen ton ve kapsam WhatsApp'ta konuşulacak.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "compact",
       visualRole: "protection",
@@ -394,9 +386,7 @@ export const services = [
     },
     relatedServiceIds: ["vehicle-wrap", "ppf-coating"],
     status: "published",
-    demo: demoContent(
-      "Yasal uygunluk ve marka bilgileri production öncesi tekrar doğrulanacak.",
-    ),
+    demo: realContent,
   },
   {
     id: "vehicle-wrap",
@@ -433,7 +423,7 @@ export const services = [
       messageHint:
         "Araç kaplama için renk/doku fikri ve araç modeli WhatsApp'ta alınacak.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "large",
       visualRole: "performance",
@@ -441,9 +431,7 @@ export const services = [
     },
     relatedServiceIds: ["ppf-coating", "window-film", "body-kit"],
     status: "published",
-    demo: demoContent(
-      "Demo tanıtım metni; gerçek kaplama projeleri P7 aşamasında bağlanacak.",
-    ),
+    demo: realContent,
   },
   {
     id: "car-audio-visual",
@@ -468,9 +456,9 @@ export const services = [
     estimatedDurationNote: "Sistem kapsamı ve ürün adedine göre değişir.",
     pricingNote: "Bilgi ve fiyat için WhatsApp üzerinden iletişime geçilir.",
     warrantyNote:
-      "Ürün garanti koşulları seçilen markaya göre değişir; net bilgi WhatsApp'ta verilir.",
+      "Ürün ve uygulama koşulları seçilen ürüne göre değişir; net bilgi WhatsApp'ta verilir.",
     mediaNeeds: [
-      "Pioneer/Forx/Cadence ürün yakın planları",
+      "Doğrulanmış ürün yakın planları",
       "Montaj öncesi/sonrası bagaj veya konsol fotoğrafı",
       "Kısa sistem demo videosu",
     ],
@@ -480,7 +468,7 @@ export const services = [
       messageHint:
         "Ses sistemi için beklenti, bütçe aralığı ve araç modeli WhatsApp'ta sorulacak.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "large",
       visualRole: "sound",
@@ -488,9 +476,7 @@ export const services = [
     },
     relatedServiceIds: ["auto-accessories"],
     status: "published",
-    demo: demoContent(
-      "Marka ve ürün detayları katalog/görseller geldikçe güncellenecek.",
-    ),
+    demo: realContent,
   },
   {
     id: "auto-accessories",
@@ -514,7 +500,8 @@ export const services = [
     estimatedDurationNote:
       "Ürün tipine, stok durumuna ve montaj ihtiyacına göre değişir.",
     pricingNote: "Fiyat yayınlanmaz; güncel bilgi WhatsApp üzerinden verilir.",
-    warrantyNote: "Ürün garantisi marka ve tedarik durumuna göre değişebilir.",
+    warrantyNote:
+      "Ürün ve montaj koşulları tedarik durumuna göre WhatsApp'ta netleştirilir.",
     mediaNeeds: [
       "WhatsApp katalog ürün görselleri",
       "Ürün yakın plan fotoğrafları",
@@ -526,7 +513,7 @@ export const services = [
       messageHint:
         "Aksesuar için istenen ürün ve araç modeli WhatsApp'ta netleştirilecek.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "compact",
       visualRole: "sound",
@@ -534,9 +521,7 @@ export const services = [
     },
     relatedServiceIds: ["car-audio-visual"],
     status: "published",
-    demo: demoContent(
-      "WhatsApp Business kataloğu referanstır; fiyatlar otomatik yayınlanmaz.",
-    ),
+    demo: realContent,
   },
   {
     id: "headlight-design",
@@ -561,7 +546,7 @@ export const services = [
       "Far tipi, tasarım kapsamı ve parça durumuna göre değişir.",
     pricingNote: "Bilgi ve fiyat için WhatsApp üzerinden iletişime geçilir.",
     warrantyNote:
-      "Uygulanabilirlik ve garanti koşulları işlem kapsamı netleştikten sonra paylaşılır.",
+      "Uygulanabilirlik ve işlem koşulları kapsam netleştikten sonra paylaşılır.",
     mediaNeeds: [
       "Far açık/kapalı karşılaştırması",
       "Yakın plan ışık detayı",
@@ -573,7 +558,7 @@ export const services = [
       messageHint:
         "Far tasarımı için araç modeli ve örnek istenen görünüm WhatsApp'ta istenecek.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "medium",
       visualRole: "performance",
@@ -581,9 +566,7 @@ export const services = [
     },
     relatedServiceIds: ["body-kit", "vehicle-wrap"],
     status: "published",
-    demo: demoContent(
-      "Demo metin; gerçek far projeleri eklendiğinde revize edilecek.",
-    ),
+    demo: realContent,
   },
   {
     id: "body-kit",
@@ -621,7 +604,7 @@ export const services = [
       messageHint:
         "Body kit için araç modeli, istenen parça ve örnek görsel WhatsApp'ta alınacak.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "medium",
       visualRole: "performance",
@@ -629,9 +612,7 @@ export const services = [
     },
     relatedServiceIds: ["headlight-design", "vehicle-wrap", "varex-exhaust"],
     status: "published",
-    demo: demoContent(
-      "Parça uyumu ve temin durumu gerçek taleple doğrulanacaktır.",
-    ),
+    demo: realContent,
   },
   {
     id: "varex-exhaust",
@@ -669,7 +650,7 @@ export const services = [
       messageHint:
         "Varex egzoz için araç modeli ve beklenti WhatsApp'ta netleştirilecek.",
     },
-    media: [demoHeroMedia],
+    media: [pendingAiServiceMedia],
     visualTreatment: {
       priority: "compact",
       visualRole: "performance",
@@ -677,13 +658,11 @@ export const services = [
     },
     relatedServiceIds: ["body-kit", "headlight-design"],
     status: "published",
-    demo: demoContent(
-      "Yasal/teknik uygunluk ve parça bilgisi talep bazında doğrulanacaktır.",
-    ),
+    demo: realContent,
   },
 ] satisfies Service[];
 
-export const projects = [
+export const projects: Project[] = [
   {
     id: "demo-protection-detailing-project",
     slug: "demo-koruma-detailing-projesi",
@@ -776,9 +755,9 @@ export const projects = [
         "Before/after çiftinde plaka ve kişisel bilgi kontrolü",
       ],
     }),
-    status: "draft",
+    status: "archived",
     demo: demoContent(
-      "Gerçek müşteri aracı değildir; tasarım ve veri akışı testi için tutulur.",
+      "Kaldırıldı: gerçek müşteri/proje medyası ve yayın izni olmadığı için public portfolyo rotasından çıkarıldı.",
     ),
   },
   {
@@ -873,9 +852,9 @@ export const projects = [
         "Ürün/fiyat/stok iddiası oluşturmayan açıklama ve alt metin",
       ],
     }),
-    status: "draft",
+    status: "archived",
     demo: demoContent(
-      "Gerçek müşteri aracı değildir; ses sistemi proje akışı için demo içeriktir.",
+      "Kaldırıldı: gerçek müşteri/proje medyası ve yayın izni olmadığı için public portfolyo rotasından çıkarıldı.",
     ),
   },
   {
@@ -975,9 +954,9 @@ export const projects = [
         "Plaka, konum ve tanınabilir kişisel bilgi kontrolü",
       ],
     }),
-    status: "draft",
+    status: "archived",
     demo: demoContent(
-      "Gerçek müşteri aracı değildir; tasarım/performance proje akışı için demo içeriktir.",
+      "Kaldırıldı: gerçek müşteri/proje medyası ve yayın izni olmadığı için public portfolyo rotasından çıkarıldı.",
     ),
   },
 ] satisfies Project[];
@@ -989,9 +968,9 @@ export const testimonials = [
     source: "direct",
     quote: "Bu yorum yalnızca tasarım yerleşimini test etmek için kullanılır.",
     rating: 5,
-    status: "draft",
+    status: "archived",
     demo: demoContent(
-      "Production'da gerçek müşteri yorumu olmadan yayınlanmayacak.",
+      "Kaldırıldı: doğrulanmış müşteri yorumu kaynağı olmadığı için yayın veri setinden çıkarıldı.",
     ),
   },
 ] satisfies Testimonial[];

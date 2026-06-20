@@ -12,6 +12,7 @@ export const siteSettings = {
   siteName: "RAIN SOUND",
   legalName: "RAIN SOUND",
   siteUrl: "https://rain-sound.vercel.app",
+  customDomain: null,
   tagline: "Aracın karakterini ortaya çıkar.",
   description:
     "Eskişehir'de oto detailing, araç koruma, ses sistemleri, aksesuar ve modifiye uygulamaları.",

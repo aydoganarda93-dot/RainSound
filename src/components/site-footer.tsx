@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { TrackedLink } from "@/components/analytics";
 import {
   generalWhatsAppLink,
   getContactByChannel,
@@ -40,19 +41,26 @@ export function SiteFooter() {
         <address className="site-footer__contact">
           <span>{siteSettings.address.display}</span>
           {phoneContact ? (
-            <a className="rain-link site-footer__link" href={phoneContact.href}>
+            <TrackedLink
+              className="rain-link site-footer__link"
+              event="phone_click"
+              href={phoneContact.href}
+              placement="footer_contact"
+            >
               {phoneContact.value}
-            </a>
+            </TrackedLink>
           ) : null}
           {mapsLink ? (
-            <a
+            <TrackedLink
               className="rain-link site-footer__link"
+              event="directions_click"
               href={mapsLink.href}
-              target={mapsLink.target}
+              placement="footer_contact"
               rel="noreferrer"
+              target={mapsLink.target}
             >
               Yol Tarifi Al
-            </a>
+            </TrackedLink>
           ) : null}
         </address>
       </div>
@@ -71,12 +79,14 @@ export function SiteFooter() {
               {item.label}
             </Link>
           ))}
-          <a
+          <TrackedLink
             className="rain-link site-footer__link"
+            event="whatsapp_click"
             href={generalWhatsAppLink.href}
+            placement="footer_bottom"
           >
             {generalWhatsAppLink.label}
-          </a>
+          </TrackedLink>
         </div>
       </div>
     </footer>
@@ -88,29 +98,35 @@ export function QuickContactBar() {
 
   return (
     <aside className="quick-contact" aria-label="Hızlı iletişim">
-      <a
+      <TrackedLink
         className="rain-button rain-button--primary quick-contact__primary"
+        event="whatsapp_click"
         href={generalWhatsAppLink.href}
+        placement="quick_contact"
       >
         WhatsApp
-      </a>
+      </TrackedLink>
       {phoneContact ? (
-        <a
+        <TrackedLink
           className="rain-button rain-button--secondary quick-contact__link"
+          event="phone_click"
           href={phoneContact.href}
+          placement="quick_contact"
         >
           Ara
-        </a>
+        </TrackedLink>
       ) : null}
       {mapsLink ? (
-        <a
+        <TrackedLink
           className="rain-button rain-button--secondary quick-contact__link"
+          event="directions_click"
           href={mapsLink.href}
-          target={mapsLink.target}
+          placement="quick_contact"
           rel="noreferrer"
+          target={mapsLink.target}
         >
           Yol Tarifi
-        </a>
+        </TrackedLink>
       ) : null}
     </aside>
   );

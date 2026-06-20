@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 
 export const prefersReducedMotionQuery = "(prefers-reduced-motion: reduce)";
-export const slowConnectionTypes = new Set(["slow-2g", "2g"]);
+export const slowConnectionTypes = new Set(["slow-2g", "2g", "3g"]);
 
 export type GsapContextSetup = Parameters<typeof gsap.context>[0];
 export type GsapContextScope = Parameters<typeof gsap.context>[1];

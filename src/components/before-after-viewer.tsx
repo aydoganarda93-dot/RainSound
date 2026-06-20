@@ -1,8 +1,9 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 
-import type { BeforeAfterPair, MediaAsset } from "@/content";
+import type { BeforeAfterPair, MediaAsset } from "@/content/types";
+import { trackBeforeAfterInteraction } from "@/lib/analytics";
 
 const sourceLabels: Record<MediaAsset["source"], string> = {
   ai: "AI atmosfer",
@@ -67,9 +68,33 @@ const MediaMeta = ({ asset, label }: { asset: MediaAsset; label: string }) => (
   </article>
 );
 
-export function BeforeAfterViewer({ pair }: { pair: BeforeAfterPair }) {
+export function BeforeAfterViewer({
+  pair,
+  projectSlug,
+}: {
+  pair: BeforeAfterPair;
+  projectSlug: string;
+}) {
   const [position, setPosition] = useState(50);
   const sliderId = useId();
+  const lastTrackedPosition = useRef(position);
+
+  const reportInteraction = (
+    nextPosition: number,
+    action: "slide" | "keyboard",
+  ) => {
+    if (lastTrackedPosition.current === nextPosition) {
+      return;
+    }
+
+    lastTrackedPosition.current = nextPosition;
+    trackBeforeAfterInteraction({
+      projectSlug,
+      pairId: pair.id,
+      position: nextPosition,
+      action,
+    });
+  };
 
   return (
     <article className="rain-card before-after-viewer">
@@ -111,7 +136,15 @@ export function BeforeAfterViewer({ pair }: { pair: BeforeAfterPair }) {
           min="0"
           type="range"
           value={position}
-          onChange={(event) => setPosition(Number(event.target.value))}
+          onChange={(event) => {
+            setPosition(Number(event.target.value));
+          }}
+          onPointerUp={(event) => {
+            reportInteraction(Number(event.currentTarget.value), "slide");
+          }}
+          onKeyUp={(event) => {
+            reportInteraction(Number(event.currentTarget.value), "keyboard");
+          }}
           aria-valuetext={`Sonrası görüntüsü yüzde ${position} seviyesinde açılıyor`}
         />
         <div className="before-after-viewer__control-labels" aria-hidden="true">

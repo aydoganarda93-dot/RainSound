@@ -2,8 +2,8 @@
 
 import { useId, useRef } from "react";
 
-import type { HeroMediaScene } from "@/content";
-import { heroMediaScene } from "@/content";
+import { heroMediaScene } from "@/content/hero-media";
+import type { HeroMediaScene } from "@/content/types";
 import { gsap, useGSAP } from "@/hooks/use-gsap";
 import { useMotionPreferences } from "@/hooks/use-motion-preferences";
 import { killGsapInstances } from "@/lib/motion";

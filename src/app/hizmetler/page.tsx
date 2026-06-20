@@ -15,6 +15,7 @@ import {
   services,
   siteSettings,
 } from "@/content";
+import { TrackedLink } from "@/components/analytics";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StructuredData } from "@/components/structured-data";
 import {
@@ -60,7 +61,10 @@ export default function ServicesPage() {
       <Breadcrumbs items={pageBreadcrumbs.services} />
 
       <section className="rsg-pagehero" aria-labelledby="services-page-title">
-        <div className="rsg-pagehero__glow rsg-pagehero__glow--right" aria-hidden="true" />
+        <div
+          className="rsg-pagehero__glow rsg-pagehero__glow--right"
+          aria-hidden="true"
+        />
         <div className="rain-container rsg-pagehero__inner">
           <div className="rsg-pagehero__lead-col">
             <p className="rsg-eyebrow" data-reveal>
@@ -77,7 +81,11 @@ export default function ServicesPage() {
               <br />
               tek atölye
             </h1>
-            <p className="rsg-lead" data-reveal style={{ "--reveal-delay": "0.1s" } as React.CSSProperties}>
+            <p
+              className="rsg-lead"
+              data-reveal
+              style={{ "--reveal-delay": "0.1s" } as React.CSSProperties}
+            >
               Detailing, koruma, ses ve performans — dört alan, tek çatı.
             </p>
           </div>
@@ -88,26 +96,25 @@ export default function ServicesPage() {
             style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
           >
             <p className="rsg-eyebrow rsg-eyebrow--muted">
-              {publishedCategories.length} alan / {publishedServices.length} hizmet
+              {publishedCategories.length} alan / {publishedServices.length}{" "}
+              hizmet
             </p>
             <h2>Fiyat WhatsApp&apos;ta netleşir.</h2>
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
+              event="whatsapp_click"
               href={generalWhatsAppLink.href}
+              placement="services_page"
             >
               <MessageCircle aria-hidden="true" size={18} />
               {generalWhatsAppLink.label}
-            </a>
+            </TrackedLink>
           </aside>
         </div>
       </section>
 
       <div className="rain-container rsg-chips-wrap">
-        <nav
-          className="rsg-chips"
-          aria-label="Hizmet kategorileri"
-          data-reveal
-        >
+        <nav className="rsg-chips" aria-label="Hizmet kategorileri" data-reveal>
           {publishedCategories.map((category) => (
             <a key={category.id} href={`#${category.slug}`}>
               {category.title}
@@ -150,9 +157,7 @@ export default function ServicesPage() {
                     } as React.CSSProperties
                   }
                 >
-                  <span className="rsg-feature__index">
-                    0{index + 1}
-                  </span>
+                  <span className="rsg-feature__index">0{index + 1}</span>
                   <h3>{service.title}</h3>
                   <p>{service.summary}</p>
                   <span className="rsg-service__cta" aria-hidden="true">
@@ -165,7 +170,10 @@ export default function ServicesPage() {
         );
       })}
 
-      <section className="rsg-section rsg-cta-section" aria-labelledby="services-cta-title">
+      <section
+        className="rsg-section rsg-cta-section"
+        aria-labelledby="services-cta-title"
+      >
         <div className="rain-container rsg-cta" data-reveal>
           <div className="rsg-cta__copy">
             <p className="rsg-eyebrow">Kararsız mısın?</p>
@@ -175,13 +183,15 @@ export default function ServicesPage() {
             <p className="rsg-lead">{siteSettings.address.display}</p>
           </div>
           <div className="rsg-cta__actions">
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
+              event="whatsapp_click"
               href={generalWhatsAppLink.href}
+              placement="services_page"
             >
               <MessageCircle aria-hidden="true" size={18} />
               WhatsApp&apos;tan Bilgi Al
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>

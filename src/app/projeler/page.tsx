@@ -3,11 +3,14 @@ import Link from "next/link";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 
 import {
+  aiImagePlaceholder,
+  categoryVisualMedia,
   generalWhatsAppLink,
   serviceCategories,
   services,
   siteSettings,
 } from "@/content";
+import { TrackedLink } from "@/components/analytics";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StructuredData } from "@/components/structured-data";
 import {
@@ -22,21 +25,18 @@ export const metadata = buildPageMetadata({
   path: "/projeler",
 });
 
-const categoryImages: Record<string, string> = {
-  detailing: "/media/ai/showcase/cat-detailing.png",
-  protection: "/media/ai/showcase/cat-protection.png",
-  "sound-tech": "/media/ai/showcase/cat-sound.png",
-  "design-performance": "/media/ai/showcase/cat-performance.png",
-};
-
 const publishedCategories = serviceCategories
   .filter((category) => category.status === "published")
   .sort((current, next) => current.order - next.order);
 
 const countServices = (categoryId: string) =>
   services.filter(
-    (service) => service.categoryId === categoryId && service.status === "published",
+    (service) =>
+      service.categoryId === categoryId && service.status === "published",
   ).length;
+
+const getCategoryImage = (categoryId: string) =>
+  categoryVisualMedia[categoryId as keyof typeof categoryVisualMedia];
 
 export default function ProjectsPage() {
   return (
@@ -45,7 +45,10 @@ export default function ProjectsPage() {
       <Breadcrumbs items={pageBreadcrumbs.projects} />
 
       <section className="rsg-pagehero" aria-labelledby="projects-page-title">
-        <div className="rsg-pagehero__glow rsg-pagehero__glow--right" aria-hidden="true" />
+        <div
+          className="rsg-pagehero__glow rsg-pagehero__glow--right"
+          aria-hidden="true"
+        />
         <div className="rain-container rsg-pagehero__inner">
           <div className="rsg-pagehero__lead-col">
             <p className="rsg-eyebrow" data-reveal>
@@ -77,23 +80,30 @@ export default function ProjectsPage() {
             data-reveal
             style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
           >
-            <p className="rsg-eyebrow rsg-eyebrow--muted">Atmosfer görselleri</p>
+            <p className="rsg-eyebrow rsg-eyebrow--muted">
+              Atmosfer görselleri
+            </p>
             <p>
               Gerçek müşteri projeleri izinleriyle birlikte yakında burada
               yayınlanacak.
             </p>
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
+              event="whatsapp_click"
               href={generalWhatsAppLink.href}
+              placement="projects_page"
             >
               <MessageCircle aria-hidden="true" size={18} />
               Benzer İş İçin Yaz
-            </a>
+            </TrackedLink>
           </aside>
         </div>
       </section>
 
-      <section className="rsg-section rsg-cta-section" aria-labelledby="projects-gallery-title">
+      <section
+        className="rsg-section rsg-cta-section"
+        aria-labelledby="projects-gallery-title"
+      >
         <div className="rain-container rsg-section__head" data-reveal>
           <p className="rsg-eyebrow">Vitrin</p>
           <h2 id="projects-gallery-title" className="rsg-title">
@@ -109,15 +119,23 @@ export default function ProjectsPage() {
               className="rsg-world"
               data-reveal
               data-size={index === 0 || index === 3 ? "wide" : "tall"}
-              style={{ "--reveal-delay": `${0.06 * (index % 4)}s` } as React.CSSProperties}
+              style={
+                {
+                  "--reveal-delay": `${0.06 * (index % 4)}s`,
+                } as React.CSSProperties
+              }
             >
               <div className="rsg-world__media" aria-hidden="true">
                 <Image
-                  src={categoryImages[category.id]}
-                  alt=""
+                  src={getCategoryImage(category.id).src}
+                  alt={getCategoryImage(category.id).alt}
                   fill
                   sizes="(min-width: 64rem) 50vw, 100vw"
                   className="rsg-world__img"
+                  loading="lazy"
+                  fetchPriority="low"
+                  placeholder="blur"
+                  blurDataURL={aiImagePlaceholder}
                 />
                 <div className="rsg-world__scrim" />
               </div>

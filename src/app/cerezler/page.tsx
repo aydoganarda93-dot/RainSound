@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { generalWhatsAppLink, siteSettings } from "@/content";
+import { TrackedLink } from "@/components/analytics";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StructuredData } from "@/components/structured-data";
 import {
@@ -27,7 +28,7 @@ const cookieSections = [
   },
   {
     title: "Analitik durumu",
-    body: "Vercel Analytics sayfa görüntülemelerini ve temel trafik verilerini özet şekilde ölçer. Speed Insights Core Web Vitals (LCP, INP, CLS) gibi performans metriklerini toplar. Google Analytics, Meta Pixel veya benzeri reklam/analitik araçları aktif değildir.",
+    body: "Vercel Analytics sayfa görüntülemelerini, temel trafik verilerini ve tanımlı dönüşüm olaylarını (WhatsApp, telefon, yol tarifi tıklamaları; hizmet/proje detay görüntüleme; before/after etkileşimi) özet şekilde ölçer. Speed Insights Core Web Vitals (LCP, INP, CLS) gibi performans metriklerini toplar. Google Analytics, Meta Pixel veya benzeri reklam/analitik araçları aktif değildir.",
   },
   {
     title: "Üçüncü taraf bağlantılar",
@@ -109,12 +110,14 @@ export default function CookiesPage() {
             >
               Gizlilik Politikası
             </Link>
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary"
+              event="whatsapp_click"
               href={generalWhatsAppLink.href}
+              placement="legal_page"
             >
               {generalWhatsAppLink.label}
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>

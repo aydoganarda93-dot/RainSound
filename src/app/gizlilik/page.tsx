@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { generalWhatsAppLink, siteSettings } from "@/content";
+import { TrackedLink } from "@/components/analytics";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StructuredData } from "@/components/structured-data";
 import {
@@ -108,12 +109,14 @@ export default function PrivacyPage() {
             Gizlilikle ilgili soru için doğrudan iletişime geç.
           </h2>
           <div className="legal-final-cta__actions">
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary"
+              event="whatsapp_click"
               href={generalWhatsAppLink.href}
+              placement="legal_page"
             >
               {generalWhatsAppLink.label}
-            </a>
+            </TrackedLink>
             <Link
               className="rain-button rain-button--secondary"
               href="/iletisim"

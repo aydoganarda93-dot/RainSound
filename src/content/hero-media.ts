@@ -3,7 +3,7 @@ import type { HeroMediaScene, MediaAsset } from "./types";
 const heroDemoState = {
   isDemo: true,
   replacementRequiredBeforeProduction: true,
-  note: "Gerçek asset henüz yok; P6 medya planındaki AI/poster üretimi gelene kadar kırılmayan placeholder olarak tutulur.",
+  note: "Bekleniyor: gerçek çekim yok; mevcut AI atmosfer asset'i gerçek uygulama veya müşteri projesi gibi sunulmadan placeholder olarak tutulur.",
 };
 
 const heroPoster = {
@@ -11,11 +11,11 @@ const heroPoster = {
   kind: "image",
   source: "ai",
   usage: ["hero"],
-  src: "/media/ai/hero/ai-hero-poster-wide-01.avif",
+  src: "/media/ai/hero/ai-hero-rain-sound-classic-wide.avif",
   alt: "Rain Sound için temsili neon otomobil hero posteri",
-  width: 1920,
-  height: 1080,
-  hasUsagePermission: false,
+  width: 1536,
+  height: 1024,
+  hasUsagePermission: true,
   requiresPrivacyReview: false,
   demo: heroDemoState,
 } satisfies MediaAsset;

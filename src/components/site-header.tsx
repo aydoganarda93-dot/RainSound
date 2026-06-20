@@ -4,11 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 
-import {
-  generalWhatsAppLink,
-  primaryNavigation,
-  siteSettings,
-} from "@/content";
+import { generalWhatsAppLink } from "@/content/contact-actions";
+import { primaryNavigation } from "@/content/navigation";
+import { siteSettings } from "@/content/site-settings";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 const focusableElementSelector = [
   "a[href]",
@@ -137,6 +136,9 @@ export function SiteHeader() {
         <a
           className="rain-button rain-button--primary site-header__cta"
           href={generalWhatsAppLink.href}
+          onClick={() => {
+            trackWhatsAppClick({ placement: "header_cta" });
+          }}
         >
           {generalWhatsAppLink.label}
         </a>
@@ -189,7 +191,10 @@ export function SiteHeader() {
         <a
           className="rain-button rain-button--primary site-header__mobile-cta"
           href={generalWhatsAppLink.href}
-          onClick={closeMobileMenu}
+          onClick={() => {
+            trackWhatsAppClick({ placement: "header_mobile_cta" });
+            closeMobileMenu();
+          }}
         >
           {generalWhatsAppLink.label}
         </a>

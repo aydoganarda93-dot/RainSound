@@ -3,10 +3,10 @@ import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+import { DocumentMotionHints } from "@/components/document-motion-hints";
 import { QuickContactBar, SiteFooter } from "@/components/site-footer";
 import { SiteAmbient } from "@/components/site-ambient";
 import { SiteHeader } from "@/components/site-header";
-import { SiteFx } from "@/components/site-fx";
 import { siteSettings } from "@/content";
 
 import "./globals.css";
@@ -27,13 +27,15 @@ const metadataKeywords = [
 
 const rainSans = Plus_Jakarta_Sans({
   subsets: ["latin", "latin-ext"],
-  display: "swap",
+  display: "optional",
+  preload: false,
   variable: "--font-rain-sans",
 });
 
 const rainDisplay = Bricolage_Grotesque({
   subsets: ["latin", "latin-ext"],
-  display: "swap",
+  display: "optional",
+  preload: false,
   variable: "--font-rain-display",
 });
 
@@ -98,7 +100,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={siteSettings.locale} suppressHydrationWarning>
-      <body className={`${rainSans.variable} ${rainDisplay.variable} subpixel-antialiased`}>
+      <body
+        className={`${rainSans.variable} ${rainDisplay.variable} subpixel-antialiased`}
+      >
+        <DocumentMotionHints />
         <SiteAmbient />
         <div className="site-shell">
           <SiteHeader />
@@ -106,7 +111,6 @@ export default function RootLayout({
           <SiteFooter />
           <QuickContactBar />
         </div>
-        <SiteFx />
         <Analytics />
         <SpeedInsights />
       </body>

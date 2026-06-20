@@ -14,6 +14,7 @@ import {
   services,
   siteSettings,
 } from "@/content";
+import { TrackedLink } from "@/components/analytics";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StructuredData } from "@/components/structured-data";
 import {
@@ -69,7 +70,10 @@ export default function AboutPage() {
       <Breadcrumbs items={pageBreadcrumbs.about} />
 
       <section className="rsg-pagehero" aria-labelledby="about-page-title">
-        <div className="rsg-pagehero__glow rsg-pagehero__glow--right" aria-hidden="true" />
+        <div
+          className="rsg-pagehero__glow rsg-pagehero__glow--right"
+          aria-hidden="true"
+        />
         <div className="rain-container rsg-pagehero__inner">
           <div className="rsg-pagehero__lead-col">
             <p className="rsg-eyebrow" data-reveal>
@@ -103,13 +107,15 @@ export default function AboutPage() {
               {siteSettings.address.city} / {siteSettings.address.district}
             </p>
             <h2>{publishedServices.length}+ hizmet, tek merkez.</h2>
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
+              event="whatsapp_click"
               href={generalWhatsAppLink.href}
+              placement="about_page"
             >
               <MessageCircle aria-hidden="true" size={18} />
               {generalWhatsAppLink.label}
-            </a>
+            </TrackedLink>
           </aside>
         </div>
       </section>
@@ -128,7 +134,9 @@ export default function AboutPage() {
               key={principle.title}
               className="rsg-feature"
               data-reveal
-              style={{ "--reveal-delay": `${0.06 * index}s` } as React.CSSProperties}
+              style={
+                { "--reveal-delay": `${0.06 * index}s` } as React.CSSProperties
+              }
             >
               <span className="rsg-feature__icon" aria-hidden="true">
                 <principle.icon size={20} />
@@ -155,7 +163,11 @@ export default function AboutPage() {
               href={`/hizmetler#${category.slug}`}
               className="rsg-feature"
               data-reveal
-              style={{ "--reveal-delay": `${0.05 * (index % 4)}s` } as React.CSSProperties}
+              style={
+                {
+                  "--reveal-delay": `${0.05 * (index % 4)}s`,
+                } as React.CSSProperties
+              }
             >
               <span className="rsg-feature__index">0{category.order}</span>
               <h3>{category.title}</h3>
@@ -168,7 +180,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="rsg-section rsg-cta-section" aria-labelledby="about-cta-title">
+      <section
+        className="rsg-section rsg-cta-section"
+        aria-labelledby="about-cta-title"
+      >
         <div className="rain-container rsg-cta" data-reveal>
           <div className="rsg-cta__copy">
             <p className="rsg-eyebrow">İletişim</p>
@@ -178,20 +193,24 @@ export default function AboutPage() {
             <p className="rsg-lead">{siteSettings.address.display}</p>
           </div>
           <div className="rsg-cta__actions">
-            <a
+            <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
+              event="whatsapp_click"
               href={generalWhatsAppLink.href}
+              placement="about_page"
             >
               <MessageCircle aria-hidden="true" size={18} />
               {generalWhatsAppLink.label}
-            </a>
+            </TrackedLink>
             {phoneContact ? (
-              <a
+              <TrackedLink
                 className="rain-button rain-button--ghost rsg-btn-lg"
+                event="phone_click"
                 href={phoneContact.href}
+                placement="about_page"
               >
                 {phoneContact.value}
-              </a>
+              </TrackedLink>
             ) : null}
           </div>
         </div>

@@ -22,12 +22,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     }));
 
-  const projectRoutes = projects.map((project) => ({
-    url: buildAbsoluteUrl(`/projeler/${project.slug}`),
-    lastModified,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  const projectRoutes = projects
+    .filter(
+      (project) =>
+        project.status === "published" &&
+        project.contentReadiness.productionCandidate,
+    )
+    .map((project) => ({
+      url: buildAbsoluteUrl(`/projeler/${project.slug}`),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
 
   return [...staticRoutes, ...serviceRoutes, ...projectRoutes];
 }
