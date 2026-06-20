@@ -53,7 +53,7 @@ const publishedTestimonials = testimonials.filter(
   (testimonial) => testimonial.status === "published",
 );
 
-const homepageTestimonials = publishedTestimonials.slice(0, 6);
+const homepageTestimonials = publishedTestimonials.slice(0, 3);
 
 const getServicesForCategory = (categoryId: string) =>
   publishedServices.filter((service) => service.categoryId === categoryId);
@@ -189,9 +189,12 @@ export default function Home() {
 
           <p className="rsg-hero__tagline">{siteSettings.tagline}</p>
 
-          <p className="rsg-hero__desc">
+          <p className="rsg-hero__desc rsg-hero__desc--desktop">
             {siteSettings.address.city} / {siteSettings.address.district} içinde
             detailing, kaplama, ses ve modifiye uygulamaları.
+          </p>
+          <p className="rsg-hero__desc rsg-hero__desc--mobile">
+            Eskişehir&apos;de detailing, koruma, ses ve modifiye.
           </p>
 
           <div className="rsg-hero__actions">
@@ -385,6 +388,16 @@ export default function Home() {
               </Link>
             );
           })}
+        </div>
+
+        <div className="rain-container rsg-service-more">
+          <Link
+            className="rain-button rain-button--ghost rsg-btn-lg"
+            href="/hizmetler"
+          >
+            Tüm hizmetleri gör
+            <ArrowRight aria-hidden="true" size={18} />
+          </Link>
         </div>
       </section>
 

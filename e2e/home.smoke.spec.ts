@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { expectNoBlockingA11yViolations } from "./helpers/axe";
-import { desktopViewport } from "./helpers/viewports";
+import { desktopViewport, mobileViewport } from "./helpers/viewports";
 
 const heroWhatsAppLabel = "WhatsApp'tan Bilgi Al";
 const heroSeoTitle = /RAIN SOUND\s+Eskişehir Araç Detailing ve Dönüşüm Merkezi/;
@@ -58,5 +58,35 @@ test.describe("home page smoke", () => {
   test("has no critical or serious axe violations", async ({ page }) => {
     await page.goto("/");
     await expectNoBlockingA11yViolations(page);
+  });
+});
+
+test.describe("home page mobile layout", () => {
+  test.use({ viewport: mobileViewport });
+
+  test("keeps the mobile home page compact and readable", async ({ page }) => {
+    await page.goto("/");
+
+    await expect(page.locator(".rsg-marquee")).toBeHidden();
+    await expect(page.locator(".rsg-service:visible")).toHaveCount(6);
+    await expect(page.locator(".rsg-testimonials__card:visible")).toHaveCount(
+      3,
+    );
+
+    const allServicesLink = page.getByRole("link", {
+      name: "Tüm hizmetleri gör",
+    });
+
+    await expect(allServicesLink).toBeVisible();
+    await expect(allServicesLink).toHaveAttribute("href", "/hizmetler");
+
+    const viewportWidth = await page.evaluate(
+      () => document.documentElement.clientWidth,
+    );
+    const scrollWidth = await page.evaluate(
+      () => document.documentElement.scrollWidth,
+    );
+
+    expect(scrollWidth).toBe(viewportWidth);
   });
 });
