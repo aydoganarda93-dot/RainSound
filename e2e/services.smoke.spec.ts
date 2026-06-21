@@ -18,6 +18,13 @@ test.describe("services page smoke", () => {
     await expect(
       page.getByRole("link", { name: "WhatsApp'tan Bilgi Al" }).first(),
     ).toBeVisible();
+    await expect(page.getByRole("link", { name: "Ses & Multimedia" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Tasarım & Performans" })).toBeVisible();
+    await expect(page.getByText("Sound & Tech")).toHaveCount(0);
+    await expect(page.getByText("Design & Performance")).toHaveCount(0);
+    await expect(page.getByText("Parlaklık odaklı").first()).toBeVisible();
+    await expect(page.getByText("Araç görülünce netleşir").first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Araç Fotoğrafı Gönder" }).first()).toBeVisible();
   });
 
   test.describe("mobile", () => {

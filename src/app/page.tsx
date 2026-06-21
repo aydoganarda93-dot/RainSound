@@ -111,21 +111,21 @@ const marqueeItems = [
 const whyCards = [
   {
     icon: Sparkles,
-    title: "Tek merkezde tam dönüşüm",
+    title: "Araç başında net fiyat",
     description:
-      "Yıkamadan seramik kaplamaya, ses sisteminden body kit'e kadar aracın görünümü, koruması ve karakteri aynı atölyede konuşulur.",
+      "Aracın durumu görüldükten sonra kapsam, süre ve fiyat net şekilde konuşulur.",
   },
   {
     icon: ShieldCheck,
-    title: "Net kapsam, doğru beklenti",
+    title: "Ürün ve işlem açık anlatılır",
     description:
-      "Süre, kapsam ve sonuç araç durumuna göre açıkça anlatılır; abartılı vaat yerine doğru işlem önerilir.",
+      "Kullanılacak ürün, işlem sınırı ve bakım önerisi teslimden önce sade şekilde paylaşılır.",
   },
   {
     icon: Volume2,
-    title: "Sesten görünüme detay",
+    title: "Teslimde kontrol yapılır",
     description:
-      "Ses sistemi, multimedya, far ve egzoz detaylarında uygulama aracın bütünlüğü düşünülerek planlanır.",
+      "Uygulama sonrası araç birlikte kontrol edilir; eksik görülen nokta teslimden önce çözülür.",
   },
 ];
 
@@ -171,9 +171,9 @@ export default function Home() {
         </div>
 
         <div className="rain-container rsg-hero__inner">
-          <p className="rsg-eyebrow">
+          <p className="rsg-eyebrow rsg-hero__eyebrow">
             <span className="rsg-eyebrow__dot" aria-hidden="true" />
-            Detailing • Koruma • Ses • Performans
+            Eskişehir oto uygulama merkezi
           </p>
 
           <h1 id="hero-title" className="rsg-hero__title">
@@ -186,10 +186,10 @@ export default function Home() {
 
           <div className="rsg-hero__actions">
             <Link
-              className="rain-button rain-button--ghost rsg-btn-lg"
+              className="rain-button rain-button--primary rsg-btn-lg"
               href="/hizmetler"
             >
-              Hizmetleri Keşfet
+              Hizmetleri Gör
               <ArrowRight aria-hidden="true" size={18} />
             </Link>
           </div>
@@ -335,6 +335,19 @@ export default function Home() {
           <p className="rsg-lead">
             Google yorumlarından kısa seçmeler.
           </p>
+          {mapsLink ? (
+            <TrackedLink
+              className="rain-link rsg-testimonials__review-link"
+              event="directions_click"
+              href={mapsLink.href}
+              placement="home_testimonials"
+              rel="noreferrer"
+              target={mapsLink.target}
+            >
+              Google’daki tüm yorumları gör
+              <ArrowUpRight aria-hidden="true" size={15} />
+            </TrackedLink>
+          ) : null}
         </div>
 
         <div className="rain-container rsg-testimonials">
@@ -440,10 +453,29 @@ export default function Home() {
             <h2 id="cta-title" className="rsg-title rsg-title--light">
               Atölyeye ulaş.
             </h2>
-            <p className="rsg-lead">{siteSettings.address.display}</p>
+            <p className="rsg-lead rsg-cta__address">
+              <span>{siteSettings.address.street}</span>
+              <span>
+                {siteSettings.address.postalCode}{" "}
+                {siteSettings.address.district} / {siteSettings.address.city}
+              </span>
+            </p>
           </div>
 
           <div className="rsg-cta__actions">
+            {mapsLink ? (
+              <TrackedLink
+                className="rain-button rain-button--primary rsg-btn-lg"
+                event="directions_click"
+                href={mapsLink.href}
+                placement="home_contact"
+                rel="noreferrer"
+                target={mapsLink.target}
+              >
+                <MapPin aria-hidden="true" size={18} />
+                Yol Tarifi
+              </TrackedLink>
+            ) : null}
             {phoneContact ? (
               <TrackedLink
                 className="rain-button rain-button--ghost rsg-btn-lg"
@@ -453,19 +485,6 @@ export default function Home() {
               >
                 <Phone aria-hidden="true" size={18} />
                 {phoneContact.value}
-              </TrackedLink>
-            ) : null}
-            {mapsLink ? (
-              <TrackedLink
-                className="rain-button rain-button--ghost rsg-btn-lg"
-                event="directions_click"
-                href={mapsLink.href}
-                placement="home_contact"
-                rel="noreferrer"
-                target={mapsLink.target}
-              >
-                <MapPin aria-hidden="true" size={18} />
-                Yol Tarifi
               </TrackedLink>
             ) : null}
             {instagramLink ? (

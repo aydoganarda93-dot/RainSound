@@ -38,6 +38,18 @@ const getCategoryById = (categoryId: string) =>
 const getRelatedServices = (serviceIdList: string[]) =>
   publishedServices.filter((service) => serviceIdList.includes(service.id));
 
+const serviceFocusLabels: Record<string, string> = {
+  detailing: "Parlaklık odaklı",
+  protection: "Koruma odaklı",
+  "sound-tech": "Ses ve konfor",
+  "design-performance": "Görünüm odaklı",
+};
+
+const getServiceCardTags = (categoryId: string) => [
+  serviceFocusLabels[categoryId] ?? "Hizmet odaklı",
+  "Araç görülünce netleşir",
+];
+
 export function generateStaticParams() {
   return publishedServices.map((service) => ({
     slug: service.slug,
@@ -140,7 +152,7 @@ export default async function ServiceDetailPage({
                 serviceSlug={service.slug}
               >
                 <MessageCircle aria-hidden="true" size={18} />
-                {whatsappLink.label}
+                Araç Fotoğrafı Gönder
               </TrackedLink>
             </div>
           </div>
@@ -151,7 +163,7 @@ export default async function ServiceDetailPage({
             style={{ "--reveal-delay": "0.2s" } as React.CSSProperties}
           >
             <p className="rsg-eyebrow rsg-eyebrow--muted">
-              Araca göre netleşir
+              Araç görülünce netleşir
             </p>
             <dl className="rsg-meta">
               <div>
@@ -213,7 +225,7 @@ export default async function ServiceDetailPage({
           <div className="rsg-cta__copy">
             <p className="rsg-eyebrow">İletişim</p>
             <h2 id="service-cta-title" className="rsg-title rsg-title--light">
-              Araç detayını gönder.
+              Araç fotoğrafı gönder, fiyat al.
             </h2>
             <p className="rsg-lead">{service.ctaContext.messageHint}</p>
           </div>
@@ -227,7 +239,7 @@ export default async function ServiceDetailPage({
               serviceSlug={service.slug}
             >
               <MessageCircle aria-hidden="true" size={18} />
-              {whatsappLink.label}
+              Araç Fotoğrafı Gönder
             </TrackedLink>
           </div>
         </div>
@@ -250,6 +262,7 @@ export default async function ServiceDetailPage({
               const relatedCategory = getCategoryById(
                 relatedService.categoryId,
               );
+              const relatedTags = getServiceCardTags(relatedService.categoryId);
 
               return (
                 <Link
@@ -268,6 +281,11 @@ export default async function ServiceDetailPage({
                     {relatedCategory?.title ?? "Hizmet"}
                   </span>
                   <h3>{relatedService.title}</h3>
+                  <span className="rsg-feature__tags">
+                    {relatedTags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </span>
                   <p>{relatedService.summary}</p>
                   <span className="rsg-service__cta" aria-hidden="true">
                     <ArrowUpRight size={18} />

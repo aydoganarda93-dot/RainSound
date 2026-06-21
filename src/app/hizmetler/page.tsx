@@ -46,8 +46,20 @@ const categoryIcons: Record<string, LucideIcon> = {
   "design-performance": Gauge,
 };
 
+const serviceFocusLabels: Record<string, string> = {
+  detailing: "Parlaklık odaklı",
+  protection: "Koruma odaklı",
+  "sound-tech": "Ses ve konfor",
+  "design-performance": "Görünüm odaklı",
+};
+
 const getServicesByCategory = (categoryId: string) =>
   publishedServices.filter((service) => service.categoryId === categoryId);
+
+const getServiceCardTags = (categoryId: string) => [
+  serviceFocusLabels[categoryId] ?? "Hizmet odaklı",
+  "Araç görülünce netleşir",
+];
 
 export default function ServicesPage() {
   return (
@@ -87,7 +99,7 @@ export default function ServicesPage() {
               data-reveal
               style={{ "--reveal-delay": "0.1s" } as React.CSSProperties}
             >
-              Detailing, koruma, ses ve performans — dört alan, tek çatı.
+              Detailing, koruma, ses ve tasarım — dört alan, tek çatı.
             </p>
           </div>
 
@@ -100,7 +112,7 @@ export default function ServicesPage() {
               {publishedCategories.length} alan / {publishedServices.length}{" "}
               hizmet
             </p>
-            <h2>Fiyat araçtan sonra netleşir.</h2>
+            <h2>Araç fotoğrafı gönder, fiyat al.</h2>
             <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
               event="whatsapp_click"
@@ -108,7 +120,7 @@ export default function ServicesPage() {
               placement="services_page"
             >
               <MessageCircle aria-hidden="true" size={18} />
-              {generalWhatsAppLink.label}
+              Araç Fotoğrafı Gönder
             </TrackedLink>
           </aside>
         </div>
@@ -147,27 +159,36 @@ export default function ServicesPage() {
             </div>
 
             <div className="rain-container rsg-grid-auto">
-              {categoryServices.map((service, index) => (
-                <Link
-                  key={service.id}
-                  href={`/hizmetler/${service.slug}`}
-                  aria-label={`${service.title} hizmetini incele`}
-                  className="rsg-feature"
-                  data-reveal
-                  style={
-                    {
-                      "--reveal-delay": `${0.05 * (index % 3)}s`,
-                    } as React.CSSProperties
-                  }
-                >
-                  <span className="rsg-feature__index">0{index + 1}</span>
-                  <h3>{service.title}</h3>
-                  <p>{service.summary}</p>
-                  <span className="rsg-service__cta" aria-hidden="true">
-                    <ArrowUpRight size={18} />
-                  </span>
-                </Link>
-              ))}
+              {categoryServices.map((service, index) => {
+                const serviceTags = getServiceCardTags(service.categoryId);
+
+                return (
+                  <Link
+                    key={service.id}
+                    href={`/hizmetler/${service.slug}`}
+                    aria-label={`${service.title} hizmetini incele`}
+                    className="rsg-feature"
+                    data-reveal
+                    style={
+                      {
+                        "--reveal-delay": `${0.05 * (index % 3)}s`,
+                      } as React.CSSProperties
+                    }
+                  >
+                    <span className="rsg-feature__index">0{index + 1}</span>
+                    <h3>{service.title}</h3>
+                    <span className="rsg-feature__tags">
+                      {serviceTags.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </span>
+                    <p>{service.summary}</p>
+                    <span className="rsg-service__cta" aria-hidden="true">
+                      <ArrowUpRight size={18} />
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </section>
         );
@@ -181,9 +202,12 @@ export default function ServicesPage() {
           <div className="rsg-cta__copy">
             <p className="rsg-eyebrow">Kararsız mısın?</p>
             <h2 id="services-cta-title" className="rsg-title rsg-title--light">
-              Aracın fotoğrafını gönder.
+              Araç fotoğrafı gönder, fiyat al.
             </h2>
-            <p className="rsg-lead">{siteSettings.address.display}</p>
+            <p className="rsg-lead">
+              Aracın fotoğrafını, modelini ve istediğin sonucu paylaş; kapsamı
+              hızlıca netleştirelim.
+            </p>
           </div>
           <div className="rsg-cta__actions">
             <TrackedLink
@@ -193,7 +217,7 @@ export default function ServicesPage() {
               placement="services_page"
             >
               <MessageCircle aria-hidden="true" size={18} />
-              WhatsApp&apos;tan Bilgi Al
+              Araç Fotoğrafı Gönder
             </TrackedLink>
           </div>
         </div>

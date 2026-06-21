@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { expectNoBlockingA11yViolations } from "./helpers/axe";
+import { mapsHrefPattern } from "./helpers/constants";
 import { desktopViewport, mobileViewport } from "./helpers/viewports";
 
 const heroWhatsAppLabel = "WhatsApp'tan Bilgi Al";
@@ -21,11 +22,21 @@ test.describe("home page smoke", () => {
     await expect(
       main.getByRole("heading", { level: 1, name: "RAIN SOUND" }),
     ).toBeVisible();
+    await expect(
+      main.getByText("Eskişehir oto uygulama merkezi"),
+    ).toBeVisible();
+    await expect(
+      main.locator(".rsg-hero").getByRole("link", { name: "Hizmetleri Gör" }),
+    ).toBeVisible();
     await expect(main.getByText(removedHeroSeoTitle)).toHaveCount(0);
     await expect(main.getByText(removedHeroDescription)).toHaveCount(0);
     await expect(
       main.getByRole("link", { name: heroWhatsAppLabel }),
     ).toHaveCount(0);
+    await expect(main.getByText("Ses & Multimedia")).toBeVisible();
+    await expect(main.getByText("Tasarım & Performans")).toBeVisible();
+    await expect(main.getByText("Sound & Tech")).toHaveCount(0);
+    await expect(main.getByText("Design & Performance")).toHaveCount(0);
   });
 
   test("shows Google testimonials without publishing archived demo comments", async ({
@@ -46,9 +57,14 @@ test.describe("home page smoke", () => {
     ).toBeVisible();
     await expect(testimonials.getByText("A.").first()).toBeVisible();
     await expect(testimonials.getByText("Atılay ARSLANCAN")).toHaveCount(0);
-    await expect(
-      testimonials.getByText("Tüm Google yorumlarını görün"),
-    ).toHaveCount(0);
+    const googleReviewsLink = testimonials.getByRole("link", {
+      name: "Google’daki tüm yorumları gör",
+    });
+
+    await expect(googleReviewsLink).toBeVisible();
+    await expect(googleReviewsLink).toHaveAttribute("href", mapsHrefPattern);
+    await expect(googleReviewsLink).toHaveAttribute("target", "_blank");
+    await expect(googleReviewsLink).toHaveAttribute("rel", "noreferrer");
     await expect(testimonials.getByText("Google yorumu").first()).toBeVisible();
     await expect(
       testimonials.getByRole("link", { name: "Randevu Sorgula" }),
@@ -57,6 +73,16 @@ test.describe("home page smoke", () => {
       testimonials.getByRole("link", { name: "WhatsApp ile Fiyat Al" }),
     ).toHaveCount(0);
     await expect(page.getByText("Demo müşteri")).toHaveCount(0);
+  });
+
+  test("shows clean FAQ questions without emoji prefixes", async ({ page }) => {
+    await page.goto("/");
+
+    const faqText = await page.locator(".rsg-faq").innerText();
+
+    expect(faqText).toContain("Uygulama ne kadar sürer?");
+    expect(faqText).toContain("Fiyat bilgisi nasıl netleşiyor?");
+    expect(faqText).not.toMatch(/[⏱💰📅🤔🛡📸]/u);
   });
 
   test("has no critical or serious axe violations", async ({ page }) => {
@@ -71,8 +97,14 @@ test.describe("home page mobile layout", () => {
   test("keeps the mobile home page compact and readable", async ({ page }) => {
     await page.goto("/");
 
+    await expect(page.locator(".rsg-hero__eyebrow")).toBeHidden();
     await expect(page.locator(".rsg-marquee")).toBeHidden();
     await expect(page.locator(".rsg-trust-strip")).toHaveCount(0);
+    await expect(
+      page
+        .locator(".rsg-hero")
+        .getByRole("link", { name: "Hizmetleri Gör", exact: true }),
+    ).toBeVisible();
     await expect(page.locator(".rsg-world:visible")).toHaveCount(4);
     await expect(page.locator(".rsg-service:visible")).toHaveCount(0);
     await expect(
