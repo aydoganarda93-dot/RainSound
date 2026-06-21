@@ -9,6 +9,7 @@ import {
   generalWhatsAppLink,
   getContactByChannel,
   services,
+  shopfrontVisualMedia,
   siteSettings,
 } from "@/content";
 import { TrackedLink } from "@/components/analytics";
@@ -96,6 +97,16 @@ export default function AboutPage() {
             data-reveal
             style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
           >
+            <figure className="rsg-shopfront rsg-shopfront--aside">
+              <img
+                src={shopfrontVisualMedia.src}
+                alt={shopfrontVisualMedia.alt}
+                width={shopfrontVisualMedia.width}
+                height={shopfrontVisualMedia.height}
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
             <p className="rsg-eyebrow rsg-eyebrow--muted">
               {siteSettings.address.city} / {siteSettings.address.district}
             </p>

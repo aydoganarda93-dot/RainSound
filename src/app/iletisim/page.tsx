@@ -4,6 +4,7 @@ import {
   generalWhatsAppLink,
   getContactByChannel,
   getSocialLinkByChannel,
+  shopfrontVisualMedia,
   siteSettings,
 } from "@/content";
 import type { BusinessHoursEntry } from "@/content";
@@ -288,6 +289,16 @@ export default function ContactPage() {
             data-reveal
             style={{ "--reveal-delay": "0.08s" } as React.CSSProperties}
           >
+            <figure className="rsg-shopfront rsg-shopfront--card">
+              <img
+                src={shopfrontVisualMedia.src}
+                alt={shopfrontVisualMedia.alt}
+                width={shopfrontVisualMedia.width}
+                height={shopfrontVisualMedia.height}
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
             <p className="rsg-eyebrow">Konum</p>
             <h2 className="rsg-title">Uygulama merkezi</h2>
             <p>{siteSettings.address.display}</p>

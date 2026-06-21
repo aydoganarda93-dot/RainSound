@@ -45,6 +45,29 @@ test.describe("conversion contact links", () => {
       await expect(directionsLink).toHaveAttribute("target", "_blank");
       await expect(directionsLink).toHaveAttribute("rel", "noreferrer");
     });
+
+    test("shows the real shopfront visual on the contact page", async ({
+      page,
+    }) => {
+      await page.goto("/iletisim");
+
+      const shopfrontImage = page.getByRole("img", {
+        name: "RAIN SOUND Odunpazarı uygulama merkezi girişi",
+      });
+
+      await expect(shopfrontImage).toBeVisible();
+      await expect(shopfrontImage).toHaveAttribute(
+        "src",
+        "/media/real/brand/rain-sound-shopfront.jpg",
+      );
+      await expect
+        .poll(() =>
+          shopfrontImage.evaluate(
+            (image) => (image as HTMLImageElement).naturalWidth,
+          ),
+        )
+        .toBeGreaterThan(0);
+    });
   });
 
   test.describe("mobile placements", () => {

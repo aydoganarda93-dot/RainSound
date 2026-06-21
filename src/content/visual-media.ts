@@ -55,3 +55,10 @@ export const brandLogoMedia = {
   height: 640,
   alt: "RAIN SOUND",
 } as const;
+
+export const shopfrontVisualMedia = {
+  src: "/media/real/brand/rain-sound-shopfront.jpg",
+  width: 1125,
+  height: 632,
+  alt: "RAIN SOUND Odunpazarı uygulama merkezi girişi",
+} as const;
