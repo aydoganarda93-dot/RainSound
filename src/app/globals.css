@@ -4587,10 +4587,10 @@ html[data-low-power="true"] .rsg-ambient__noise {
 
   .services-category .rsg-feature,
   .rsg-section--compact-mobile .rsg-feature {
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    gap: 0.55rem 0.75rem;
-    padding: 0.95rem;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 0.45rem;
+    padding: 0.95rem 3.15rem 0.95rem 0.95rem;
   }
 
   .services-category .rsg-feature p,
@@ -4601,10 +4601,13 @@ html[data-low-power="true"] .rsg-ambient__noise {
   .services-category .rsg-feature h3,
   .rsg-section--compact-mobile .rsg-feature h3 {
     font-size: 1.02rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
   }
 
   .services-category .rsg-feature__tags {
     gap: 0.32rem;
+    max-width: 100%;
   }
 
   .services-category .rsg-feature__tags span {
@@ -4612,8 +4615,10 @@ html[data-low-power="true"] .rsg-ambient__noise {
     font-size: 0.68rem;
   }
 
-  .services-category .rsg-service__cta {
+  .services-category .rsg-service__cta,
+  .rsg-section--compact-mobile .rsg-service__cta {
     top: 50%;
+    right: 0.85rem;
     transform: translateY(-50%);
   }
 

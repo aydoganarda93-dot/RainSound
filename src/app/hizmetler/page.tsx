@@ -175,7 +175,6 @@ export default function ServicesPage() {
                       } as React.CSSProperties
                     }
                   >
-                    <span className="rsg-feature__index">0{index + 1}</span>
                     <h3>{service.title}</h3>
                     <span className="rsg-feature__tags">
                       {serviceTags.map((tag) => (
