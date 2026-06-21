@@ -15,7 +15,6 @@ export type AnalyticsEventName =
 export type AnalyticsPlacement =
   | "header_cta"
   | "header_mobile_cta"
-  | "quick_contact"
   | "footer_contact"
   | "footer_bottom"
   | "hero"

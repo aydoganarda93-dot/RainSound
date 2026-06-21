@@ -16,9 +16,6 @@ export const getMobileMenuButton = (page: Page) =>
 export const getMobileNavigation = (page: Page) =>
   page.getByRole("navigation", { name: "Mobil ana navigasyon" });
 
-export const getQuickContactBar = (page: Page) =>
-  page.getByRole("complementary", { name: "Hızlı iletişim" });
-
 export const getMobileMenuPanel = async (page: Page) => {
   const button = getMobileMenuButton(page);
   const menuId = await button.getAttribute("aria-controls");

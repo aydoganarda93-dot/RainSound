@@ -5,12 +5,13 @@
 > **Yaratıcı yön:** Neon Performance Studio
 > **Ana mesaj:** Aracın karakterini ortaya çıkar.
 > **Belge başlangıç tarihi:** 15 Haziran 2026
-> **Son güncelleme:** 20 Haziran 2026
+> **Son güncelleme:** 21 Haziran 2026
 > **Mevcut aşama:** P12 - İçerik Dondurma ve İşletme Kabul Testi
 > **Aktif mikro hedef:** P12.3 - İşletme sahibine Vercel preview üzerinden kabul testi yaptır
 > **Son işlenen ileri faz kararları:** P13.1 custom domain `Bekleniyor`; P15 3D kapsamı `İptal`
-> **İlerleme notu:** P13/P15 kararları işlendi, ancak P12.3 işletme UAT onayı
-> beklediği için aktif mikro hedef P12.3 olarak kalır.
+> **İlerleme notu:** Ana sayfa yorumları gerçek Google yorumlarıyla güncellendi,
+> Galeri public yüzeyden kaldırıldı ve mobil ana sayfa sadeleştirildi; P12.3
+> işletme UAT onayı beklediği için aktif mikro hedef P12.3 olarak kalır.
 
 ---
 
@@ -344,17 +345,17 @@ parlamayacaktır.
 
 ### 7.1 Ana sayfalar
 
-| Sayfa            | Amaç                                    | Öncelik |
-| ---------------- | --------------------------------------- | ------- |
-| Ana Sayfa        | Marka etkisi, hizmet özeti ve dönüşüm   | Kritik  |
-| Hizmetler        | Tüm hizmetleri kategorilerle açıklamak  | Kritik  |
-| Hizmet Detayı    | Arama niyeti ve detaylı ikna            | Kritik  |
-| Dönüşümler       | Gerçek projelerle işçilik kanıtı        | Kritik  |
-| Proje Detayı     | Uygulanan işlemi hikayeleştirmek        | Yüksek  |
-| Hakkımızda       | İşletme, ekip ve yaklaşım               | Orta    |
-| İletişim         | WhatsApp, telefon, harita ve saatler    | Kritik  |
-| Gizlilik         | Yasal bilgilendirme                     | Gerekli |
-| Çerez Politikası | Analitik kullanımına göre bilgilendirme | Gerekli |
+| Sayfa            | Amaç                                                         | Öncelik   |
+| ---------------- | ------------------------------------------------------------ | --------- |
+| Ana Sayfa        | Marka etkisi, hizmet özeti ve dönüşüm                        | Kritik    |
+| Hizmetler        | Tüm hizmetleri kategorilerle açıklamak                       | Kritik    |
+| Hizmet Detayı    | Arama niyeti ve detaylı ikna                                 | Kritik    |
+| Dönüşümler       | Gerçek, izinli proje medyası gelince açılacak işçilik kanıtı | Ertelendi |
+| Proje Detayı     | Gerçek, izinli proje gelene kadar public route üretilmez     | Ertelendi |
+| Hakkımızda       | İşletme, ekip ve yaklaşım                                    | Orta      |
+| İletişim         | WhatsApp, telefon, harita ve saatler                         | Kritik    |
+| Gizlilik         | Yasal bilgilendirme                                          | Gerekli   |
+| Çerez Politikası | Analitik kullanımına göre bilgilendirme                      | Gerekli   |
 
 ### 7.2 Ana navigasyon
 
@@ -362,7 +363,6 @@ parlamayacaktır.
 
 - Ana Sayfa
 - Hizmetler
-- Dönüşümler
 - Hakkımızda
 - İletişim
 - `Randevu Al` ana CTA
@@ -384,12 +384,12 @@ URL'ler Türkçe içerikle uyumlu, kısa ve ASCII karakterli olmalıdır.
 - `/hizmetler`
 - `/hizmetler/seramik-kaplama`
 - `/hizmetler/ppf-kaplama`
-- `/projeler`
-- `/projeler/proje-adi`
 - `/hakkimizda`
 - `/iletisim`
 
-Nihai rota yapısı geliştirme fazında içerik modeliyle birlikte sabitlenecektir.
+21 Haziran 2026 kararıyla `/projeler` public yüzeyi kaldırılmıştır. Gerçek,
+izinli ve gizlilik kontrolü yapılmış proje medyası gelirse proje rotaları ayrı
+kararla yeniden açılacaktır.
 
 ---
 
@@ -517,16 +517,21 @@ proje detaylarıyla kurulacaktır.
 
 ### 8.6 Dönüşümler vitrini
 
-Ana sayfada seçilmiş projeler yer alacaktır. Her kartta:
+Ana sayfada gerçek, izinli müşteri projesi gelene kadar seçilmiş proje kartı
+gösterilmeyecektir. Bu alanın yerini ilk yayında hizmet dünyaları, gerçek Google
+yorumları ve WhatsApp/telefon/yol tarifi aksiyonları alır.
 
-- Araç adı veya sınıfı
+Gerçek proje medyası geldiğinde her kartta yalnızca izinli ve gizlilik kontrolü
+yapılmış bilgiler kullanılacaktır:
+
+- Araç adı yerine gerekirse anonim araç sınıfı
 - Uygulanan hizmetler
-- Kapak görseli
+- İzinli kapak görseli
 - Kısa sonuç cümlesi
 - Proje detay bağlantısı
 
-Projelerin sırası yalnızca tarihe göre değil; görsel güç ve hizmet çeşitliliğine
-göre küratörlü olacaktır.
+Projelerin sırası yalnızca tarihe göre değil; görsel güç, hizmet çeşitliliği,
+yayın izni ve gizlilik uygunluğuna göre küratörlü olacaktır.
 
 ### 8.7 Güven alanı
 
@@ -1205,7 +1210,7 @@ doğrulanmalıdır.
 | Hizmet fiyat politikası | `Doğrulandı` | Web sitesinde fiyat yayınlanmayacak; güncel bilgi ve fiyat WhatsApp'a yönlendirilecek                                |
 | Garanti politikası      | `Doğrulandı` | Genel veya hizmet bazlı garanti vaadi yayınlanmayacak; koşullar WhatsApp'ta netleştirilecek                          |
 | Kullanılan markalar     | `Bekleniyor` | İlk yayında marka/bayilik listesi ve marka logosu yayınlanmayacak; doğrulanmış proje gelirse yeniden ele alınacak    |
-| Müşteri yorumları       | `Bekleniyor` | Kaynağıyla birlikte                                                                                                  |
+| Müşteri yorumları       | `Doğrulandı` | Google işletme kaydından kullanıcı tarafından aktarılan gerçek yorumlar; public UI'da isimler kısaltılır             |
 | Proje görselleri        | `Bekleniyor` | Kullanım izni gerekli                                                                                                |
 | Ekip bilgisi            | `Bekleniyor` | İsim/rol gösterilecek mi?                                                                                            |
 
@@ -3739,17 +3744,17 @@ bozulmadan demo içerik envanteri donduruldu. Eksik gerçek proje, müşteri yor
 ve müşteri aracı medyası tahmin edilmedi; gerçek kaynağı olmayan kayıtlar
 `Bekleniyor` veya `Kaldırıldı` durumuna taşındı.
 
-| Envanter alanı               | P12.1 kararı   | Kod karşılığı                                                       | Not                                                                                                                                |
-| ---------------------------- | -------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Hizmet kategorileri          | `Değiştirildi` | `serviceCategories` gerçek içerik                                   | P0 doğrulanmış hizmet dünyaları korunur.                                                                                           |
-| 11 hizmet metni              | `Değiştirildi` | `services[].demo = realContent`                                     | Süre, fiyat ve garanti kesin iddia kurmadan araç/kapsam bazlı bırakıldı; son doğrulama P12.2'de yapılacak.                         |
-| Hizmet/hero atmosfer medyası | `Bekleniyor`   | `pending-ai-service-atmosphere`, `visual-media.ts`, `hero-media.ts` | Gerçek çekim yok; mevcut AI/placeholder stratejisi P10 mobil LCP kararını bozmadan korunur.                                        |
-| 3 demo proje                 | `Kaldırıldı`   | `projects[].status = "archived"`                                    | Gerçek proje medyası, yayın izni ve gizlilik kontrolü olmadığı için public rota, sitemap ve proje WhatsApp linklerinden çıkarıldı. |
-| Demo proje medya yolları     | `Kaldırıldı`   | Archived proje audit envanteri                                      | `/demo/...` yolları public UI'da render edilmez; gerçek medya gelene kadar portfolyo kanıtı değildir.                              |
-| Demo müşteri yorumu          | `Kaldırıldı`   | `testimonials[].status = "archived"`                                | Doğrulanmış kaynak olmadığı için yayınlanmaz.                                                                                      |
-| FAQ                          | `Değiştirildi` | `faqs[].demo = realContent`                                         | Araç durumu ve kapsam bazlı genel cevap korunur.                                                                                   |
-| Demo audit raporu            | `Bekleniyor`   | `demoContentReport`                                                 | Archived demo proje ve medya blocker kayıtları denetim için görünür kalır.                                                         |
-| E2E proje sabitleri          | `Değiştirildi` | `e2e/helpers/project-fixtures.ts`                                   | Eski demo slug artık 404/yayın dışı davranışıyla test edilir.                                                                      |
+| Envanter alanı               | P12.1 kararı   | Kod karşılığı                                                       | Not                                                                                                                                                                     |
+| ---------------------------- | -------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hizmet kategorileri          | `Değiştirildi` | `serviceCategories` gerçek içerik                                   | P0 doğrulanmış hizmet dünyaları korunur.                                                                                                                                |
+| 11 hizmet metni              | `Değiştirildi` | `services[].demo = realContent`                                     | Süre, fiyat ve garanti kesin iddia kurmadan araç/kapsam bazlı bırakıldı; son doğrulama P12.2'de yapılacak.                                                              |
+| Hizmet/hero atmosfer medyası | `Bekleniyor`   | `pending-ai-service-atmosphere`, `visual-media.ts`, `hero-media.ts` | Gerçek çekim yok; mevcut AI/placeholder stratejisi P10 mobil LCP kararını bozmadan korunur.                                                                             |
+| 3 demo proje                 | `Kaldırıldı`   | `projects[].status = "archived"`                                    | Gerçek proje medyası, yayın izni ve gizlilik kontrolü olmadığı için public rota, sitemap ve proje WhatsApp linklerinden çıkarıldı.                                      |
+| Demo proje medya yolları     | `Kaldırıldı`   | Archived proje audit envanteri                                      | `/demo/...` yolları public UI'da render edilmez; gerçek medya gelene kadar portfolyo kanıtı değildir.                                                                   |
+| Müşteri yorumları            | `Değiştirildi` | `testimonials` içinde Google kaynaklı yayın kayıtları               | Kullanıcının Google işletme yorum listesinden aktardığı gerçek yorumlar eklendi; public UI'da tam isim yerine kısaltılmış isim gösterilir. Demo yorum `archived` kalır. |
+| FAQ                          | `Değiştirildi` | `faqs[].demo = realContent`                                         | Araç durumu ve kapsam bazlı genel cevap korunur.                                                                                                                        |
+| Demo audit raporu            | `Bekleniyor`   | `demoContentReport`                                                 | Archived demo proje ve medya blocker kayıtları denetim için görünür kalır.                                                                                              |
+| E2E proje sabitleri          | `Değiştirildi` | `e2e/helpers/project-fixtures.ts`                                   | Eski demo slug artık 404/yayın dışı davranışıyla test edilir.                                                                                                           |
 
 **P12.1 doğrulama özeti**
 
@@ -3772,23 +3777,24 @@ envanter kararı kodla karşılaştırıldı. Ekli pasted text dosyası tasarım
 tavsiyesi içerdiği ve yeni doğrulanmış işletme bilgisi sağlamadığı için P12.2
 içerik kaynağı olarak kullanılmadı.
 
-| Alan                   | Kaynak                                                          | Site durumu                                                                                                                 | Karar        |
-| ---------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| İşletme adı            | Bölüm 16 / P0.2 `RAIN SOUND`                                    | `siteSettings.siteName`, header, footer, iletişim, JSON-LD ve metadata aynı adı kullanır                                    | `Doğrulandı` |
-| Telefon                | Bölüm 16 / P0.2 `0553 930 45 75`                                | `tel:+905539304575`, footer, iletişim ve quick contact aynı kaynaktan gelir                                                 | `Doğrulandı` |
-| WhatsApp               | Bölüm 16 / P0.2 `+90 553 930 45 75`                             | `wa.me/905539304575`, CTA ve WhatsApp mesajları merkezi helper üzerinden üretilir                                           | `Doğrulandı` |
-| Adres                  | Bölüm 16 / P0.2 açık adres                                      | `siteSettings.address`, iletişim sayfası, footer ve JSON-LD tutarlı                                                         | `Doğrulandı` |
-| Çalışma saatleri       | Bölüm 16 / P0.2 Pazartesi-Cumartesi `09:00-20:00`, Pazar kapalı | `siteSettings.businessHours` ve iletişim sayfası aynı haftalık planı gösterir; özel gün notu eklendi                        | `Doğrulandı` |
-| Instagram              | Bölüm 16 / P0.3 `@rainsound2634`                                | `siteSettings.socialLinks`, iletişim kanalı ve JSON-LD `sameAs` içinde tutarlı                                              | `Doğrulandı` |
-| Google Maps            | Bölüm 16 / P0.3 işletme kaydı                                   | Yol tarifi linkleri ve iletişim CTA'ları aynı Maps URL'sini kullanır                                                        | `Doğrulandı` |
-| 11 hizmet              | P0.5 hizmet listesi                                             | `services` içinde 11 yayınlı hizmet var; slug/başlık/kategori yapısı korunur                                                | `Doğrulandı` |
-| Süre dili              | P0.5 kesin süre yayınlanmayacak                                 | Tüm `estimatedDurationNote` alanları araç, durum, kapsam veya ürün adedine göre değişir                                     | `Doğrulandı` |
-| Fiyat dili             | P0.5 webde fiyat yok                                            | Public metinler fiyatı WhatsApp'a yönlendirir; fiyat listesi veya kampanya yok                                              | `Doğrulandı` |
-| Ürün/marka dili        | P0.5 marka/bayilik listesi yayınlanmayacak                      | Ana sayfadaki marka adı kaldırıldı; ürün marka listesi ve logo iddiası yok                                                  | `Doğrulandı` |
-| Garanti dili           | P0.5 genel veya hizmet bazlı garanti vaadi yok                  | Hizmet detay etiketi `Koşullar` yapıldı; kesin garanti vaadi veren ifadeler yumuşatıldı                                     | `Doğrulandı` |
-| FAQ                    | P0.5 süre/fiyat kapsamı                                         | FAQ yalnızca sürenin araç/kapsama göre değiştiğini söyler                                                                   | `Doğrulandı` |
-| WhatsApp mesajları     | P0.5 bağlamlı WhatsApp yönlendirme                              | Genel ve hizmet mesajları bilgi/randevu/teklif talebi oluşturur; fiyat/garanti vaadi içermez                                | `Doğrulandı` |
-| Archived demo projeler | P12.1 kaldırma kararı                                           | Public route, sitemap ve proje WhatsApp linkleri yalnızca yayınlı production adaylarını alır; demo slug 404 ile test edilir | `Doğrulandı` |
+| Alan                   | Kaynak                                                          | Site durumu                                                                                          | Karar        |
+| ---------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------ |
+| İşletme adı            | Bölüm 16 / P0.2 `RAIN SOUND`                                    | `siteSettings.siteName`, header, footer, iletişim, JSON-LD ve metadata aynı adı kullanır             | `Doğrulandı` |
+| Telefon                | Bölüm 16 / P0.2 `0553 930 45 75`                                | `tel:+905539304575`, footer, iletişim ve quick contact aynı kaynaktan gelir                          | `Doğrulandı` |
+| WhatsApp               | Bölüm 16 / P0.2 `+90 553 930 45 75`                             | `wa.me/905539304575`, CTA ve WhatsApp mesajları merkezi helper üzerinden üretilir                    | `Doğrulandı` |
+| Adres                  | Bölüm 16 / P0.2 açık adres                                      | `siteSettings.address`, iletişim sayfası, footer ve JSON-LD tutarlı                                  | `Doğrulandı` |
+| Çalışma saatleri       | Bölüm 16 / P0.2 Pazartesi-Cumartesi `09:00-20:00`, Pazar kapalı | `siteSettings.businessHours` ve iletişim sayfası aynı haftalık planı gösterir; özel gün notu eklendi | `Doğrulandı` |
+| Instagram              | Bölüm 16 / P0.3 `@rainsound2634`                                | `siteSettings.socialLinks`, iletişim kanalı ve JSON-LD `sameAs` içinde tutarlı                       | `Doğrulandı` |
+| Google Maps            | Bölüm 16 / P0.3 işletme kaydı                                   | Yol tarifi linkleri ve iletişim CTA'ları aynı Maps URL'sini kullanır                                 | `Doğrulandı` |
+| 11 hizmet              | P0.5 hizmet listesi                                             | `services` içinde 11 yayınlı hizmet var; slug/başlık/kategori yapısı korunur                         | `Doğrulandı` |
+| Süre dili              | P0.5 kesin süre yayınlanmayacak                                 | Tüm `estimatedDurationNote` alanları araç, durum, kapsam veya ürün adedine göre değişir              | `Doğrulandı` |
+| Fiyat dili             | P0.5 webde fiyat yok                                            | Public metinler fiyatı WhatsApp'a yönlendirir; fiyat listesi veya kampanya yok                       | `Doğrulandı` |
+| Ürün/marka dili        | P0.5 marka/bayilik listesi yayınlanmayacak                      | Ana sayfadaki marka adı kaldırıldı; ürün marka listesi ve logo iddiası yok                           | `Doğrulandı` |
+| Garanti dili           | P0.5 genel veya hizmet bazlı garanti vaadi yok                  | Hizmet detay etiketi `Koşullar` yapıldı; kesin garanti vaadi veren ifadeler yumuşatıldı              | `Doğrulandı` |
+| FAQ                    | P0.5 süre/fiyat kapsamı                                         | FAQ yalnızca sürenin araç/kapsama göre değiştiğini söyler                                            | `Doğrulandı` |
+| WhatsApp mesajları     | P0.5 bağlamlı WhatsApp yönlendirme                              | Genel ve hizmet mesajları bilgi/randevu/teklif talebi oluşturur; fiyat/garanti vaadi içermez         | `Doğrulandı` |
+| Archived demo projeler | P12.1 kaldırma kararı                                           | Galeri/proje public route'u kaldırıldı; `/projeler` ve demo slug'lar 404 ile test edilir             | `Doğrulandı` |
+| Müşteri yorumları      | Kullanıcının Google işletme yorum listesinden aktardığı içerik  | Ana sayfada 3 gerçek Google yorumu gösterilir; tam müşteri isimleri gizlilik için kısaltılır         | `Doğrulandı` |
 
 **P12.2 kod düzeltmeleri**
 
@@ -3799,23 +3805,26 @@ içerik kaynağı olarak kullanılmadı.
 - Hizmet detay sayfasındaki `Garanti` etiketi `Koşullar` olarak değiştirildi.
 - İletişim sayfasına özel günlerde çalışma saatlerinin değişebileceği notu
   eklendi.
-- Bölüm 16'da logo kaynak durumu, fiyat politikası ve garanti politikası P0.4/P0.5
-  kararlarına göre `Doğrulandı` yapıldı; e-posta, vergisel bilgiler, kullanılan
-  markalar, müşteri yorumları, proje görselleri ve ekip bilgisi `Bekleniyor`
-  kalır.
+- Bölüm 16'da logo kaynak durumu, fiyat politikası, garanti politikası ve
+  Google müşteri yorumları güncellendi; e-posta, vergisel bilgiler, kullanılan
+  markalar, gerçek proje görselleri ve ekip bilgisi `Bekleniyor` kalır.
 
 **P12.2 kapanış kararı:** İşletme kimliği, iletişim, hizmet kapsamı, süre, fiyat,
 ürün/marka ve garanti/koşul dili P0 kararlarıyla uyumlu hale getirildi.
-Doğrulanmamış e-posta, resmi/vergi bilgisi, marka listesi, müşteri yorumu, gerçek
-proje görselleri ve ekip bilgisi tahmin edilmedi. Bir sonraki aktif mikro hedef
-P12.3 Vercel preview üzerinden işletme sahibi kabul testidir.
+Doğrulanmamış e-posta, resmi/vergi bilgisi, marka listesi, gerçek proje
+görselleri ve ekip bilgisi tahmin edilmedi. Google yorumları kullanıcı tarafından
+Google işletme kaydından aktarılan gerçek yorum listesiyle eklendi; public UI'da
+gizlilik için isimler kısaltıldı. Bir sonraki aktif mikro hedef P12.3 Vercel
+preview üzerinden işletme sahibi kabul testidir.
 
 **P12.3 hazırlık notu - 20 Haziran 2026**
 
 P12.3 için işletme UAT paketi `docs/uat/UAT-CHECKLIST.md` altında hazırlandı.
 Checklist; ana sayfa, 11 hizmet detayı, iletişim, hakkımızda, gizlilik, çerez,
-galeri/projeler vitrini, footer linkleri, WhatsApp/telefon/Maps/Instagram
-akışları, fiyat/süre/koşul dili ve archived demo slug kontrolünü içerir.
+footer linkleri, WhatsApp/telefon/Maps/Instagram akışları, fiyat/süre/koşul dili
+ve archived demo slug kontrolünü içerir. 21 Haziran 2026 kararıyla Galeri sekmesi
+ve `/projeler` public yüzeyi kaldırıldığı için UAT'te Galeri vitrin akışı yerine
+`/projeler` ve demo slug 404 davranışı kontrol edilecektir.
 
 Teknik URL kontrolünde:
 
@@ -3830,6 +3839,24 @@ gerekli`. Mevcut Vercel URL repo durumundan eski görünmektedir; P12.1 kararı
 gereği archived demo slug public detay sayfası olarak açılmamalıdır. İşletme
 UAT'si güncel deploy/preview URL üzerinde tekrar çalıştırılmadan P12.3 `[x]`
 yapılmayacaktır.
+
+**P12.3/P12.4 arayüz takip notu - 21 Haziran 2026**
+
+Kullanıcı geri bildirimleriyle ana sayfa ve public rota sözleşmesi sadeleştirildi:
+
+| Alan             | Karar                                                        | Kod/Test karşılığı                                                                                        | Durum        |
+| ---------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- | ------------ |
+| Google yorumları | Google işletme kaydından aktarılan gerçek yorumlar eklendi   | `testimonials` içinde `source: "google"` ve `status: "published"` kayıtları; ana sayfada 3 yorum          | `Tamamlandı` |
+| Yorum gizliliği  | Public UI'da tam müşteri adı gösterilmez                     | `getTestimonialDisplayName` isimleri baş harfe indirir; E2E tam ismin görünmediğini test eder             | `Tamamlandı` |
+| Galeri sekmesi   | Hizmetler ile tekrar ettiği için public arayüzden kaldırıldı | `primaryNavigation` içinden `Galeri` çıkarıldı; `/projeler` ve `/projeler/[slug]` route dosyaları silindi | `Tamamlandı` |
+| Sitemap/SEO      | Galeri route'u indekslenmez                                  | `sitemap.ts` artık proje route'u üretmez; build route listesinde `/projeler` yok                          | `Tamamlandı` |
+| Mobil ana sayfa  | Mobil yoğunluk azaltıldı                                     | Marquee mobilde gizli; mobilde 6 hizmet kartı, 3 yorum kartı ve `Tüm hizmetleri gör` linki                | `Tamamlandı` |
+| Test zinciri     | P11 kalite zinciri korunur                                   | `corepack pnpm quality` yeşil: 19 unit + 20 E2E + build                                                   | `Tamamlandı` |
+
+Mobil görsel kontrol 390x844 viewport'ta yapıldı: `scrollWidth = clientWidth =
+390`, marquee gizli, visible service kartı `6`, visible testimonial kartı `3`.
+Tam P12.4 breakpoint matrisi hâlâ ayrıca çalıştırılacaktır; bu takip notu yalnızca
+ana sayfa mobil sadeleştirme bulgusunu kapatır.
 
 **P12 çıkış kapısı**
 
@@ -3940,8 +3967,6 @@ Planlanan ilk yayın rotaları:
 - `/`
 - `/hizmetler`
 - `/hizmetler/[slug]`
-- `/projeler`
-- `/projeler/[slug]` (gerçek production adayı proje yoksa public slug üretilmez)
 - `/hakkimizda`
 - `/iletisim`
 - `/gizlilik`
@@ -3951,6 +3976,9 @@ Planlanan ilk yayın rotaları:
 
 - Harici form API'si veya randevu backend'i bulunmayacaktır.
 - İçerik önce tip güvenli yerel veri kaynağından gelecektir.
+- Galeri/projeler public yüzeyi 21 Haziran 2026 kullanıcı kararıyla kaldırıldı;
+  gerçek proje medyası, izin ve gizlilik süreci tamamlanana kadar `/projeler`
+  ve demo proje slug'ları 404 kalacaktır.
 - Sanity, aynı içerik kavramlarını koruyarak P14'te bağlanacaktır.
 - Three.js bağımlılıkları 20 Haziran 2026 P15 iptal kararı gereği
   kurulmayacaktır.

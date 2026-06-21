@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { desktopViewport } from "./helpers/viewports";
+import { desktopViewport, mobileViewport } from "./helpers/viewports";
 
 test.describe("services page smoke", () => {
   test.use({ viewport: desktopViewport });
@@ -12,11 +12,28 @@ test.describe("services page smoke", () => {
     await expect(
       page.getByRole("heading", {
         level: 1,
-        name: /Aracın için\s+tek atölye/i,
+        name: "Aracın için tek atölye",
       }),
     ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "WhatsApp'tan Bilgi Al" }).first(),
     ).toBeVisible();
+  });
+
+  test.describe("mobile", () => {
+    test.use({ viewport: mobileViewport });
+
+    test("keeps the services heading readable to assistive tech", async ({
+      page,
+    }) => {
+      await page.goto("/hizmetler");
+
+      await expect(
+        page.getByRole("heading", {
+          level: 1,
+          name: "Aracın için tek atölye",
+        }),
+      ).toBeVisible();
+    });
   });
 });

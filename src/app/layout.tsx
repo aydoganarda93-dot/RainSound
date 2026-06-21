@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { DocumentMotionHints } from "@/components/document-motion-hints";
-import { QuickContactBar, SiteFooter } from "@/components/site-footer";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteAmbient } from "@/components/site-ambient";
 import { SiteHeader } from "@/components/site-header";
 import { siteSettings } from "@/content";
@@ -109,7 +109,6 @@ export default function RootLayout({
           <SiteHeader />
           {children}
           <SiteFooter />
-          <QuickContactBar />
         </div>
         <Analytics />
         <SpeedInsights />

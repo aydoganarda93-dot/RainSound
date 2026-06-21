@@ -7,7 +7,7 @@ export const desktopNavigationCases = [
   {
     label: "Hizmetler",
     path: "/hizmetler",
-    heading: /Aracın için\s+tek atölye/i,
+    heading: "Aracın için tek atölye",
   },
   {
     label: "Hakkımızda",

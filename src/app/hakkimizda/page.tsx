@@ -1,6 +1,4 @@
-import Link from "next/link";
 import {
-  ArrowUpRight,
   MessageCircle,
   ShieldCheck,
   Wallet,
@@ -10,7 +8,6 @@ import {
 import {
   generalWhatsAppLink,
   getContactByChannel,
-  serviceCategories,
   services,
   siteSettings,
 } from "@/content";
@@ -33,10 +30,6 @@ export const metadata = buildPageMetadata({
 const publishedServices = services.filter(
   (service) => service.status === "published",
 );
-
-const publishedCategories = serviceCategories
-  .filter((category) => category.status === "published")
-  .sort((current, next) => current.order - next.order);
 
 const principles = [
   {
@@ -144,38 +137,6 @@ export default function AboutPage() {
               <h3>{principle.title}</h3>
               <p>{principle.description}</p>
             </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="rsg-section" aria-labelledby="about-services-title">
-        <div className="rain-container rsg-section__head" data-reveal>
-          <p className="rsg-eyebrow">Hizmet Kapsamı</p>
-          <h2 id="about-services-title" className="rsg-title">
-            Dört alan, tek akış
-          </h2>
-        </div>
-
-        <div className="rain-container rsg-grid-auto">
-          {publishedCategories.map((category, index) => (
-            <Link
-              key={category.id}
-              href={`/hizmetler#${category.slug}`}
-              className="rsg-feature"
-              data-reveal
-              style={
-                {
-                  "--reveal-delay": `${0.05 * (index % 4)}s`,
-                } as React.CSSProperties
-              }
-            >
-              <span className="rsg-feature__index">0{category.order}</span>
-              <h3>{category.title}</h3>
-              <p>{category.description}</p>
-              <span className="rsg-service__cta" aria-hidden="true">
-                <ArrowUpRight size={18} />
-              </span>
-            </Link>
           ))}
         </div>
       </section>

@@ -73,6 +73,7 @@ export default function ServicesPage() {
             </p>
             <h1
               id="services-page-title"
+              aria-label="Aracın için tek atölye"
               className="rsg-pagehero__title rsg-title--xl"
               data-reveal
               style={{ "--reveal-delay": "0.05s" } as React.CSSProperties}
@@ -91,7 +92,7 @@ export default function ServicesPage() {
           </div>
 
           <aside
-            className="rsg-card rsg-card--accent rsg-pagehero__aside"
+            className="rsg-card rsg-card--accent rsg-card--compact rsg-pagehero__aside"
             data-reveal
             style={{ "--reveal-delay": "0.15s" } as React.CSSProperties}
           >
@@ -99,7 +100,7 @@ export default function ServicesPage() {
               {publishedCategories.length} alan / {publishedServices.length}{" "}
               hizmet
             </p>
-            <h2>Fiyat WhatsApp&apos;ta netleşir.</h2>
+            <h2>Fiyat araçtan sonra netleşir.</h2>
             <TrackedLink
               className="rain-button rain-button--primary rsg-btn-lg"
               event="whatsapp_click"
@@ -137,11 +138,12 @@ export default function ServicesPage() {
             <div className="rain-container rsg-section__head" data-reveal>
               <p className="rsg-eyebrow">
                 <Icon aria-hidden="true" size={15} />
-                {category.title}
+                Alan 0{category.order}
               </p>
               <h2 id={`${category.slug}-title`} className="rsg-title">
-                {category.description}
+                {category.title}
               </h2>
+              <p className="rsg-lead">{category.description}</p>
             </div>
 
             <div className="rain-container rsg-grid-auto">
@@ -149,6 +151,7 @@ export default function ServicesPage() {
                 <Link
                   key={service.id}
                   href={`/hizmetler/${service.slug}`}
+                  aria-label={`${service.title} hizmetini incele`}
                   className="rsg-feature"
                   data-reveal
                   style={

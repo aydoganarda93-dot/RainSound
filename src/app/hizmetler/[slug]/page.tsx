@@ -93,7 +93,10 @@ export default async function ServiceDetailPage({
       />
       <Breadcrumbs items={breadcrumbs} />
 
-      <section className="rsg-pagehero" aria-labelledby="service-detail-title">
+      <section
+        className="rsg-pagehero rsg-pagehero--compact"
+        aria-labelledby="service-detail-title"
+      >
         <div
           className="rsg-pagehero__glow rsg-pagehero__glow--right"
           aria-hidden="true"
@@ -143,7 +146,7 @@ export default async function ServiceDetailPage({
           </div>
 
           <aside
-            className="rsg-card rsg-card--accent rsg-pagehero__aside"
+            className="rsg-card rsg-card--accent rsg-card--compact rsg-pagehero__aside"
             data-reveal
             style={{ "--reveal-delay": "0.2s" } as React.CSSProperties}
           >
@@ -252,6 +255,7 @@ export default async function ServiceDetailPage({
                 <Link
                   key={relatedService.id}
                   href={`/hizmetler/${relatedService.slug}`}
+                  aria-label={`${relatedService.title} hizmetini incele`}
                   className="rsg-feature"
                   data-reveal
                   style={

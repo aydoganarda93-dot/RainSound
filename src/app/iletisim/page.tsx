@@ -175,7 +175,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="rsg-section" aria-labelledby="contact-channels-title">
+      <section
+        className="rsg-section rsg-section--compact-mobile"
+        aria-labelledby="contact-channels-title"
+      >
         <div className="rain-container rsg-section__head" data-reveal>
           <p className="rsg-eyebrow">Kanallar</p>
           <h2 id="contact-channels-title" className="rsg-title">
@@ -187,6 +190,7 @@ export default function ContactPage() {
           {channels.map((channel, index) => {
             const cardProps = {
               className: "rsg-feature",
+              "aria-label": channel.label,
               "data-reveal": true,
               style: {
                 "--reveal-delay": `${0.05 * (index % 4)}s`,
@@ -256,7 +260,7 @@ export default function ContactPage() {
       </section>
 
       <section
-        className="rsg-section rsg-cta-section"
+        className="rsg-section rsg-cta-section rsg-section--compact-mobile"
         aria-labelledby="contact-hours-title"
       >
         <div className="rain-container rsg-grid-2">
