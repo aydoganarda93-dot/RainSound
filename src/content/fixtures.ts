@@ -201,9 +201,10 @@ export const services = [
       "Temiz kabin detay fotoğrafı",
     ],
     ctaContext: {
-      label: "Yıkama için WhatsApp'tan bilgi al",
+      label: "Yıkama için yaz",
       intent: "appointment",
-      messageHint: "İç dış yıkama için araç tipi ve uygun saat sorulacak.",
+      messageHint:
+        "Aracının tipini ve sana uygun saati yazman yeterli; birlikte randevuyu netleştiririz.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -240,10 +241,10 @@ export const services = [
       "Su iticilik veya parlaklık demo videosu",
     ],
     ctaContext: {
-      label: "Seramik kaplama için teklif al",
+      label: "Seramik için fiyat sor",
       intent: "quote",
       messageHint:
-        "Seramik kaplama için araç marka/modeli ve yüzey durumu istenecek.",
+        "Marka/model ve boyanın durumunu yaz; sana uygun kaplama seçeneğini birlikte netleştirelim.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -285,10 +286,10 @@ export const services = [
       "Final parlaklık fotoğrafı",
     ],
     ctaContext: {
-      label: "Pasta cila için araç durumunu gönder",
+      label: "Pasta cila için fotoğraf gönder",
       intent: "project-review",
       messageHint:
-        "Pasta cila değerlendirmesi için araç fotoğrafı ve boya durumu istenecek.",
+        "Aracının birkaç fotoğrafını ve boyanın durumunu yaz; birlikte bakalım.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -329,10 +330,10 @@ export const services = [
       "Teslim sonrası dış görünüm fotoğrafı",
     ],
     ctaContext: {
-      label: "PPF kaplama için teklif al",
+      label: "PPF için fiyat sor",
       intent: "quote",
       messageHint:
-        "PPF için istenen parça/kapsam ve araç modeli WhatsApp'ta netleştirilecek.",
+        "Hangi parçalara film istediğini ve aracının modelini yazman yeterli.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -376,7 +377,7 @@ export const services = [
       label: "Cam filmi seçeneklerini sor",
       intent: "consultation",
       messageHint:
-        "Cam filmi için araç modeli, istenen ton ve kapsam WhatsApp'ta konuşulacak.",
+        "Aracının modelini, istediğin tonu ve hangi camları kaplayacağımızı yaz.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -418,10 +419,10 @@ export const services = [
       "Teslim sonrası 3 açı araç fotoğrafı",
     ],
     ctaContext: {
-      label: "Araç kaplama fikrini WhatsApp'ta konuş",
+      label: "Kaplama fikrini konuşalım",
       intent: "consultation",
       messageHint:
-        "Araç kaplama için renk/doku fikri ve araç modeli WhatsApp'ta alınacak.",
+        "Aklındaki renk/dokuyu ve aracının modelini yaz; seçenekleri birlikte netleştirelim.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -466,7 +467,7 @@ export const services = [
       label: "Ses sistemi için danış",
       intent: "product-info",
       messageHint:
-        "Ses sistemi için beklenti, bütçe aralığı ve araç modeli WhatsApp'ta sorulacak.",
+        "Aracının modelini, beklentini ve varsa bütçe aralığını yaz; seçenekleri konuşalım.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -508,10 +509,10 @@ export const services = [
       "Araç üzerinde kullanım fotoğrafları",
     ],
     ctaContext: {
-      label: "Aksesuar için WhatsApp'tan sor",
+      label: "Aksesuar için sor",
       intent: "product-info",
       messageHint:
-        "Aksesuar için istenen ürün ve araç modeli WhatsApp'ta netleştirilecek.",
+        "Aracının modelini ve aklındaki ürünü yaz; uygun seçenekleri paylaşalım.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -556,7 +557,7 @@ export const services = [
       label: "Far tasarımı için fikir gönder",
       intent: "project-review",
       messageHint:
-        "Far tasarımı için araç modeli ve örnek istenen görünüm WhatsApp'ta istenecek.",
+        "Aracının modelini ve istediğin görünümü (örnek fotoğrafsa dahil) yaz.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -602,7 +603,7 @@ export const services = [
       label: "Body kit uyumunu sor",
       intent: "consultation",
       messageHint:
-        "Body kit için araç modeli, istenen parça ve örnek görsel WhatsApp'ta alınacak.",
+        "Aracının modelini, düşündüğün parçayı ve varsa örnek görseli yaz.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {
@@ -645,10 +646,10 @@ export const services = [
       "Kısa ses demo videosu",
     ],
     ctaContext: {
-      label: "Varex egzoz için danış",
+      label: "Egzoz için danış",
       intent: "consultation",
       messageHint:
-        "Varex egzoz için araç modeli ve beklenti WhatsApp'ta netleştirilecek.",
+        "Aracının modelini ve aklındaki ses/beklentiyi yaz; birlikte netleştirelim.",
     },
     media: [pendingAiServiceMedia],
     visualTreatment: {

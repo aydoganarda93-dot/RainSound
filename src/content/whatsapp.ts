@@ -38,15 +38,16 @@ export const whatsappMessageTemplates = [
 ] satisfies WhatsAppMessageTemplate[];
 
 const serviceIntentMessages = {
-  appointment: "Araç tipimi ve uygun randevu zamanımı paylaşmak istiyorum.",
+  appointment:
+    "Aracımın tipini ve bana uygun randevu saatini birazdan yazacağım.",
   quote:
-    "Araç marka/modelimi ve işlem kapsamını paylaşarak teklif almak istiyorum.",
+    "Aracımın marka/modelini ve yaptırmak istediğim işlemleri yazacağım; fiyat almak istiyorum.",
   consultation:
-    "Araç bilgimi ve beklentimi paylaşarak yönlendirme almak istiyorum.",
+    "Aracımı ve aklımdakini yazacağım; doğru hizmete yönlendirirseniz sevinirim.",
   "product-info":
-    "Araç modelimi ve ürün beklentimi paylaşarak seçenekleri öğrenmek istiyorum.",
+    "Aracımın modelini ve aklımdaki ürünü yazacağım; seçenekleri öğrenmek istiyorum.",
   "project-review":
-    "Araç fotoğraflarımı ve istediğim sonucu paylaşarak değerlendirme almak istiyorum.",
+    "Aracımın birkaç fotoğrafını ve istediğim sonucu yazacağım; birlikte bakalım.",
 } satisfies Record<Service["ctaContext"]["intent"], string>;
 
 export const getWhatsAppTemplateByContext = (context: WhatsAppMessageContext) =>
@@ -54,9 +55,8 @@ export const getWhatsAppTemplateByContext = (context: WhatsAppMessageContext) =>
 
 export const createServiceWhatsAppMessage = (service: Service) =>
   normalizeWhatsAppMessage(`
-    Merhaba ${siteSettings.siteName},
-    ${service.title} hizmeti hakkında bilgi almak istiyorum.
-    Talep türü: ${service.ctaContext.label}
+    Selam ${siteSettings.siteName} ekibi,
+    ${service.title} hakkında yazıyorum.
     ${serviceIntentMessages[service.ctaContext.intent]}
   `);
 
@@ -72,12 +72,10 @@ export const createProjectWhatsAppMessage = (project: Project) => {
     .join("\n");
 
   return normalizeWhatsAppMessage(`
-    Merhaba ${siteSettings.siteName},
-    ${project.title} benzeri bir uygulama hakkında bilgi almak istiyorum.
-    İlgilendiğim hizmetler: ${relatedServiceTitles || "Belirlenecek"}
-    Talep bağlamı:
-    ${serviceMessageHints || "- Araç bilgisi ve beklenti WhatsApp'ta netleştirilecek."}
-    Araç bilgimi ve beklentimi paylaşmak istiyorum.
+    Selam ${siteSettings.siteName} ekibi,
+    ${project.title} gibi bir iş yaptırmak istiyorum.
+    İlgilendiğim hizmetler: ${relatedServiceTitles || "henüz net değil"}
+    ${serviceMessageHints ? `Notlarım:\n${serviceMessageHints}` : "Aracımı ve beklentimi birazdan yazacağım."}
   `);
 };
 
@@ -90,7 +88,7 @@ export const getServiceWhatsAppLink = (service: Service) =>
 
 export const getProjectWhatsAppLink = (project: Project) =>
   ({
-    label: "Benzer proje için WhatsApp'tan bilgi al",
+    label: "Benzer iş için yaz",
     href: createWhatsAppLink(createProjectWhatsAppMessage(project)),
     message: createProjectWhatsAppMessage(project),
   }) satisfies WhatsAppMessageLink;

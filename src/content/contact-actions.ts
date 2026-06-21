@@ -20,8 +20,8 @@ export const createWhatsAppLink = (message: string) =>
 
 export const createGeneralWhatsAppMessage = () =>
   normalizeWhatsAppMessage(`
-    Merhaba ${siteSettings.siteName},
-    Hizmetleriniz hakkında bilgi almak ve uygun randevu zamanlarını öğrenmek istiyorum.
+    Selam ${siteSettings.siteName} ekibi,
+    Sitenizi gördüm. Hizmetleriniz hakkında bilgi almak istiyorum; müsait randevu saatlerinizi de öğrenebilir miyim?
   `);
 
 export const generalWhatsAppLink = {
